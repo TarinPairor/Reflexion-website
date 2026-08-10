@@ -6,8 +6,8 @@ import { Icon } from "@/components/ui/Icon";
 type Content = ReturnType<typeof getHomeContent>;
 
 export function ClosedCareLoop({ content }: { content: Content }) {
-  return <section className="care-loop" aria-labelledby="care-loop-title">
-    <div className="care-loop__meet">
+  return <section className="care-loop" aria-labelledby="care-loop-title" data-motion-chapter>
+    <div className="care-loop__meet" data-motion-item>
       <div className="care-loop__meet-copy">
         <p className="eyebrow">{content.loop.meetEyebrow}</p>
         <h2 id="care-loop-title">{content.loop.meetTitle}</h2>
@@ -23,7 +23,7 @@ export function ClosedCareLoop({ content }: { content: Content }) {
       </div>
     </div>
 
-    <div className="care-loop__why">
+    <div className="care-loop__why" data-motion-item>
       <div className="care-loop__why-intro">
         <p className="eyebrow">{content.loop.eyebrow}</p>
         <h3>{content.loop.title}</h3>
@@ -38,7 +38,7 @@ export function ClosedCareLoop({ content }: { content: Content }) {
       </div>
     </div>
 
-    <div className="care-loop__closed">
+    <div className="care-loop__closed" data-motion-item>
       <div className="care-loop__closed-copy">
         <p className="eyebrow">{content.loop.closedEyebrow}</p>
         <h3>{content.loop.closedTitle}</h3>
@@ -46,7 +46,7 @@ export function ClosedCareLoop({ content }: { content: Content }) {
         <ButtonLink href="#day-with-reflexion">{content.hero.secondary}</ButtonLink>
       </div>
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
-        <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true"><path d="M92 110C190 8 510 8 608 110"/><path d="M608 110C510 212 190 212 92 110"/></svg>
+        <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true"><path data-motion-path d="M92 110C190 8 510 8 608 110"/><path data-motion-path d="M608 110C510 212 190 212 92 110"/></svg>
         <div className="care-loop__endpoint care-loop__endpoint--loved"><span className="care-loop__avatar-placeholder" aria-hidden="true"/><b>{content.loop.steps[0][0]}</b><small>Image placeholder</small></div>
         <div className="care-loop__brand-center"><strong>Reflexion</strong><small>Mirror + Caregiver App</small></div>
         <div className="care-loop__endpoint care-loop__endpoint--caregiver"><span className="care-loop__avatar-placeholder" aria-hidden="true"/><b>Caregiver</b><small>Image placeholder</small></div>

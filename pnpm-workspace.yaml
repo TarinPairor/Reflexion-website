@@ -1,4 +1,5 @@
 packages:
   - "."
 
-onlyBuiltDependencies: []
+allowBuilds:
+  unrs-resolver: true

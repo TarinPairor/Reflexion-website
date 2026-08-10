@@ -12,16 +12,16 @@ export function ProductFamily({ content }: { content: Content }) {
     [content.products.hubName, content.products.hub, content.products.hubBody, "hub", "/reflexion-assets/generated/phase1/product-family-home-hub.webp", "Illustrative Reflexion Home Hub concept on a side table"],
     [content.products.companionName, content.products.companion, content.products.companionBody, "companion", "/reflexion-assets/generated/phase1/product-family-tabletop.webp", "Illustrative Tabletop Companion future concept in a warm home setting"],
   ] as const;
-  return <section className="product-family" id="find-your-reflexion" aria-labelledby="products-title">
+  return <section className="product-family" id="find-your-reflexion" aria-labelledby="products-title" data-motion-chapter>
     <div className="product-family__layout">
       <div className="product-family__primary">
-        <div className="product-family__heading">
+        <div className="product-family__heading" data-motion-item>
           <p className="eyebrow">{content.products.eyebrow}</p>
           <h2 id="products-title">{content.products.title}</h2>
           <p>{content.products.intro}</p>
         </div>
 
-        <article className="flagship">
+        <article className="flagship" data-motion-item>
           <div className="flagship__visual">
             <Image
               src="/reflexion-assets/generated/phase1/product-family-mirror.webp"
@@ -44,7 +44,7 @@ export function ProductFamily({ content }: { content: Content }) {
         </article>
       </div>
 
-      <aside className="product-family__alternatives" aria-labelledby="other-products-title">
+      <aside className="product-family__alternatives" aria-labelledby="other-products-title" data-motion-item>
         <h3 id="other-products-title">{content.products.otherTitle}</h3>
         <div className="product-family__list">
           {alternatives.map(([name, maturity, body, form, image, alt]) => <article key={name}>
@@ -62,7 +62,7 @@ export function ProductFamily({ content }: { content: Content }) {
       </aside>
     </div>
 
-    <div className="product-family__decision">
+    <div className="product-family__decision" data-motion-item>
       <span aria-hidden="true"><Icon name="heart"/></span>
       <p><strong>{content.products.decisionQuestion}</strong><small>{content.products.note}</small></p>
       <ButtonLink href="#get-reflexion" variant="secondary">{content.products.decisionCta}</ButtonLink>

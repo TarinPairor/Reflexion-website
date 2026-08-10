@@ -19,10 +19,10 @@ export function TwoSides({ content }: { content: Content }) {
   const features = caregiver ? content.sides.caregiverFeatures : content.sides.lovedFeatures;
   const icons = caregiver ? caregiverIcons : lovedIcons;
 
-  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective}>
+  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter>
     <div className="two-sides__composition">
       <div className="two-sides__lead">
-        <div className="two-sides__lead-copy">
+        <div className="two-sides__lead-copy" data-motion-item>
           <p className="eyebrow">{content.sides.eyebrow}</p>
           <h2 id="two-sides-title">{content.sides.title}</h2>
           <p>{content.sides.intro}</p>
@@ -37,7 +37,7 @@ export function TwoSides({ content }: { content: Content }) {
           </div>
         </div>
 
-        <div className="two-sides__stage" aria-live="polite">
+        <div className="two-sides__stage" aria-live="polite" data-motion-item>
           {caregiver ? <>
             <Image
               src="/reflexion-assets/generated/phase1/two-sides-home-context.webp"
@@ -62,7 +62,7 @@ export function TwoSides({ content }: { content: Content }) {
         </div>
       </div>
 
-      <div className="two-sides__detail" role="tabpanel">
+      <div className="two-sides__detail" role="tabpanel" data-motion-item>
         <p className="eyebrow">{caregiver ? content.sides.caregiverTab.replace("02 — ", "") : content.sides.lovedTab.replace("01 — ", "")}</p>
         <h3>{caregiver ? content.sides.caregiverTitle : content.sides.lovedTitle}</h3>
         <p className="two-sides__detail-intro">{caregiver ? content.sides.caregiverBody : content.sides.lovedBody}</p>

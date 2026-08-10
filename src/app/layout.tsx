@@ -17,5 +17,10 @@ export const metadata: Metadata = {
 export const viewport: Viewport = { width: "device-width", initialScale: 1, themeColor: "#f4efe6" };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" suppressHydrationWarning><body>{children}</body></html>;
+  return <html lang="en" suppressHydrationWarning>
+    <head>
+      <script dangerouslySetInnerHTML={{ __html: 'document.documentElement.dataset.motionReady="true"' }}/>
+    </head>
+    <body>{children}</body>
+  </html>;
 }

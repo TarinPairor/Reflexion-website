@@ -6,8 +6,8 @@ import { Icon } from "@/components/ui/Icon";
 type Content = ReturnType<typeof getHomeContent>;
 
 export function HomeHero({ content }: { content: Content }) {
-  return <section className="hero" id="top" aria-labelledby="hero-title">
-    <div className="hero__artwork">
+  return <section className="hero" id="top" aria-labelledby="hero-title" data-motion-hero>
+    <div className="hero__artwork" data-motion-hero-artwork>
       <Image
         className="hero__art"
         src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
@@ -20,7 +20,7 @@ export function HomeHero({ content }: { content: Content }) {
       <p className="hero__caption">21.5-inch Reflexion Mirror <span>+ Caregiver App</span></p>
     </div>
     <div className="hero__glow" aria-hidden="true"/>
-    <div className="hero__copy">
+    <div className="hero__copy" data-motion-hero-copy>
       <p className="eyebrow">{content.hero.eyebrow}</p>
       <h1 id="hero-title">{content.hero.headline}</h1>
       <p className="hero__support">{content.hero.supporting}</p>
