@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { getHomeContent } from "@/i18n/content";
+import type { getHomeContent, Locale } from "@/i18n/content";
+import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
@@ -12,7 +13,7 @@ type Perspective = "loved" | "caregiver";
 const lovedIcons: IconName[] = ["sun", "message", "check", "heart"];
 const caregiverIcons: IconName[] = ["sun", "spark", "message", "check", "heart"];
 
-export function TwoSides({ content }: { content: Content }) {
+export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
   const [perspective, setPerspective] = useState<Perspective>("caregiver");
   const caregiver = perspective === "caregiver";
   const features = caregiver ? content.sides.caregiverFeatures : content.sides.lovedFeatures;
@@ -68,7 +69,7 @@ export function TwoSides({ content }: { content: Content }) {
         </div>
         <div className="two-sides__closing">
           <p>{content.sides.closingTitle}</p>
-          <ButtonLink href="#find-your-reflexion" variant="secondary">{content.sides.cta}</ButtonLink>
+          <ButtonLink href={localisedHref("/products", locale)} variant="secondary">{content.sides.cta}</ButtonLink>
         </div>
       </div>
     </div>

@@ -1,17 +1,10 @@
 import Image from "next/image";
 import type { getHomeContent } from "@/i18n/content";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { RecognitionStrip } from "@/components/site/RecognitionStrip";
 
 type Content = ReturnType<typeof getHomeContent>;
 const principleIcons: IconName[] = ["heart", "spark", "message"];
-const recognitionMarks = [
-  null,
-  { src: "/reflexion-assets/awards/tigerlaunch_logo.jpeg", alt: "TigerLaunch Asia" },
-  { src: "/reflexion-assets/awards/images.png", alt: "Mapletree" },
-  { src: "/reflexion-assets/awards/Huawei_Standard_logo.svg.webp", alt: "Huawei" },
-  { src: "/reflexion-assets/awards/medtech actuator.jpeg", alt: "MedTech Actuator" },
-  { src: "/reflexion-assets/awards/blk 71 1.png", alt: "BLOCK71" },
-] as const;
 
 export function TrustFounder({ content }: { content: Content }) {
   return <section className="trust" id="trust" aria-labelledby="trust-title" data-motion-chapter>
@@ -69,19 +62,6 @@ export function TrustFounder({ content }: { content: Content }) {
       {content.trust.principles.map((principle, index) => <article key={principle[0]}><span><Icon name={principleIcons[index]}/></span><div><h3>{principle[0]}</h3><p>{principle[1]}</p></div></article>)}
     </div>
 
-    <div className="recognition" aria-labelledby="recognition-title" data-motion-item>
-      <div className="recognition__heading"><p className="eyebrow">RECOGNISED FOR INNOVATION AND IMPACT</p><h3 id="recognition-title">{content.trust.recognitionTitle}</h3><p>{content.trust.recognitionNote}</p></div>
-      <ul>{content.trust.recognition.map((item, index) => {
-        const mark = recognitionMarks[index];
-        return <li key={item}>
-          <div className="recognition__mark">
-            {mark
-              ? <Image src={mark.src} alt={mark.alt} fill sizes="(max-width: 520px) 38vw, (max-width: 820px) 22vw, 12vw"/>
-              : <span className="recognition__text-mark">HealthHack</span>}
-          </div>
-          <p>{item}</p>
-        </li>;
-      })}</ul>
-    </div>
+    <RecognitionStrip title={content.trust.recognitionTitle} note={content.trust.recognitionNote} items={content.trust.recognition}/>
   </section>;
 }

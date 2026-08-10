@@ -17,7 +17,7 @@ export default async function GetReflexionPage({ searchParams }: { searchParams:
   const initialProduct = isProductId(params.form) ? params.form : undefined;
 
   return <div lang={locale === "zh" ? "zh-Hans" : "en"} className="get-reflexion-page">
-    <SiteHeader locale={locale} labels={content.nav} getLabel={content.hero.primary}/>
+    <SiteHeader locale={locale} labels={content.nav} getLabel={content.hero.primary} currentPath="/get-reflexion"/>
     {locale === "zh" ? <p className="language-qa-note">Get Reflexion 表格目前以英文显示；简体中文版本仍待人工审核。</p> : null}
     <GetReflexionForm initialProduct={initialProduct}/>
     <SiteFooter locale={locale} line={content.footerLine} note={content.footerNote} nav={content.nav}/>

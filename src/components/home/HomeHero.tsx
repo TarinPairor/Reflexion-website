@@ -1,11 +1,12 @@
 import Image from "next/image";
-import type { getHomeContent } from "@/i18n/content";
+import type { getHomeContent, Locale } from "@/i18n/content";
+import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
 
-export function HomeHero({ content }: { content: Content }) {
+export function HomeHero({ content, locale }: { content: Content; locale: Locale }) {
   return <section className="hero" id="top" aria-labelledby="hero-title" data-motion-hero>
     <div className="hero__artwork" data-motion-hero-artwork>
       <Image
@@ -25,8 +26,8 @@ export function HomeHero({ content }: { content: Content }) {
       <h1 id="hero-title">{content.hero.headline}</h1>
       <p className="hero__support">{content.hero.supporting}</p>
       <div className="hero__actions">
-        <ButtonLink href="/get-reflexion">{content.hero.primary}</ButtonLink>
-        <ButtonLink href="#day-with-reflexion" variant="secondary">{content.hero.secondary}</ButtonLink>
+        <ButtonLink href={localisedHref("/get-reflexion", locale)}>{content.hero.primary}</ButtonLink>
+        <ButtonLink href={localisedHref("/how-it-works", locale)} variant="secondary">{content.hero.secondary}</ButtonLink>
       </div>
       <div className="hero__feature">
         <span className="hero__feature-icon" aria-hidden="true"><Icon name="spark" width={22} height={22}/></span>

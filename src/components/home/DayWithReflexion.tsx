@@ -1,12 +1,13 @@
 import Image from "next/image";
-import type { getHomeContent } from "@/i18n/content";
+import type { getHomeContent, Locale } from "@/i18n/content";
+import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
 const icons: IconName[] = ["sun", "message", "check", "heart", "voice", "spark"];
 
-export function DayWithReflexion({ content }: { content: Content }) {
+export function DayWithReflexion({ content, locale }: { content: Content; locale: Locale }) {
   return <section className="day" id="day-with-reflexion" aria-labelledby="day-title" data-motion-chapter>
     <div className="day__layout">
       <div className="day__intro" data-motion-item>
@@ -34,7 +35,7 @@ export function DayWithReflexion({ content }: { content: Content }) {
         <div className="day__closing">
           <h3>{content.day.closingTitle}</h3>
           <p>{content.day.closingBody}</p>
-          <ButtonLink href="#two-sides-title" variant="primary">{content.hero.secondary}</ButtonLink>
+          <ButtonLink href={localisedHref("/how-it-works", locale)} variant="primary">{content.hero.secondary}</ButtonLink>
         </div>
       </div>
     </div>

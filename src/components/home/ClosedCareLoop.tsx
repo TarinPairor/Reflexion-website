@@ -1,11 +1,12 @@
 import Image from "next/image";
-import type { getHomeContent } from "@/i18n/content";
+import type { getHomeContent, Locale } from "@/i18n/content";
+import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
 
-export function ClosedCareLoop({ content }: { content: Content }) {
+export function ClosedCareLoop({ content, locale }: { content: Content; locale: Locale }) {
   return <section className="care-loop" aria-labelledby="care-loop-title" data-motion-chapter>
     <div className="care-loop__meet" data-motion-item>
       <div className="care-loop__meet-copy">
@@ -42,7 +43,7 @@ export function ClosedCareLoop({ content }: { content: Content }) {
         <p className="eyebrow">{content.loop.closedEyebrow}</p>
         <h3>{content.loop.closedTitle}</h3>
         <p>{content.loop.closedBody}</p>
-        <ButtonLink href="#day-with-reflexion">{content.hero.secondary}</ButtonLink>
+        <ButtonLink href={localisedHref("/how-it-works", locale)}>{content.hero.secondary}</ButtonLink>
       </div>
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
         <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true"><path data-motion-path d="M92 110C190 8 510 8 608 110"/><path data-motion-path d="M608 110C510 212 190 212 92 110"/></svg>
