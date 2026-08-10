@@ -5,8 +5,8 @@ export function MirrorScene({ compact = false }: { compact?: boolean }) {
   return <div className={`mirror-scene ${compact ? "mirror-scene--compact" : ""}`}>
     <Image
       className="mirror-scene__photo"
-      src="/reflexion-assets/generated/phase1/reflexion-mirror-home.webp"
-      alt="A source-grounded visualisation of the real 21.5-inch Reflexion Mirror in a warm home setting"
+      src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
+      alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
       fill
       loading={compact ? "lazy" : "eager"}
       fetchPriority={compact ? "auto" : "high"}

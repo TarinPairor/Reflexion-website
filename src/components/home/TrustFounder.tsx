@@ -9,7 +9,7 @@ export function TrustFounder({ content }: { content: Content }) {
   return <section className="trust" id="trust" aria-labelledby="trust-title" data-motion-chapter>
     <div className="trust__story" data-motion-item>
       <div className="trust__story-image">
-        <Image src="/reflexion-assets/people/family/production-candidates/mama-family-photo.jpg" alt="Kong Kei-Lyn sharing a family moment with her grandmother, Mama" fill sizes="(max-width: 900px) 100vw, 62vw"/>
+        <Image src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp" alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting" fill sizes="(max-width: 900px) 100vw, 62vw"/>
       </div>
       <div className="trust__story-copy">
         <p className="eyebrow">{content.trust.builtEyebrow}</p>

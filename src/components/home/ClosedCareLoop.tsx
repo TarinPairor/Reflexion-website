@@ -1,5 +1,5 @@
+import Image from "next/image";
 import type { getHomeContent } from "@/i18n/content";
-import { CaregiverPhone, MirrorScene } from "@/components/product/DeviceCompositions";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon } from "@/components/ui/Icon";
 
@@ -13,13 +13,12 @@ export function ClosedCareLoop({ content }: { content: Content }) {
         <h2 id="care-loop-title">{content.loop.meetTitle}</h2>
         <p>{content.loop.meetBody}</p>
         <div className="care-loop__sides">
-          <p><span className="care-loop__mini-avatar" aria-hidden="true"/>{content.loop.lovedSide}</p>
-          <p><span className="care-loop__mini-avatar" aria-hidden="true"/>{content.loop.caregiverSide}</p>
+          <p><span className="care-loop__mini-avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="" fill sizes="38px"/></span>{content.loop.lovedSide}</p>
+          <p><span className="care-loop__mini-avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="" fill sizes="38px"/></span>{content.loop.caregiverSide}</p>
         </div>
       </div>
       <div className="care-loop__devices">
-        <div className="care-loop__mirror"><MirrorScene compact/></div>
-        <div className="care-loop__device-phone"><CaregiverPhone mode="today"/></div>
+        <Image className="care-loop__scene" src="/reflexion-assets/generated/phase1/closed-loop-mirror.webp" alt="Illustrative older adult using a website representation of the Reflexion Mirror, with the Caregiver App at the edge of the scene" fill sizes="(max-width: 820px) 100vw, 65vw"/>
       </div>
     </div>
 
@@ -47,9 +46,9 @@ export function ClosedCareLoop({ content }: { content: Content }) {
       </div>
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
         <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true"><path data-motion-path d="M92 110C190 8 510 8 608 110"/><path data-motion-path d="M608 110C510 212 190 212 92 110"/></svg>
-        <div className="care-loop__endpoint care-loop__endpoint--loved"><span className="care-loop__avatar-placeholder" aria-hidden="true"/><b>{content.loop.steps[0][0]}</b><small>Image placeholder</small></div>
+        <div className="care-loop__endpoint care-loop__endpoint--loved"><span className="care-loop__avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="Illustrative older loved one" fill sizes="84px"/></span><b>{content.loop.steps[0][0]}</b><small>Older adult</small></div>
         <div className="care-loop__brand-center"><strong>Reflexion</strong><small>Mirror + Caregiver App</small></div>
-        <div className="care-loop__endpoint care-loop__endpoint--caregiver"><span className="care-loop__avatar-placeholder" aria-hidden="true"/><b>Caregiver</b><small>Image placeholder</small></div>
+        <div className="care-loop__endpoint care-loop__endpoint--caregiver"><span className="care-loop__avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="Illustrative adult-child caregiver" fill sizes="84px"/></span><b>Caregiver</b><small>Adult child</small></div>
         {content.pillars.map((pillar, index) => <span className={`care-loop__value care-loop__value--${index + 1}`} key={pillar}><Icon name={index === 0 ? "spark" : index === 1 ? "message" : index === 2 ? "check" : "heart"}/><small>{pillar}</small></span>)}
       </div>
     </div>

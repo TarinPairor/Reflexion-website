@@ -40,16 +40,16 @@ export function TwoSides({ content }: { content: Content }) {
         <div className="two-sides__stage" aria-live="polite" data-motion-item>
           {caregiver ? <>
             <Image
-              src="/reflexion-assets/generated/phase1/two-sides-home-context.webp"
-              alt="Illustrative warm home scene showing an exploratory Reflexion form on a bedroom dresser"
+              src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
+              alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
               fill
               sizes="(max-width: 820px) 100vw, 60vw"
               className="two-sides__home-context"
             />
             <div className="two-sides__stage-veil" aria-hidden="true"/>
             <Image
-              src="/reflexion-assets/generated/phase1/two-sides-caregiver-app-cutout.webp"
-              alt="Website representation of the Reflexion Caregiver App showing weekly check-in context, usual-pattern context and a recent highlight"
+              src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
+              alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
               width={677}
               height={1302}
               sizes="(max-width: 520px) 62vw, (max-width: 820px) 42vw, 25vw"
