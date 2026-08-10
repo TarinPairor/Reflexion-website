@@ -1,0 +1,40 @@
+import Image from "next/image";
+import type { getHomeContent } from "@/i18n/content";
+import { ButtonLink } from "@/components/ui/ButtonLink";
+import { Icon } from "@/components/ui/Icon";
+
+type Content = ReturnType<typeof getHomeContent>;
+
+export function HomeHero({ content }: { content: Content }) {
+  return <section className="hero" id="top" aria-labelledby="hero-title">
+    <div className="hero__artwork">
+      <Image
+        className="hero__art"
+        src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
+        alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
+        fill
+        priority
+        fetchPriority="high"
+        sizes="100vw"
+      />
+      <p className="hero__caption">21.5-inch Reflexion Mirror <span>+ Caregiver App</span></p>
+    </div>
+    <div className="hero__glow" aria-hidden="true"/>
+    <div className="hero__copy">
+      <p className="eyebrow">{content.hero.eyebrow}</p>
+      <h1 id="hero-title">{content.hero.headline}</h1>
+      <p className="hero__support">{content.hero.supporting}</p>
+      <div className="hero__actions">
+        <ButtonLink href="#get-reflexion">{content.hero.primary}</ButtonLink>
+        <ButtonLink href="#day-with-reflexion" variant="secondary">{content.hero.secondary}</ButtonLink>
+      </div>
+      <div className="hero__feature">
+        <span className="hero__feature-icon" aria-hidden="true"><Icon name="spark" width={22} height={22}/></span>
+        <div className="hero__feature-copy">
+          <strong>{content.hero.feature}</strong>
+          <span className="hero__feature-points">{content.pillars.slice(1).map((pillar) => <span key={pillar}>{pillar}</span>)}</span>
+        </div>
+      </div>
+    </div>
+  </section>;
+}

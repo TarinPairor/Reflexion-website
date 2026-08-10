@@ -1,0 +1,27 @@
+# Dependencies and framework output
+node_modules/
+.pnpm-store/
+.next/
+out/
+dist/
+
+# Test and browser artifacts
+coverage/
+test-results/
+playwright-report/
+.playwright-cli/
+
+# Local configuration and logs
+.env*
+!.env.example
+*.log
+.DS_Store
+
+# Editor and TypeScript caches
+*.tsbuildinfo
+.idea/
+.vscode/
+
+# Repository reference material
+/docs/
+/prev version website (preserve only good parts)/
