@@ -126,6 +126,9 @@ const working = {
       quietEyebrow: "A QUIETER KIND OF SUPPORT",
       quietQuote: "I don’t need to know every moment. I want enough context to know when a call might matter.",
       quietQuoteLabel: "Synthetic / illustrative caregiver perspective",
+      perspectivesTitle: "Perspectives from both sides of care",
+      lovedPerspectiveLabel: "Illustrative older-adult perspective",
+      caregiverPerspectiveLabel: "Illustrative caregiver perspective",
       principles: [
         ["Participation, not observation", "Your loved one actively interacts with Reflexion and remains part of the care conversation."],
         ["Context, not diagnosis", "Reflexion supports consumer wellness and caregiving. It does not diagnose dementia or replace professional cognitive assessment."],
@@ -254,7 +257,7 @@ const working = {
     },
     trust: {
       eyebrow: "安静的陪伴", title: "建立于信任，设计于尊严。", intro: "Reflexion 支持年长者的自主与家庭关系——不是在背景中观察，也不是取代人的照护。",
-      builtEyebrow: "为信任而设计", independenceTitle: "支持他们的独立生活，而不是夺走自主。", quietEyebrow: "更安静的支持方式", quietQuote: "我不需要知道每一个时刻。只希望有足够的背景，让我知道什么时候打个电话更重要。", quietQuoteLabel: "合成／示意性照护者观点",
+      builtEyebrow: "为信任而设计", independenceTitle: "支持他们的独立生活，而不是夺走自主。", quietEyebrow: "更安静的支持方式", quietQuote: "我不需要知道每一个时刻。只希望有足够的背景，让我知道什么时候打个电话更重要。", quietQuoteLabel: "合成／示意性照护者观点", perspectivesTitle: "照护两端的视角", lovedPerspectiveLabel: "示意性年长使用者视角", caregiverPerspectiveLabel: "示意性照护者视角",
       principles: [["参与，而非观察", "家人主动与 Reflexion 互动，并始终是照护对话的一部分。"], ["背景，而非诊断", "Reflexion 支持消费级身心健康与家庭照护；不诊断失智症，也不取代专业认知评估。"], ["科技服务于人", "目标是一次更好的电话、一条及时的信息，以及更多真实的家庭联系。"]],
       founderEyebrow: "源自照护者的心", founderTitle: "一切始于 Mama，以及一个我们无法放下的问题。", founderBody: "Mama 的失智症经历，让我们认真思考：家人如何在尊重所爱之人的生活与尊严时，仍能有意义地陪伴？Reflexion 从这个问题中成长。", founders: "Kong Kei-Lyn — 联合创始人 · Chloe Tan — 联合创始人",
       recognitionTitle: "一路上的肯定", recognition: ["HealthHack 2025 — Silver Generation Healthcare 第一名", "TigerLaunch Asia Regionals 2026 — 总冠军", "MBEC 2026 — 四支获奖团队之一", "Huawei Tech4City 2025 — Budding Youths Track 三等奖", "入选 MedTech Actuator Origin Singapore 2026", "获 BLOCK71 Start-up Runway 接纳"], recognitionNote: "项目肯定不代表临床验证或背书。",

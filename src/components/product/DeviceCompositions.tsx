@@ -1,28 +1,25 @@
 import Image from "next/image";
 import { Icon } from "@/components/ui/Icon";
 
-export function MirrorScene({ compact = false }: { compact?: boolean }) {
+export function MirrorScene({
+  compact = false,
+  imageSrc = "/reflexion-assets/generated/phase1/reflexion-mirror-home.webp",
+  imageAlt = "A source-grounded visualisation of the real 21.5-inch Reflexion Mirror in a warm home setting",
+}: {
+  compact?: boolean;
+  imageSrc?: string;
+  imageAlt?: string;
+}) {
   return <div className={`mirror-scene ${compact ? "mirror-scene--compact" : ""}`}>
     <Image
       className="mirror-scene__photo"
-      src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
-      alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
+      src={imageSrc}
+      alt={imageAlt}
       fill
       loading={compact ? "lazy" : "eager"}
       fetchPriority={compact ? "auto" : "high"}
       sizes={compact ? "(max-width: 768px) 72vw, 34vw" : "(max-width: 768px) 100vw, 58vw"}
     />
-    <div className="mirror-ui" aria-hidden="true">
-      <span className="mirror-ui__time">Tuesday · 7:45</span>
-      <Icon className="mirror-ui__sun" name="sun" width={24} height={24}/>
-      <p>Good morning,<br/>Margaret</p>
-      <small>Your morning check-in<br/>How are you feeling today?</small>
-      <span className="mirror-ui__button">Start morning check-in</span>
-      <span className="mirror-ui__day">Your day</span>
-      <span className="mirror-ui__routine"><Icon name="sun"/> Morning tea <b>8:00 AM</b></span>
-      <span className="mirror-ui__routine"><Icon name="heart"/> Daily walk <b>10:30 AM</b></span>
-      <span className="mirror-ui__routine"><Icon name="message"/> Call with Rose <b>2:00 PM</b></span>
-    </div>
   </div>;
 }
 

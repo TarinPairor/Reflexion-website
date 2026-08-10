@@ -23,7 +23,14 @@ export function FaqFinal({ content }: { content: Content }) {
         <div className="hero__actions"><ButtonLink href="/get-reflexion" variant="light">{content.hero.primary}</ButtonLink><ButtonLink href="#day-with-reflexion" variant="secondary">{content.hero.secondary}</ButtonLink></div>
         <small>Explore proposed Singapore launch offers. No payment will be taken today.</small>
       </div>
-      <div className="final-cta__visual" aria-hidden="true"><MirrorScene compact/><span className="final-cta__halo"/></div>
+      <div className="final-cta__visual" aria-hidden="true">
+        <MirrorScene
+          compact
+          imageSrc="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
+          imageAlt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
+        />
+        <span className="final-cta__halo"/>
+      </div>
     </div>
   </section>;
 }

@@ -7,10 +7,10 @@ type Content = ReturnType<typeof getHomeContent>;
 
 export function ProductFamily({ content }: { content: Content }) {
   const alternatives = [
-    [content.products.bearName, content.products.bear, content.products.bearBody, "bear", "/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp", "The Reflexion Mirror and Caregiver App presented together in a warm home setting"],
-    [content.products.appName, content.products.app, content.products.appBody, "app", "/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp", "The Reflexion Mirror and Caregiver App presented together in a warm home setting"],
-    [content.products.hubName, content.products.hub, content.products.hubBody, "hub", "/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp", "The Reflexion Mirror and Caregiver App presented together in a warm home setting"],
-    [content.products.companionName, content.products.companion, content.products.companionBody, "companion", "/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp", "The Reflexion Mirror and Caregiver App presented together in a warm home setting"],
+    [content.products.bearName, content.products.bear, content.products.bearBody, "bear", "/reflexion-assets/generated/phase1/product-family-bear.webp", "Illustrative Reflexion Bear prototype in a warm home setting"],
+    [content.products.appName, content.products.app, content.products.appBody, "app", "/reflexion-assets/generated/phase1/product-family-loved-app-user.webp", "Illustrative older adult using the Reflexion Loved-one App for a morning check-in"],
+    [content.products.hubName, content.products.hub, content.products.hubBody, "hub", "/reflexion-assets/generated/phase1/product-family-home-hub.webp", "Illustrative Reflexion Home Hub concept on a side table"],
+    [content.products.companionName, content.products.companion, content.products.companionBody, "companion", "/reflexion-assets/generated/phase1/product-family-tabletop.webp", "Illustrative Tabletop Companion future concept in a warm home setting"],
   ] as const;
   return <section className="product-family" id="find-your-reflexion" aria-labelledby="products-title" data-motion-chapter>
     <div className="product-family__layout">
@@ -24,8 +24,8 @@ export function ProductFamily({ content }: { content: Content }) {
         <article className="flagship" data-motion-item>
           <div className="flagship__visual">
             <Image
-              src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
-              alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
+              src="/reflexion-assets/generated/phase1/product-family-mirror.webp"
+              alt="Founder-selected website visual of the Reflexion Mirror on a wooden cabinet in a warm home setting"
               fill
               sizes="(max-width: 1100px) 100vw, 64vw"
               className="flagship__image"

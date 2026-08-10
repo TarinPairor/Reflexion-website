@@ -24,8 +24,8 @@ export function DayWithReflexion({ content }: { content: Content }) {
       <div className="day__experience" data-motion-item>
         <div className="day__visual">
           <Image
-            src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
-            alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
+            src="/reflexion-assets/generated/phase1/day-with-reflexion-founder-edited.webp"
+            alt="Illustrative website scene of an older adult speaking with the Reflexion Mirror, alongside a Caregiver App representation"
             fill
             sizes="(max-width: 820px) 100vw, 65vw"
             className="day__scene-image"

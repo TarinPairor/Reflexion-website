@@ -18,9 +18,6 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en" suppressHydrationWarning>
-    <head>
-      <script dangerouslySetInnerHTML={{ __html: 'document.documentElement.dataset.motionReady="true"' }}/>
-    </head>
     <body>{children}</body>
   </html>;
 }

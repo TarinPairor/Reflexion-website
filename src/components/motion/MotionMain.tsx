@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, type ReactNode } from "react";
+import { useLayoutEffect, type ReactNode } from "react";
 import { stagger, useAnimate, useReducedMotion } from "motion/react";
 
 const arrivalEase = [0.16, 1, 0.3, 1] as const;
@@ -18,11 +18,30 @@ function clearMotionStyles(root: HTMLElement) {
   });
 }
 
+function prepareMotionStyles(root: HTMLElement) {
+  const heroArtwork = root.querySelector<HTMLElement>("[data-motion-hero-artwork]");
+  if (heroArtwork) {
+    heroArtwork.style.opacity = "0";
+    heroArtwork.style.transform = "scale(1.015)";
+    heroArtwork.style.clipPath = "inset(3% 3% 3% 3% round 24px)";
+  }
+
+  root.querySelectorAll<HTMLElement>("[data-motion-hero-copy] > *").forEach((element) => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(24px)";
+  });
+
+  root.querySelectorAll<HTMLElement>("[data-motion-item]").forEach((element) => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(28px)";
+  });
+}
+
 export function MotionMain({ children }: { children: ReactNode }) {
   const [scope, animate] = useAnimate<HTMLElement>();
   const shouldReduceMotion = useReducedMotion();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = scope.current;
     if (!root) return;
 
@@ -32,6 +51,10 @@ export function MotionMain({ children }: { children: ReactNode }) {
       return;
     }
     if (!("IntersectionObserver" in window)) return;
+
+    // Apply initial animation styles only after React has mounted. The server
+    // render therefore stays visible if hydration or the client bundle fails.
+    prepareMotionStyles(root);
 
     const runningAnimations: Array<{ stop: () => void }> = [];
     const heroArtwork = root.querySelector<HTMLElement>("[data-motion-hero-artwork]");
@@ -60,20 +83,16 @@ export function MotionMain({ children }: { children: ReactNode }) {
       for (const entry of entries) {
         if (!entry.isIntersecting) continue;
 
-        const chapter = entry.target as HTMLElement;
-        const items = chapter.querySelectorAll<HTMLElement>("[data-motion-item]");
-        const paths = chapter.querySelectorAll<SVGPathElement>("[data-motion-path]");
+        const item = entry.target as HTMLElement;
+        const paths = item.querySelectorAll<SVGPathElement>("[data-motion-path]");
 
-        if (items.length) {
-          runningAnimations.push(animate(items, {
-            opacity: [0, 1],
-            y: [28, 0],
-          }, {
-            delay: stagger(0.045),
-            duration: 0.62,
-            ease: arrivalEase,
-          }));
-        }
+        runningAnimations.push(animate(item, {
+          opacity: [0, 1],
+          y: [28, 0],
+        }, {
+          duration: 0.62,
+          ease: arrivalEase,
+        }));
 
         if (paths.length) {
           runningAnimations.push(animate(paths, {
@@ -86,11 +105,11 @@ export function MotionMain({ children }: { children: ReactNode }) {
           }));
         }
 
-        observer.unobserve(chapter);
+        observer.unobserve(item);
       }
-    }, { rootMargin: "0px 0px -5% 0px", threshold: 0.08 });
+    }, { rootMargin: "0px 0px -7% 0px", threshold: 0.1 });
 
-    root.querySelectorAll<HTMLElement>("[data-motion-chapter]").forEach((chapter) => observer.observe(chapter));
+    root.querySelectorAll<HTMLElement>("[data-motion-item]").forEach((item) => observer.observe(item));
 
     return () => {
       observer.disconnect();
