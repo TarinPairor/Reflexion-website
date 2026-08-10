@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 const recognitionMarks = [
-  null,
+  { src: "/reflexion-assets/awards/partnerLogo-NUSMedicineDigitalAdvancedTechnologyAccelerator(DATA)-fe4fd070-6cb0-471c-828c-4b523dff2129.png", alt: "HealthHack Singapore" },
   { src: "/reflexion-assets/awards/tigerlaunch_logo.jpeg", alt: "TigerLaunch Asia" },
   { src: "/reflexion-assets/awards/images.png", alt: "Mapletree" },
   { src: "/reflexion-assets/awards/Huawei_Standard_logo.svg.webp", alt: "Huawei" },
@@ -16,9 +16,7 @@ export function RecognitionStrip({ title, note, items, heading = "RECOGNISED FOR
       const mark = recognitionMarks[index];
       return <li key={item}>
         <div className="recognition__mark">
-          {mark
-            ? <Image src={mark.src} alt={mark.alt} fill sizes="(max-width: 520px) 38vw, (max-width: 820px) 22vw, 12vw"/>
-            : <span className="recognition__text-mark">HealthHack</span>}
+          <Image src={mark.src} alt={mark.alt} fill sizes="(max-width: 520px) 38vw, (max-width: 820px) 22vw, 12vw"/>
         </div>
         <p>{item}</p>
       </li>;

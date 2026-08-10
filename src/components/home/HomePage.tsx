@@ -24,7 +24,7 @@ export function HomePage({ locale, content }: { locale: Locale; content: Content
       <DayWithReflexion content={content} locale={locale}/>
       <TwoSides content={content} locale={locale}/>
       <ProductFamily content={content}/>
-      <TrustFounder content={content}/>
+      <TrustFounder content={content} locale={locale}/>
       <FaqFinal content={content} locale={locale}/>
     </MotionMain>
     <SiteFooter locale={locale} line={content.footerLine} note={content.footerNote} nav={content.nav}/>
