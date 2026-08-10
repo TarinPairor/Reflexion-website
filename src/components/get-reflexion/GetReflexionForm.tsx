@@ -1,0 +1,196 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import Link from "next/link";
+import {
+  getExactPrice,
+  getProduct,
+  mirrorPrices,
+  productOptions,
+  type MirrorPlan,
+  type ProductId,
+} from "@/lib/get-reflexion/config";
+
+type Details = {
+  fullName: string;
+  email: string;
+  mobile: string;
+  postalSector: string;
+  recipient: string;
+  readiness: boolean;
+};
+
+const initialDetails: Details = {
+  fullName: "",
+  email: "",
+  mobile: "",
+  postalSector: "",
+  recipient: "",
+  readiness: false,
+};
+
+const stepLabels = ["Choose", "Your Reflexion", "Your details", "Price", "Next step", "Confirmation"];
+
+export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductId }) {
+  const [step, setStep] = useState(initialProduct ? 2 : 1);
+  const [productId, setProductId] = useState<ProductId>(initialProduct ?? "mirror");
+  const [mirrorPlan, setMirrorPlan] = useState<MirrorPlan>("a");
+  const [details, setDetails] = useState<Details>(initialDetails);
+  const [priceDecision, setPriceDecision] = useState<"yes" | "no" | "">("");
+  const [followUp, setFollowUp] = useState("");
+  const [noReason, setNoReason] = useState("");
+  const [decisionReason, setDecisionReason] = useState("");
+
+  const product = getProduct(productId);
+  const exactPrice = getExactPrice(productId, mirrorPlan);
+  const progress = `${Math.round((step / stepLabels.length) * 100)}%`;
+
+  function advance(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setStep((current) => Math.min(current + 1, stepLabels.length));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function goBack() {
+    setStep((current) => Math.max(current - 1, 1));
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function updateDetails<Key extends keyof Details>(key: Key, value: Details[Key]) {
+    setDetails((current) => ({ ...current, [key]: value }));
+  }
+
+  const followUpOptions = productId === "mirror"
+    ? [
+        ["orders", "Contact me when orders open"],
+        ["none", "No follow-up for now"],
+      ]
+    : productId === "loved-one-app"
+      ? [
+          ["availability", "Contact me if availability is confirmed after QA"],
+          ["none", "No follow-up for now"],
+        ]
+      : [
+          ["progress", "Keep me updated if this concept progresses"],
+          ["none", "No follow-up for now"],
+        ];
+
+  return <main className="interest-flow" id="main">
+    <aside className="interest-flow__rail" aria-label="Your progress">
+      <p className="eyebrow">Get Reflexion</p>
+      <ol>
+        {stepLabels.map((label, index) => <li key={label} data-active={index + 1 === step} data-complete={index + 1 < step}>
+          <span>{index + 1}</span><small>{label}</small>
+        </li>)}
+      </ol>
+      <p className="interest-flow__rail-note">A simple expression of interest. No payment will be taken today.</p>
+    </aside>
+
+    <section className="interest-flow__panel" aria-live="polite">
+      <div className="interest-flow__mobile-progress" aria-hidden="true"><span style={{ width: progress }}/></div>
+      <p className="interest-flow__step">Step {step} of {stepLabels.length}</p>
+
+      {step === 1 ? <form onSubmit={advance} className="interest-form">
+        <header className="interest-form__heading">
+          <p className="eyebrow">Choose your Reflexion</p>
+          <h1>Which form feels most natural for your family?</h1>
+          <p>Choose one for now. You can go back and change it before confirming.</p>
+        </header>
+        <fieldset className="choice-grid">
+          <legend className="sr-only">Choose a Reflexion form</legend>
+          {productOptions.map((option) => <label className="choice-card" key={option.id} data-selected={productId === option.id}>
+            <input type="radio" name="product" value={option.id} checked={productId === option.id} onChange={() => setProductId(option.id)}/>
+            <span className="choice-card__check" aria-hidden="true"/>
+            <strong>{option.name}</strong>
+            <small>{option.maturity}</small>
+            <p>{option.description}</p>
+          </label>)}
+        </fieldset>
+        <div className="interest-form__actions"><button className="interest-button" type="submit">See package and price <span aria-hidden="true">→</span></button></div>
+      </form> : null}
+
+      {step === 2 ? <form onSubmit={advance} className="interest-form">
+        <header className="interest-form__heading">
+          <p className="eyebrow">Your Reflexion</p>
+          <h1>{product.name}</h1>
+          <p>{product.description}</p>
+        </header>
+        <div className="package-summary">
+          <div className="package-summary__top"><span>{product.maturity}</span><strong>Proposed Singapore launch offer</strong></div>
+          <div className="package-summary__body">
+            <div><p className="package-summary__label">What is included</p><ul>{product.included.map((item) => <li key={item}>{item}</li>)}</ul></div>
+            <div className="package-summary__price"><p className="package-summary__label">Proposed price</p><strong>{exactPrice}</strong></div>
+          </div>
+        </div>
+        {productId === "mirror" ? <fieldset className="price-options">
+          <legend>Choose a Mirror price option</legend>
+          {(Object.entries(mirrorPrices) as [MirrorPlan, string][]).map(([id, price]) => <label key={id} data-selected={mirrorPlan === id}>
+            <input type="radio" name="mirror-plan" checked={mirrorPlan === id} onChange={() => setMirrorPlan(id)}/>
+            <span><b>Mirror {id.toUpperCase()}</b><small>{price}</small></span>
+          </label>)}
+        </fieldset> : null}
+        <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment will be taken today.</strong> Prices are being validated and are not guaranteed final launch pricing.</p>
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
+      </form> : null}
+
+      {step === 3 ? <form onSubmit={advance} className="interest-form">
+        <header className="interest-form__heading">
+          <p className="eyebrow">Your details</p>
+          <h1>Who should we stay in touch with?</h1>
+          <p>Only the minimum details needed for this expression of interest.</p>
+        </header>
+        <div className="field-grid">
+          <label className="field field--wide"><span>Full name</span><input required autoComplete="name" value={details.fullName} onChange={(event) => updateDetails("fullName", event.target.value)}/></label>
+          <label className="field"><span>Email</span><input required type="email" autoComplete="email" value={details.email} onChange={(event) => updateDetails("email", event.target.value)}/></label>
+          <label className="field"><span>Mobile number</span><input required type="tel" autoComplete="tel" inputMode="tel" value={details.mobile} onChange={(event) => updateDetails("mobile", event.target.value)}/></label>
+          <label className="field"><span>Postal sector</span><input required inputMode="numeric" pattern="[0-9]{2}" maxLength={2} placeholder="First two digits only" value={details.postalSector} onChange={(event) => updateDetails("postalSector", event.target.value.replace(/\D/g, "").slice(0, 2))}/></label>
+          <label className="field"><span>Intended recipient</span><select required value={details.recipient} onChange={(event) => updateDetails("recipient", event.target.value)}><option value="">Choose one</option><option>Parent</option><option>Grandparent</option><option>Spouse</option><option>Other</option></select></label>
+        </div>
+        <label className="acknowledgement"><input required type="checkbox" checked={details.readiness} onChange={(event) => updateDetails("readiness", event.target.checked)}/><span>I have discussed—or am willing to discuss—this with my loved one.<small>This acknowledgement is not older-adult consent.</small></span></label>
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Review exact price <span aria-hidden="true">→</span></button></div>
+      </form> : null}
+
+      {step === 4 ? <form onSubmit={advance} className="interest-form">
+        <header className="interest-form__heading">
+          <p className="eyebrow">Confirm your interest at this price</p>
+          <h1>Would you seriously consider {product.name} at this price?</h1>
+          <p>Subject to final specifications, availability and commercial terms.</p>
+        </header>
+        <div className="price-confirmation"><span>{product.name}</span><strong>{exactPrice}</strong><small>{product.maturity}</small></div>
+        <fieldset className="decision-options">
+          <legend className="sr-only">Confirm interest at the exact price</legend>
+          <label data-selected={priceDecision === "yes"}><input required type="radio" name="price-decision" value="yes" checked={priceDecision === "yes"} onChange={() => setPriceDecision("yes")}/><span><b>Yes, I’d consider it at this price</b><small>I understand this is not a purchase or reservation.</small></span></label>
+          <label data-selected={priceDecision === "no"}><input required type="radio" name="price-decision" value="no" checked={priceDecision === "no"} onChange={() => setPriceDecision("no")}/><span><b>No, not at this price</b><small>I can share the main reason on the next screen.</small></span></label>
+        </fieldset>
+        <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment will be taken today.</strong> This records commercial intent only.</p>
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
+      </form> : null}
+
+      {step === 5 ? <form onSubmit={advance} className="interest-form">
+        <header className="interest-form__heading">
+          <p className="eyebrow">{priceDecision === "yes" ? "Your preferred next step" : "Help us understand"}</p>
+          <h1>{priceDecision === "yes" ? "What would feel useful from here?" : "What is the main reason?"}</h1>
+          <p>{priceDecision === "yes" ? "Choose a follow-up that matches this product’s current maturity." : "Your answer helps us understand the price decision without treating it as a sale."}</p>
+        </header>
+        {priceDecision === "yes" ? <fieldset className="decision-options">
+          <legend className="sr-only">Choose a follow-up</legend>
+          {followUpOptions.map(([value, label]) => <label key={value} data-selected={followUp === value}><input required type="radio" name="follow-up" value={value} checked={followUp === value} onChange={() => setFollowUp(value)}/><span><b>{label}</b></span></label>)}
+        </fieldset> : <label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => setNoReason(event.target.value)}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>I am not ready yet</option><option>Other</option></select></label>}
+        <label className="field field--wide decision-driver"><span>What drove your decision? <small>Optional</small></span><textarea rows={4} value={decisionReason} onChange={(event) => setDecisionReason(event.target.value)} placeholder="Tell us what mattered most to you."/></label>
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Finish <span aria-hidden="true">→</span></button></div>
+      </form> : null}
+
+      {step === 6 ? <div className="interest-form interest-confirmation">
+        <span className="interest-confirmation__mark" aria-hidden="true">✓</span>
+        <header className="interest-form__heading">
+          <p className="eyebrow">Thank you</p>
+          <h1>Your choices are clear.</h1>
+          <p>This front-end preview does not yet send or store your details. Submission storage, communications consent and follow-up remain implementation gates.</p>
+        </header>
+        <dl className="confirmation-summary"><div><dt>Selected form</dt><dd>{product.name}</dd></div><div><dt>Exact price considered</dt><dd>{exactPrice}</dd></div><div><dt>Your response</dt><dd>{priceDecision === "yes" ? "Would consider at this price" : "Not at this price"}</dd></div><div><dt>What happens next</dt><dd>No contact will be made from this preview.</dd></div></dl>
+        <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment has been taken.</strong> This is not a purchase, order or reservation.</p>
+        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { setStep(1); setPriceDecision(""); setFollowUp(""); setNoReason(""); }}>Review another form</button></div>
+      </div> : null}
+    </section>
+  </main>;
+}

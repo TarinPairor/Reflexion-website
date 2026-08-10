@@ -22,7 +22,9 @@ export function MobileNav({ locale, labels, getLabel }: { locale: Locale; labels
     };
   }, [open]);
 
-  const anchors = ["#day-with-reflexion", "#find-your-reflexion", "#trust", "#faq"];
+  const home = locale === "zh" ? "/?lang=zh" : "/";
+  const anchors = ["#day-with-reflexion", "#find-your-reflexion", "#trust", "#faq"].map((anchor) => `${home}${anchor}`);
+  const getHref = locale === "zh" ? "/get-reflexion?lang=zh" : "/get-reflexion";
   return <div className="mobile-nav">
     <button ref={buttonRef} className="nav-toggle" type="button" aria-expanded={open} aria-controls="mobile-menu" aria-label={open ? "Close navigation" : "Open navigation"} onClick={() => setOpen((value) => !value)}>
       <span/><span/>
@@ -36,7 +38,7 @@ export function MobileNav({ locale, labels, getLabel }: { locale: Locale; labels
         <span>/</span>
         <Link href="/?lang=zh" lang="zh-Hans" aria-current={locale === "zh" ? "page" : undefined}>中文</Link>
       </div>
-      <a className="button button--light" href="#get-reflexion" onClick={() => setOpen(false)}>{getLabel}</a>
+      <Link className="button button--light" href={getHref} onClick={() => setOpen(false)}>{getLabel}</Link>
     </div>
   </div>;
 }

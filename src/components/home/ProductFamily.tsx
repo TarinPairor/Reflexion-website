@@ -36,8 +36,8 @@ export function ProductFamily({ content }: { content: Content }) {
             <h3>{content.products.mirrorName}</h3>
             <p>{content.products.mirrorBody}</p>
             <div className="flagship__actions">
-              <ButtonLink href="#get-reflexion">{content.hero.primary}</ButtonLink>
-              <a href="#get-reflexion">{content.products.exploreMirror} <Icon name="arrow"/></a>
+              <ButtonLink href="/get-reflexion?form=mirror">{content.hero.primary}</ButtonLink>
+              <a href="/get-reflexion?form=mirror">{content.products.exploreMirror} <Icon name="arrow"/></a>
             </div>
           </div>
           <span className="maturity maturity--current">{content.products.current}</span>
@@ -55,7 +55,7 @@ export function ProductFamily({ content }: { content: Content }) {
               <h4>{name}</h4>
               <p className="maturity">{maturity}</p>
               <p>{body}</p>
-              <a href="#get-reflexion">{content.products.learnMore} <Icon name="arrow"/></a>
+              <a href={`/get-reflexion?form=${form === "app" ? "loved-one-app" : form === "hub" ? "home-hub" : form === "companion" ? "tabletop-companion" : form}`}>{content.products.learnMore} <Icon name="arrow"/></a>
             </div>
           </article>)}
         </div>
@@ -65,7 +65,7 @@ export function ProductFamily({ content }: { content: Content }) {
     <div className="product-family__decision" data-motion-item>
       <span aria-hidden="true"><Icon name="heart"/></span>
       <p><strong>{content.products.decisionQuestion}</strong><small>{content.products.note}</small></p>
-      <ButtonLink href="#get-reflexion" variant="secondary">{content.products.decisionCta}</ButtonLink>
+      <ButtonLink href="/get-reflexion" variant="secondary">{content.products.decisionCta}</ButtonLink>
     </div>
   </section>;
 }

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-export function StickyCta({ label }: { label: string }) {
+export function StickyCta({ label, href = "/get-reflexion" }: { label: string; href?: string }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
     const hero = document.querySelector(".hero");
@@ -11,5 +11,5 @@ export function StickyCta({ label }: { label: string }) {
     observer.observe(hero);
     return () => observer.disconnect();
   }, []);
-  return <a className="mobile-sticky-cta" data-visible={visible} href="#get-reflexion" aria-hidden={!visible} tabIndex={visible ? 0 : -1}>{label}</a>;
+  return <a className="mobile-sticky-cta" data-visible={visible} href={href} aria-hidden={!visible} tabIndex={visible ? 0 : -1}>{label}</a>;
 }

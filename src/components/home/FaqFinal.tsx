@@ -20,8 +20,8 @@ export function FaqFinal({ content }: { content: Content }) {
         <p className="eyebrow eyebrow--light">{content.faq.finalEyebrow}</p>
         <h2>{content.faq.finalTitle}</h2>
         <p>{content.faq.finalBody}</p>
-        <div className="hero__actions"><ButtonLink href="#get-reflexion" variant="light">{content.hero.primary}</ButtonLink><ButtonLink href="#day-with-reflexion" variant="secondary">{content.hero.secondary}</ButtonLink></div>
-        <small>Phase 1 preview · The Get Reflexion commercial-intent flow is not yet active. No payment will be taken today.</small>
+        <div className="hero__actions"><ButtonLink href="/get-reflexion" variant="light">{content.hero.primary}</ButtonLink><ButtonLink href="#day-with-reflexion" variant="secondary">{content.hero.secondary}</ButtonLink></div>
+        <small>Explore proposed Singapore launch offers. No payment will be taken today.</small>
       </div>
       <div className="final-cta__visual" aria-hidden="true"><MirrorScene compact/><span className="final-cta__halo"/></div>
     </div>

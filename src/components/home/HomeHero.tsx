@@ -25,7 +25,7 @@ export function HomeHero({ content }: { content: Content }) {
       <h1 id="hero-title">{content.hero.headline}</h1>
       <p className="hero__support">{content.hero.supporting}</p>
       <div className="hero__actions">
-        <ButtonLink href="#get-reflexion">{content.hero.primary}</ButtonLink>
+        <ButtonLink href="/get-reflexion">{content.hero.primary}</ButtonLink>
         <ButtonLink href="#day-with-reflexion" variant="secondary">{content.hero.secondary}</ButtonLink>
       </div>
       <div className="hero__feature">

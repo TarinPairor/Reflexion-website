@@ -28,6 +28,6 @@ export function HomePage({ locale, content }: { locale: Locale; content: Content
       <FaqFinal content={content}/>
     </MotionMain>
     <SiteFooter locale={locale} line={content.footerLine} note={content.footerNote} nav={content.nav}/>
-    <StickyCta label={content.hero.primary}/>
+    <StickyCta label={content.hero.primary} href={locale === "zh" ? "/get-reflexion?lang=zh" : "/get-reflexion"}/>
   </div>;
 }
