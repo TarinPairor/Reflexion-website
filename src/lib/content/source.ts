@@ -1,5 +1,5 @@
 import { z } from "zod";
-import rawSource from "../../../docs/reflexion-handoff/02_WEBSITE_CONTENT_SOURCE_FINAL_2026-08-10.json";
+import rawSource from "@/content/canonical-content.runtime.json";
 
 const copySchema = z.object({
   id: z.string(),

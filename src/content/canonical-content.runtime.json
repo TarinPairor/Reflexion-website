@@ -1,0 +1,213 @@
+{
+  "meta": {
+    "version": "2.0-final-handoff",
+    "status": "CANONICAL_CONTENT_SOURCE",
+    "source_file": "docs/reflexion-handoff/02_WEBSITE_CONTENT_SOURCE_FINAL_2026-08-10.json"
+  },
+  "global": {
+    "brand_name": {
+      "id": "global.brand.name",
+      "status": "APPROVED",
+      "text": "Reflexion"
+    },
+    "primary_cta": {
+      "id": "global.cta.primary",
+      "status": "APPROVED",
+      "text": "Get Reflexion"
+    },
+    "secondary_ctas": [
+      {
+        "id": "global.cta.secondary.how_it_works",
+        "status": "APPROVED",
+        "text": "See How It Works"
+      },
+      {
+        "id": "global.cta.secondary.products",
+        "status": "APPROVED_CONCEPT",
+        "text": "Explore Products"
+      },
+      {
+        "id": "global.cta.secondary.contact",
+        "status": "APPROVED_CONCEPT",
+        "text": "Contact Us"
+      }
+    ],
+    "navigation": [
+      {
+        "id": "global.nav.how_it_works",
+        "status": "APPROVED",
+        "text": "How It Works",
+        "route_hint": "/how-it-works"
+      },
+      {
+        "id": "global.nav.products",
+        "status": "APPROVED",
+        "text": "Products",
+        "route_hint": "/products"
+      },
+      {
+        "id": "global.nav.about",
+        "status": "APPROVED",
+        "text": "About",
+        "route_hint": "/about"
+      },
+      {
+        "id": "global.nav.faq",
+        "status": "APPROVED",
+        "text": "FAQ",
+        "route_hint": "/faq"
+      }
+    ],
+    "value_pillars": [
+      {
+        "id": "global.value.insight",
+        "status": "APPROVED",
+        "label": "Insight"
+      },
+      {
+        "id": "global.value.companionship",
+        "status": "APPROVED",
+        "label": "Companionship"
+      },
+      {
+        "id": "global.value.support",
+        "status": "APPROVED",
+        "label": "Support"
+      },
+      {
+        "id": "global.value.connection",
+        "status": "APPROVED",
+        "label": "Connection"
+      }
+    ],
+    "closed_care_loop": {
+      "id": "global.closed_care_loop",
+      "status": "APPROVED_CONCEPT",
+      "steps": [
+        "Loved one interacts with Reflexion",
+        "Reflexion provides useful context to the caregiver",
+        "Caregiver receives awareness or an update",
+        "Caregiver connects back through a call, text, voice note, photo or other human action",
+        "Loved one receives the connection and can respond",
+        "The family relationship continues"
+      ],
+      "core_message": "Reflexion should create more human connection, not replace it."
+    },
+    "cognitive_positioning": {
+      "preferred_term": {
+        "id": "global.cognitive.preferred_term",
+        "status": "APPROVED",
+        "text": "cognitive & wellbeing check-in"
+      },
+      "limitation": {
+        "id": "global.cognitive.limitation",
+        "status": "APPROVED_CONCEPT",
+        "text": "Reflexion does not diagnose dementia or replace professional cognitive assessment."
+      }
+    }
+  },
+  "pages": {
+    "home": {
+      "id": "page.home",
+      "status": "APPROVED",
+      "sections": [
+        {
+          "id": "home.hero",
+          "status": "APPROVED",
+          "eyebrow": {
+            "id": "home.hero.eyebrow",
+            "status": "APPROVED",
+            "text": "FOR FAMILIES CARING FOR AGEING PARENTS."
+          },
+          "headline": {
+            "id": "home.hero.headline",
+            "status": "APPROVED",
+            "text": "Care for your loved ones, even when you can’t always be there."
+          },
+          "supporting": {
+            "id": "home.hero.supporting",
+            "status": "APPROVED",
+            "text": "Reflexion helps families stay connected through daily conversations, gentle routine support and meaningful caregiver updates."
+          },
+          "supporting_feature": {
+            "id": "home.hero.cognitive_feature",
+            "status": "APPROVED_CONCEPT",
+            "text": "Daily cognitive & wellbeing check-in"
+          }
+        },
+        {
+          "id": "home.tension_why_now",
+          "status": "COPY_REQUIRED"
+        },
+        {
+          "id": "home.why_reflexion_closed_loop",
+          "status": "COPY_REQUIRED"
+        },
+        {
+          "id": "home.day_with_reflexion",
+          "status": "APPROVED_CONCEPT"
+        },
+        {
+          "id": "home.two_sides_of_care",
+          "status": "COPY_REQUIRED"
+        },
+        {
+          "id": "home.find_your_reflexion",
+          "status": "COPY_REQUIRED"
+        },
+        {
+          "id": "home.trust_human_proof_recognition",
+          "status": "COPY_REQUIRED"
+        },
+        {
+          "id": "home.faq_preview_final_cta",
+          "status": "COPY_REQUIRED"
+        }
+      ]
+    }
+  },
+  "products": {
+    "mirror": {
+      "id": "product.mirror",
+      "public_name": "Reflexion Mirror",
+      "status": "APPROVED",
+      "maturity_label": "Flagship",
+      "maturity_status": "APPROVED"
+    },
+    "caregiver_app": {
+      "id": "product.caregiver_app",
+      "public_name": "Reflexion Caregiver App",
+      "status": "APPROVED",
+      "maturity_label": "Central caregiver experience",
+      "maturity_status": "APPROVED_CONCEPT"
+    },
+    "bear": {
+      "id": "product.bear",
+      "public_name": "Reflexion Bear",
+      "status": "APPROVED_CONCEPT",
+      "maturity_label": "Prototype",
+      "maturity_status": "APPROVED_CONCEPT"
+    },
+    "home_hub": {
+      "id": "product.home_hub",
+      "public_name": "Reflexion Home Hub",
+      "status": "APPROVED_CONCEPT",
+      "maturity_label": "Concept",
+      "maturity_status": "APPROVED_CONCEPT"
+    },
+    "tabletop_companion": {
+      "id": "product.tabletop_companion",
+      "public_name": "Reflexion Tabletop Companion",
+      "status": "APPROVED_CONCEPT",
+      "maturity_label": "Future concept",
+      "maturity_status": "APPROVED_CONCEPT"
+    },
+    "loved_one_app": {
+      "id": "product.loved_one_app",
+      "public_name": "Reflexion App for your loved one",
+      "status": "QA_GATE",
+      "maturity_label": "Functional alternative",
+      "maturity_status": "QA_GATE"
+    }
+  }
+}
