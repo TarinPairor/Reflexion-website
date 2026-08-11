@@ -210,6 +210,7 @@
   .hero__actions .button { border-radius: 8px; }
   .hero__feature { display: flex; align-items: center; gap: 13px; margin-top: 34px; color: #3f5f54; }
   .hero__feature-icon { width: 42px; height: 42px; flex: 0 0 auto; display: grid; place-items: center; color: var(--forest); background: rgba(162,178,154,.34); border-radius: 50%; }
+  .hero__feature-icon svg { transform: translate(2px, -1px); }
   .hero__feature-copy { display: grid; gap: 3px; }
   .hero__feature-copy strong { font-size: .82rem; font-weight: 700; }
   .hero__feature-points { display: flex; flex-wrap: wrap; gap: 0; color: #5a7168; font-size: .68rem; }

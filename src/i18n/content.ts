@@ -288,7 +288,7 @@ export function getHomeContent(locale: Locale) {
     eyebrow: hero.eyebrow.text,
     headline: hero.headline.text,
     supporting: hero.supporting.text,
-    feature: hero.supporting_feature.text,
+    feature: "Daily cognitive & wellbeing check-ins",
     primary,
     secondary,
   };
