@@ -9,10 +9,14 @@ export function StickyCta({ label, href = "/get-reflexion" }: { label: string; h
     const hero = document.querySelector(".hero");
     if (!hero) return;
     const heroObserver = new IntersectionObserver(([entry]) => setHeroPassed(!entry.isIntersecting), { threshold: 0.08 });
-    const suppressor = document.querySelector("[data-sticky-cta-suppression]");
-    const suppressionObserver = suppressor ? new IntersectionObserver(([entry]) => setSuppressed(entry.isIntersecting), { threshold: 0.12 }) : null;
+    const suppressors = document.querySelectorAll("[data-sticky-cta-suppression]");
+    const intersecting = new Set<Element>();
+    const suppressionObserver = suppressors.length ? new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.isIntersecting ? intersecting.add(entry.target) : intersecting.delete(entry.target));
+      setSuppressed(intersecting.size > 0);
+    }, { threshold: 0.12 }) : null;
     heroObserver.observe(hero);
-    if (suppressor && suppressionObserver) suppressionObserver.observe(suppressor);
+    if (suppressionObserver) suppressors.forEach((suppressor) => suppressionObserver.observe(suppressor));
     return () => { heroObserver.disconnect(); suppressionObserver?.disconnect(); };
   }, []);
   const visible = heroPassed && !suppressed;

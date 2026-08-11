@@ -11,7 +11,19 @@ import { Icon, type IconName } from "@/components/ui/Icon";
 type Content = ReturnType<typeof getHomeContent>;
 const icons: IconName[] = ["sun", "message", "check", "heart", "voice", "spark"];
 const morningScene = "/reflexion-assets/generated/phase1/day-with-reflexion-0800-v1.webp";
+const conversationScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1130-v1.webp";
+const familyMessageScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1400-v1.webp";
+const voiceReplyScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1405-v1.webp";
 const placeholderScene = "/reflexion-assets/generated/phase1/day-with-reflexion-founder-edited.webp";
+const scenes = [morningScene, conversationScene, placeholderScene, familyMessageScene, voiceReplyScene, placeholderScene];
+const sceneAlts = [
+  "An older adult beginning her morning with the Reflexion Mirror",
+  "An older adult having an open conversation with the Reflexion Mirror",
+  "Illustrative website scene of gentle routine support through the Reflexion Mirror",
+  "Illustrative website scene of a family message received through the Reflexion Mirror",
+  "An older adult replying by voice to a family message through the Reflexion Mirror",
+  "Illustrative website scene of useful context appearing in the Caregiver App",
+];
 
 export function DayWithReflexion({ content, locale }: { content: Content; locale: Locale }) {
   const sectionRef = useRef<HTMLElement>(null);
@@ -26,7 +38,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
   });
 
   const activeMoment = content.day.moments[activeIndex];
-  const activeScene = activeIndex === 0 ? morningScene : placeholderScene;
+  const activeScene = scenes[activeIndex] ?? placeholderScene;
   const transition = reduceMotion ? { duration: 0 } : { duration: .48, ease: [0.16, 1, 0.3, 1] as const };
 
   return <section ref={sectionRef} className="day day--scroll" id="day-with-reflexion" aria-labelledby="day-title" data-motion-chapter>
@@ -70,7 +82,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
               exit={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
               transition={transition}
             >
-              <Image src={activeScene} alt={activeIndex === 0 ? "An older adult beginning her morning with the Reflexion Mirror" : "Illustrative website scene of an older adult speaking with the Reflexion Mirror, alongside a Caregiver App representation"} fill sizes="(max-width: 820px) 100vw, 58vw" className="day-scroll__scene-image" style={{ objectPosition: activeIndex === 0 ? "center" : activeIndex % 2 === 0 ? "center" : "58% center" }}/>
+              <Image src={activeScene} alt={sceneAlts[activeIndex] ?? sceneAlts[0]} fill sizes="(max-width: 820px) 100vw, 58vw" className="day-scroll__scene-image" style={{ objectPosition: activeIndex === 3 || activeIndex === 5 ? "58% center" : "center" }}/>
             </motion.div>
           </AnimatePresence>
           <p><span>{activeMoment[0]}</span>{activeMoment[1]}</p>
