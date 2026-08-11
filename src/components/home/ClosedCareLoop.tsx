@@ -46,9 +46,19 @@ export function ClosedCareLoop({ content, locale }: { content: Content; locale: 
           <p>{comparison[1]}</p>
         </article>)}
       </div>
+      <div className="care-loop__comparison-accordions">
+        {content.loop.comparisons.map((comparison, index) => <details key={comparison[0]}>
+          <summary>
+            <span className="care-loop__comparison-icon"><Icon name={index === 0 ? "voice" : index === 1 ? "sun" : "heart"}/></span>
+            <strong>{comparison[0]}</strong>
+            <Icon className="care-loop__comparison-chevron" name="arrow"/>
+          </summary>
+          <p>{comparison[1]}</p>
+        </details>)}
+      </div>
     </div>
 
-    <div className="care-loop__closed" data-motion-item>
+    <div className="care-loop__closed" data-motion-item data-sticky-cta-suppression>
       <div className="care-loop__closed-copy">
         <p className="eyebrow">{content.loop.closedEyebrow}</p>
         <h3>{content.loop.closedTitle}</h3>
@@ -56,9 +66,12 @@ export function ClosedCareLoop({ content, locale }: { content: Content; locale: 
         <ButtonLink href={localisedHref("/how-it-works", locale)}>{content.hero.secondary}</ButtonLink>
       </div>
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
-        <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true"><path data-motion-path d="M92 110C190 8 510 8 608 110"/><path data-motion-path d="M608 110C510 212 190 212 92 110"/></svg>
+        <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true">
+          <defs><marker id="care-loop-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
+          <path data-motion-path markerEnd="url(#care-loop-arrow)" d="M92 110C190 8 510 8 608 110"/><path data-motion-path markerEnd="url(#care-loop-arrow)" d="M608 110C510 212 190 212 92 110"/>
+        </svg>
         <div className="care-loop__endpoint care-loop__endpoint--loved"><span className="care-loop__avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="Illustrative older loved one" fill sizes="84px"/></span><b>{content.loop.steps[0][0]}</b><small>Older adult</small></div>
-        <div className="care-loop__brand-center"><strong>Reflexion</strong><small>Mirror + Caregiver App</small></div>
+        <div className="care-loop__brand-center"><Image className="care-loop__brand-mark" src="/reflexion-assets/generated/phase1/reflexion-loop-logo-v1.png" alt="Reflexion" width={72} height={72}/></div>
         <div className="care-loop__endpoint care-loop__endpoint--caregiver"><span className="care-loop__avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="Illustrative adult-child caregiver" fill sizes="84px"/></span><b>Caregiver</b><small>Adult child</small></div>
         {content.pillars.map((pillar, index) => <span className={`care-loop__value care-loop__value--${index + 1}`} key={pillar}><Icon name={index === 0 ? "spark" : index === 1 ? "message" : index === 2 ? "check" : "heart"}/><small>{pillar}</small></span>)}
       </div>
