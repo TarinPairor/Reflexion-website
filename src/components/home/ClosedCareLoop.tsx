@@ -13,13 +13,23 @@ export function ClosedCareLoop({ content, locale }: { content: Content; locale: 
         <p className="eyebrow">{content.loop.meetEyebrow}</p>
         <h2 id="care-loop-title">{content.loop.meetTitle}</h2>
         <p>{content.loop.meetBody}</p>
-        <div className="care-loop__sides">
-          <p><span className="care-loop__mini-avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="" fill sizes="38px"/></span>{content.loop.lovedSide}</p>
-          <p><span className="care-loop__mini-avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="" fill sizes="38px"/></span>{content.loop.caregiverSide}</p>
-        </div>
       </div>
-      <div className="care-loop__devices">
-        <Image className="care-loop__scene" src="/reflexion-assets/generated/phase1/closed-loop-mirror.webp" alt="Illustrative older adult using a website representation of the Reflexion Mirror, with the Caregiver App at the edge of the scene" fill sizes="(max-width: 820px) 100vw, 65vw"/>
+      <div className="care-loop__experience-cards">
+        <article className="care-loop__experience-card care-loop__experience-card--margaret">
+          <div className="care-loop__experience-copy">
+            <p>{locale === "zh" ? "为 Margaret" : "For Margaret"}</p>
+            <h3>{locale === "zh" ? "陪伴与日常支持。" : "Companionship and routine support."}</h3>
+          </div>
+          <Image className="care-loop__margaret-scene" src="/reflexion-assets/generated/phase1/closed-loop-mirror.webp" alt="Illustrative Margaret interacting with the Reflexion Mirror" fill sizes="(max-width: 820px) 100vw, 58vw"/>
+        </article>
+        <article className="care-loop__experience-card care-loop__experience-card--mei">
+          <div className="care-loop__experience-copy">
+            <p>{locale === "zh" ? "为 Mei" : "For Mei"}</p>
+            <h3>{locale === "zh" ? "有意义的了解与联系。" : "Meaningful awareness and connection."}</h3>
+          </div>
+          <span className="care-loop__mei-portrait"><Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="Illustrative Mei using her phone" fill sizes="96px"/></span>
+          <Image className="care-loop__caregiver-app" src="/reflexion-assets/generated/phase1/two-sides-caregiver-app-cutout.webp" alt="Website representation of the Reflexion Caregiver App showing Margaret’s weekly context" width={677} height={1302} sizes="(max-width: 520px) 58vw, (max-width: 820px) 46vw, 25vw"/>
+        </article>
       </div>
     </div>
 
