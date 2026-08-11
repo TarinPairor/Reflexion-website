@@ -41,6 +41,7 @@
   .interest-form__actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 38px; padding-top: 24px; border-top: 1px solid var(--line); }
   .interest-button { min-height: 52px; display: inline-flex; align-items: center; justify-content: center; gap: 22px; padding: 0 22px; color: var(--paper); background: var(--forest); border: 1px solid var(--forest); border-radius: 8px; cursor: pointer; font-size: .74rem; font-weight: 750; transition: transform .2s ease, background .2s ease; }
   .interest-button:hover { transform: translateY(-2px); background: var(--ink-deep); }
+  .interest-button:disabled { cursor: wait; transform: none; opacity: .62; }
   .interest-button--quiet { color: var(--forest); background: transparent; border-color: var(--line); }
   .interest-button--quiet:hover { background: rgba(255,255,255,.45); }
   .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0; border: 0; }
@@ -87,6 +88,7 @@
   .decision-options { display: grid; gap: 10px; margin-top: 18px; padding: 0; border: 0; }
   .decision-options label { min-height: 76px; }
   .decision-driver { margin-top: 24px; }
+  .interest-form__error { margin-top: 18px; padding: 14px 16px; color: #742f26; background: #f3ddd6; border-radius: 8px; font-size: .72rem; font-weight: 650; }
   .interest-confirmation__mark { width: 54px; height: 54px; display: grid; place-items: center; margin-bottom: 28px; color: var(--paper); background: var(--forest); border-radius: 50%; font-size: 1.2rem; }
   .confirmation-summary { overflow: hidden; background: rgba(255,253,248,.64); border: 1px solid var(--line); border-radius: 14px; }
   .confirmation-summary div { min-height: 66px; display: grid; grid-template-columns: 180px 1fr; gap: 20px; align-items: center; padding: 14px 20px; border-bottom: 1px solid var(--line); }
