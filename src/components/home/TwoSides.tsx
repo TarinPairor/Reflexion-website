@@ -50,10 +50,15 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
         </div>
 
         <div className="two-sides__stage" aria-live="polite" data-motion-item>
-          {caregiver ? <>
+          {caregiver ? <motion.div
+            className="two-sides__caregiver-panel"
+            initial={reduceMotion ? false : { y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: reduceMotion ? 0 : .64, ease: [0.16, 1, 0.3, 1] }}
+          >
             <Image src="/reflexion-assets/generated/phase1/two-sides-for-you-v2.webp" alt="Margaret using the Reflexion Mirror to check in and receive a family message" fill sizes="(max-width: 820px) 100vw, 60vw" className="two-sides__caregiver-scene"/>
             <div className="two-sides__stage-veil" aria-hidden="true"/>
-          </> : <div className="two-sides__loved-carousel">
+          </motion.div> : <div className="two-sides__loved-carousel">
             <AnimatePresence mode="wait" initial={false}>
               <motion.article
                 className="two-sides__loved-slide"

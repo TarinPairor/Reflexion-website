@@ -12,7 +12,7 @@ export function ProductFamily({ content }: { content: Content }) {
     [content.products.hubName, content.products.hub, content.products.hubBody, "hub", "/reflexion-assets/generated/phase1/product-family-home-hub.webp", "Illustrative Reflexion Home Hub concept on a side table"],
     [content.products.companionName, content.products.companion, content.products.companionBody, "companion", "/reflexion-assets/generated/phase1/product-family-tabletop.webp", "Illustrative Tabletop Companion future concept in a warm home setting"],
   ] as const;
-  return <section className="product-family" id="find-your-reflexion" aria-labelledby="products-title" data-motion-chapter>
+  return <section className="product-family" id="find-your-reflexion" aria-labelledby="products-title" data-motion-chapter data-sticky-cta-suppression>
     <div className="product-family__layout">
       <div className="product-family__primary">
         <div className="product-family__heading" data-motion-item>

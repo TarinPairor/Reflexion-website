@@ -14,15 +14,16 @@ const morningScene = "/reflexion-assets/generated/phase1/day-with-reflexion-0800
 const conversationScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1130-v1.webp";
 const familyMessageScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1400-v1.webp";
 const voiceReplyScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1405-v1.webp";
+const eveningScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1800-v1.webp";
 const placeholderScene = "/reflexion-assets/generated/phase1/day-with-reflexion-founder-edited.webp";
-const scenes = [morningScene, conversationScene, placeholderScene, familyMessageScene, voiceReplyScene, placeholderScene];
+const scenes = [morningScene, conversationScene, placeholderScene, familyMessageScene, voiceReplyScene, eveningScene];
 const sceneAlts = [
   "An older adult beginning her morning with the Reflexion Mirror",
   "An older adult having an open conversation with the Reflexion Mirror",
   "Illustrative website scene of gentle routine support through the Reflexion Mirror",
   "Illustrative website scene of a family message received through the Reflexion Mirror",
   "An older adult replying by voice to a family message through the Reflexion Mirror",
-  "Illustrative website scene of useful context appearing in the Caregiver App",
+  "An older adult receiving gentle evening routine support through the Reflexion Mirror",
 ];
 
 export function DayWithReflexion({ content, locale }: { content: Content; locale: Locale }) {
