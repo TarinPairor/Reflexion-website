@@ -57,6 +57,7 @@ export function ProductFamily({ content }: { content: Content }) {
               <p>{body}</p>
               <a href={`/get-reflexion?form=${form === "app" ? "loved-one-app" : form === "hub" ? "home-hub" : form === "companion" ? "tabletop-companion" : form}`}>{content.products.learnMore} <Icon name="arrow"/></a>
             </div>
+            <span className="product-family__item-arrow" aria-hidden="true"><Icon name="arrow"/></span>
           </article>)}
         </div>
       </aside>

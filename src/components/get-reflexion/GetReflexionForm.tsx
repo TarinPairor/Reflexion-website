@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import {
   getExactPrice,
@@ -10,6 +10,7 @@ import {
   type MirrorPlan,
   type ProductId,
 } from "@/lib/get-reflexion/config";
+import { recordFunnelMetric, resetFunnelSession } from "@/lib/website-metrics/client";
 
 type Details = {
   firstName: string;
@@ -38,8 +39,10 @@ const initialDetails: Details = {
 const stepLabels = ["Choose", "Your Reflexion", "Your details", "Price", "Next step", "Confirmation"];
 
 export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductId }) {
-  const [step, setStep] = useState(initialProduct ? 2 : 1);
+  const [step, setStep] = useState(1);
   const [productId, setProductId] = useState<ProductId>(initialProduct ?? "mirror");
+  const [parentAcceptancePreference, setParentAcceptancePreference] = useState<ProductId | "">("");
+  const [caregiverPurchasePreference, setCaregiverPurchasePreference] = useState<ProductId | "">("");
   const [mirrorPlan, setMirrorPlan] = useState<MirrorPlan>("a");
   const [details, setDetails] = useState<Details>(initialDetails);
   const [priceDecision, setPriceDecision] = useState<"yes" | "no" | "">("");
@@ -53,8 +56,23 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
   const exactPrice = getExactPrice(productId, mirrorPlan);
   const progress = `${Math.round((step / stepLabels.length) * 100)}%`;
 
+  useEffect(() => {
+    recordFunnelMetric({ event: "funnel_started" });
+  }, []);
+
+  useEffect(() => {
+    if (step !== 2) return;
+    recordFunnelMetric({ event: "price_viewed", productId, mirrorPlan: productId === "mirror" ? mirrorPlan : null });
+  }, [mirrorPlan, productId, step]);
+
   function advance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (step === 1 && parentAcceptancePreference && caregiverPurchasePreference) {
+      recordFunnelMetric({ event: "pre_price_preferences", productId, parentAcceptancePreference, caregiverPurchasePreference });
+    }
+    if (step === 2) recordFunnelMetric({ event: "continued_after_price" });
+    if (step === 3) recordFunnelMetric({ event: "details_completed" });
+    if (step === 4 && priceDecision) recordFunnelMetric({ event: "price_decision", accepted: priceDecision === "yes" });
     setStep((current) => Math.min(current + 1, stepLabels.length));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -96,6 +114,9 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         throw new Error(result?.error ?? "We could not save your details. Please try again.");
       }
 
+      if (priceDecision === "no") recordFunnelMetric({ event: "price_rejection", reason: noReason });
+      if (priceDecision === "yes") recordFunnelMetric({ event: "follow_up_selected", followUp });
+      recordFunnelMetric({ event: "funnel_completed" });
       setStep(6);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (error) {
@@ -151,6 +172,10 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
             <p>{option.description}</p>
           </label>)}
         </fieldset>
+        <div className="preference-questions">
+          <label className="field"><span>Which form would your parent be most likely to accept at home?</span><select required value={parentAcceptancePreference} onChange={(event) => setParentAcceptancePreference(event.target.value as ProductId)}><option value="">Choose one</option>{productOptions.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}</select></label>
+          <label className="field"><span>Which form would you personally be most willing to pay for?</span><select required value={caregiverPurchasePreference} onChange={(event) => setCaregiverPurchasePreference(event.target.value as ProductId)}><option value="">Choose one</option>{productOptions.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}</select></label>
+        </div>
         <div className="interest-form__actions"><button className="interest-button" type="submit">See package and price <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
@@ -223,7 +248,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         {priceDecision === "yes" ? <fieldset className="decision-options">
           <legend className="sr-only">Choose a follow-up</legend>
           {followUpOptions.map(([value, label]) => <label key={value} data-selected={followUp === value}><input required type="radio" name="follow-up" value={value} checked={followUp === value} onChange={() => setFollowUp(value)}/><span><b>{label}</b></span></label>)}
-        </fieldset> : <label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => setNoReason(event.target.value)}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>I am not ready yet</option><option>Other</option></select></label>}
+        </fieldset> : <label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => setNoReason(event.target.value)}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>We do not need it yet</option><option>My parent may not use it</option><option>I have a privacy concern</option><option>I need to discuss it with my family</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>Other</option></select></label>}
         <label className="field field--wide decision-driver"><span>What drove your decision? <small>Optional</small></span><textarea rows={4} value={decisionReason} onChange={(event) => setDecisionReason(event.target.value)} placeholder="Tell us what mattered most to you."/></label>
         {submissionError ? <p className="interest-form__error" role="alert">{submissionError}</p> : null}
         <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack} disabled={isSubmitting}>Back</button><button className="interest-button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Saving…" : "Finish"}{!isSubmitting ? <span aria-hidden="true">→</span> : null}</button></div>
@@ -238,7 +263,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         </header>
         <dl className="confirmation-summary"><div><dt>Selected form</dt><dd>{product.name}</dd></div><div><dt>Exact price considered</dt><dd>{exactPrice}</dd></div><div><dt>Your response</dt><dd>{priceDecision === "yes" ? "Would consider at this price" : "Not at this price"}</dd></div><div><dt>Requested next step</dt><dd>{priceDecision === "no" ? "No follow-up requested" : followUpOptions.find(([value]) => value === followUp)?.[1] ?? "Recorded"}</dd></div></dl>
         <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment has been taken.</strong> This is not a purchase, order or reservation.</p>
-        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { setStep(1); setPriceDecision(""); setFollowUp(""); setNoReason(""); setDecisionReason(""); setDetails(initialDetails); }}>Review another form</button></div>
+        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { resetFunnelSession(); setStep(1); setParentAcceptancePreference(""); setCaregiverPurchasePreference(""); setPriceDecision(""); setFollowUp(""); setNoReason(""); setDecisionReason(""); setDetails(initialDetails); recordFunnelMetric({ event: "funnel_started" }); }}>Review another form</button></div>
       </div> : null}
     </section>
   </main>;

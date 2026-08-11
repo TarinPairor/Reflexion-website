@@ -14,7 +14,7 @@ export function StickyCta({ label, href = "/get-reflexion" }: { label: string; h
     const suppressionObserver = suppressors.length ? new IntersectionObserver((entries) => {
       entries.forEach((entry) => entry.isIntersecting ? intersecting.add(entry.target) : intersecting.delete(entry.target));
       setSuppressed(intersecting.size > 0);
-    }, { threshold: 0.12 }) : null;
+    }, { threshold: 0.01 }) : null;
     heroObserver.observe(hero);
     if (suppressionObserver) suppressors.forEach((suppressor) => suppressionObserver.observe(suppressor));
     return () => { heroObserver.disconnect(); suppressionObserver?.disconnect(); };

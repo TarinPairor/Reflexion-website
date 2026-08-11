@@ -14,9 +14,11 @@ export function TrustFounder({ content, locale }: { content: Content; locale: Lo
         <Image src="/reflexion-assets/generated/phase1/trust-family-scene-v2.png" alt="Illustrative older adult and her daughter sharing a family photograph at home, with Reflexion nearby" fill sizes="(max-width: 900px) 100vw, 62vw"/>
       </div>
       <div className="trust__story-copy">
-        <p className="eyebrow">{content.trust.builtEyebrow}</p>
-        <h2 id="trust-title">{content.trust.independenceTitle}</h2>
-        <p>{content.trust.intro}</p>
+        <div className="trust__story-lead">
+          <p className="eyebrow">{content.trust.builtEyebrow}</p>
+          <h2 id="trust-title">{content.trust.independenceTitle}</h2>
+          <p>{content.trust.intro}</p>
+        </div>
         <div className="trust__quiet-proof">
           <p className="eyebrow">{content.trust.quietEyebrow}</p>
           <p className="trust__proof-statement">{content.trust.quietQuote}</p>
@@ -57,7 +59,7 @@ export function TrustFounder({ content, locale }: { content: Content; locale: Lo
     <div className="trust__faq-prompt" data-motion-item>
       <span aria-hidden="true">?</span>
       <p>{locale === "zh" ? "还有关于隐私、适配或如何开始的问题？" : "Still have questions about privacy, fit or getting started?"}</p>
-      <a href={localisedHref("/faq", locale)}>{locale === "zh" ? "查看常见问题" : "See common questions"}<Icon name="arrow"/></a>
+      <a href={localisedHref("/faq", locale)}>{locale === "zh" ? "查看全部常见问题" : "Explore all FAQs"}<Icon name="arrow"/></a>
     </div>
   </section>;
 }
