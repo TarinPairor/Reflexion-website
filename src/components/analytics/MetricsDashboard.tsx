@@ -10,6 +10,7 @@ const tokenKey = "reflexion:metrics-dashboard-token:v1";
 const sourceLabels: Record<string, string> = {
   vivocity_brochure: "VivoCity brochure",
   vivocity_backdrop_qr: "Backdrop QR",
+  vivocity_easel_qr: "Easel QR",
   instagram: "Instagram",
   direct: "Direct link",
   referral: "Other referral",

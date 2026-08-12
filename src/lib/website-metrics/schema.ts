@@ -4,7 +4,7 @@ export const metricProductIdSchema = z.enum(["mirror", "loved-one-app", "bear", 
 const mirrorPlanSchema = z.enum(["a", "b"]);
 const followUpSchema = z.enum(["pilot", "orders", "availability", "progress", "none"]);
 const attributionSchema = z.object({
-  trafficSource: z.enum(["vivocity_brochure", "vivocity_backdrop_qr", "instagram", "direct", "referral", "campaign_other"]),
+  trafficSource: z.enum(["vivocity_brochure", "vivocity_backdrop_qr", "vivocity_easel_qr", "instagram", "direct", "referral", "campaign_other"]),
   utmSource: z.string().max(100).nullable(),
   utmMedium: z.string().max(100).nullable(),
   utmCampaign: z.string().max(100).nullable(),

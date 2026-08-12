@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import type { Locale } from "@/i18n/content";
-import { localisedHref, primaryPaths } from "@/lib/siteRoutes";
+import { localisedHref, visibleNavigationItems } from "@/lib/siteRoutes";
 
 export function MobileNav({ locale, labels, getLabel, currentPath = "/" }: { locale: Locale; labels: readonly string[]; getLabel: string; currentPath?: string }) {
   const [open, setOpen] = useState(false);
@@ -30,7 +30,7 @@ export function MobileNav({ locale, labels, getLabel, currentPath = "/" }: { loc
     </button>
     <div className="mobile-menu" id="mobile-menu" data-open={open}>
       <nav aria-label="Mobile navigation">
-        {labels.map((label, index) => <Link href={localisedHref(primaryPaths[index], locale)} aria-current={currentPath === primaryPaths[index] ? "page" : undefined} key={label} onClick={() => setOpen(false)}>{label}</Link>)}
+        {visibleNavigationItems(labels).map(({ label, path }) => <Link href={localisedHref(path, locale)} aria-current={currentPath === path ? "page" : undefined} key={path} onClick={() => setOpen(false)}>{label}</Link>)}
       </nav>
       <div className="mobile-menu__locales" aria-label="Language">
         <Link href={currentPath} lang="en" aria-current={locale === "en" ? "page" : undefined}>EN</Link>

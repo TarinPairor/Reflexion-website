@@ -8,7 +8,7 @@ const visitorCookie = "reflexion_visitor_id";
 const attributionKey = "reflexion:traffic-attribution:v1";
 
 type Attribution = {
-  trafficSource: "vivocity_brochure" | "vivocity_backdrop_qr" | "instagram" | "direct" | "referral" | "campaign_other";
+  trafficSource: "vivocity_brochure" | "vivocity_backdrop_qr" | "vivocity_easel_qr" | "instagram" | "direct" | "referral" | "campaign_other";
   utmSource: string | null;
   utmMedium: string | null;
   utmCampaign: string | null;
@@ -77,9 +77,11 @@ function currentContext() {
       ? "vivocity_brochure"
       : source === "vivocity" && medium === "backdrop_qr"
         ? "vivocity_backdrop_qr"
-        : source === "instagram"
-          ? "instagram"
-          : "campaign_other";
+        : source === "vivocity" && medium === "easel_qr"
+          ? "vivocity_easel_qr"
+          : source === "instagram"
+            ? "instagram"
+            : "campaign_other";
     attribution = { trafficSource, utmSource, utmMedium, utmCampaign, utmContent };
     window.sessionStorage.setItem(attributionKey, JSON.stringify(attribution));
   } else {

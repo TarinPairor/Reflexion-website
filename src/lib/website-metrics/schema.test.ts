@@ -50,6 +50,22 @@ describe("websiteMetricSchema", () => {
       attribution: base.attribution,
     }).success).toBe(true);
   });
+
+  it("accepts the distinct VivoCity easel attribution", () => {
+    expect(websiteMetricSchema.safeParse({
+      visitorId: base.visitorId,
+      path: "/?utm_source=vivocity&utm_medium=easel_qr&utm_campaign=launch",
+      event: "site_visit",
+      referrerHost: null,
+      attribution: {
+        ...base.attribution,
+        trafficSource: "vivocity_easel_qr",
+        utmSource: "vivocity",
+        utmMedium: "easel_qr",
+        utmCampaign: "launch",
+      },
+    }).success).toBe(true);
+  });
 });
 
 describe("follow-through reporting", () => {
