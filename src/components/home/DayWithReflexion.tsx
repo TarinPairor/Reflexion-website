@@ -9,21 +9,24 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
-const icons: IconName[] = ["sun", "message", "check", "heart", "voice", "spark"];
-const morningScene = "/reflexion-assets/generated/phase1/day-with-reflexion-0800-v1.webp";
-const conversationScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1130-v1.webp";
-const familyMessageScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1400-v1.webp";
-const voiceReplyScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1405-v1.webp";
-const eveningScene = "/reflexion-assets/generated/phase1/day-with-reflexion-1800-v1.webp";
-const placeholderScene = "/reflexion-assets/generated/phase1/day-with-reflexion-founder-edited.webp";
-const scenes = [morningScene, conversationScene, placeholderScene, familyMessageScene, voiceReplyScene, eveningScene];
+const icons: IconName[] = ["sun", "message", "heart", "voice", "check", "spark", "heart"];
+const scenes = [
+  "/reflexion-assets/generated/phase1/day-with-reflexion-0930-morning-check-in.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-1130-everyday-companionship.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-1400-family-message.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-1405-voice-reply.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-1800-routine-support.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-caregiver-insight.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-family-connection.png",
+];
 const sceneAlts = [
-  "An older adult beginning her morning with the Reflexion Mirror",
-  "An older adult having an open conversation with the Reflexion Mirror",
-  "Illustrative website scene of gentle routine support through the Reflexion Mirror",
-  "Illustrative website scene of a family message received through the Reflexion Mirror",
-  "An older adult replying by voice to a family message through the Reflexion Mirror",
-  "An older adult receiving gentle evening routine support through the Reflexion Mirror",
+  "Margaret beginning a morning cognitive and wellbeing check-in with Reflexion",
+  "Margaret having an everyday companionship conversation with Reflexion",
+  "Margaret receiving a family message through Reflexion",
+  "Margaret replying by voice to Mei through Reflexion",
+  "Margaret receiving gentle evening routine support through Reflexion",
+  "Reflexion Caregiver App showing Margaret’s daily update for Mei",
+  "Margaret and Mei sharing a warm family moment at home",
 ];
 
 export function DayWithReflexion({ content, locale }: { content: Content; locale: Locale }) {
@@ -39,7 +42,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
   });
 
   const activeMoment = content.day.moments[activeIndex];
-  const activeScene = scenes[activeIndex] ?? placeholderScene;
+  const activeScene = scenes[activeIndex] ?? scenes[0];
   const transition = reduceMotion ? { duration: 0 } : { duration: .48, ease: [0.16, 1, 0.3, 1] as const };
 
   return <section ref={sectionRef} className="day day--scroll" id="day-with-reflexion" aria-labelledby="day-title" data-motion-chapter>
@@ -73,7 +76,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
           </ol>
         </div>
 
-        <div className="day-scroll__visual">
+        <div className={`day-scroll__visual${activeIndex >= 5 ? " day-scroll__visual--contained" : ""}`}>
           <AnimatePresence mode="sync" initial={false}>
             <motion.div
               className="day-scroll__visual-frame"
@@ -83,7 +86,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
               exit={reduceMotion ? { opacity: 1 } : { opacity: 0 }}
               transition={transition}
             >
-              <Image src={activeScene} alt={sceneAlts[activeIndex] ?? sceneAlts[0]} fill sizes="(max-width: 820px) 100vw, 58vw" className="day-scroll__scene-image" style={{ objectPosition: activeIndex === 3 || activeIndex === 5 ? "58% center" : "center" }}/>
+              <Image src={activeScene} alt={sceneAlts[activeIndex] ?? sceneAlts[0]} fill sizes="(max-width: 820px) 100vw, 58vw" className="day-scroll__scene-image" style={{ objectPosition: activeIndex === 2 || activeIndex === 4 ? "56% center" : "center center" }}/>
             </motion.div>
           </AnimatePresence>
           <p><span>{activeMoment[0]}</span>{activeMoment[1]}</p>

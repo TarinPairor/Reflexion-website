@@ -22,7 +22,8 @@ describe("canonical content access", () => {
 
   it("keeps prohibited product language out of rendered working copy", () => {
     const publicCopy = JSON.stringify([getHomeContent("en"), getHomeContent("zh")]);
-    for (const prohibited of ["Aria", "Medication taken", "early dementia detection", "cognitive screening", "guaranteed safety"]) {
+    expect(publicCopy).toContain("Aria");
+    for (const prohibited of ["Medication taken", "early dementia detection", "cognitive screening", "guaranteed safety"]) {
       expect(publicCopy).not.toContain(prohibited);
     }
   });

@@ -520,19 +520,28 @@
   .day-scroll__moment time { display: block; color: #49675c; font-size: .75rem; font-weight: 700; }
   .day-scroll__moment h3 { max-width: 440px; margin: 6px 0 10px; font-size: clamp(2.2rem, 3.2vw, 3.8rem); }
   .day-scroll__moment article p { max-width: 460px; color: #60756e; font-size: .8rem; }
-  .day-scroll__progress { list-style: none; display: grid; grid-template-columns: repeat(6, 1fr); gap: 7px; margin-top: 28px; }
+  .day-scroll__progress { list-style: none; display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-top: 28px; }
   .day-scroll__progress li { height: 3px; position: relative; overflow: hidden; background: #d7d8cf; }
   .day-scroll__progress li::after { content: ""; position: absolute; inset: 0; transform: scaleX(0); transform-origin: left; background: var(--forest); transition: transform .32s cubic-bezier(.16,1,.3,1); }
   .day-scroll__progress li[data-active="true"]::after { transform: scaleX(1); }
   .day-scroll__progress span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
   .day-scroll__visual { min-height: min(72svh, 760px); position: relative; overflow: hidden; background: #d9c8b2; border-radius: 18px; }
+  .day-scroll__visual--contained { background: #f7f3eb; }
   .day-scroll__visual-frame { position: absolute; inset: 0; }
   .day-scroll__scene-image { object-fit: cover; transition: object-position .6s cubic-bezier(.16,1,.3,1); }
+  .day-scroll__visual--contained .day-scroll__scene-image { object-fit: contain; }
   .day-scroll__visual::after { content: ""; position: absolute; inset: auto 0 0; height: 32%; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(8,28,22,.62)); }
+  .day-scroll__visual--contained::after { display: none; }
   .day-scroll__visual > p { position: absolute; z-index: 3; right: 24px; bottom: 20px; left: 24px; display: flex; justify-content: space-between; gap: 18px; color: rgba(255,255,255,.92); font-size: .68rem; font-weight: 700; }
   .day-scroll__visual > p span { color: #f1d09d; }
-  .day-scroll__track { height: 390svh; display: grid; grid-template-rows: repeat(6, 1fr); pointer-events: none; }
-  .day--scroll .day__closing { width: min(calc(100% - 2 * var(--gutter)), var(--max)); min-height: 230px; margin: 0 auto; padding: 58px 0 46px; }
+  .day-scroll__visual--contained > p { color: var(--forest); }
+  .day-scroll__visual--contained > p span { color: var(--clay); }
+  .day-scroll__track { height: 455svh; display: grid; grid-template-rows: repeat(7, 1fr); pointer-events: none; }
+  .day--scroll .day__closing { width: min(calc(100% - 2 * var(--gutter)), 1060px); min-height: 0; position: relative; isolation: isolate; overflow: hidden; margin: 0 auto; padding: clamp(42px, 6vw, 72px) clamp(28px, 8vw, 108px) clamp(38px, 5vw, 58px); background: #ece9dc; }
+  .day--scroll .day__closing::after { content: ""; width: 260px; height: 340px; position: absolute; z-index: -1; right: -28px; bottom: -150px; opacity: .26; border-left: 1px solid #879275; border-radius: 50%; transform: rotate(35deg); box-shadow: 42px -70px 0 -20px #aab39a, 88px -132px 0 -30px #b9c0a8, 20px -150px 0 -28px #c1c7b0, 96px -210px 0 -36px #aab39a; }
+  .day--scroll .day__closing h3 { max-width: 620px; font-size: clamp(2rem, 4vw, 3.55rem); }
+  .day--scroll .day__closing p { max-width: 620px; margin: 16px 0 24px; font-size: .78rem; }
+  .day--scroll .day__closing .button { min-width: 238px; }
   .day--scroll > .product-note { width: min(calc(100% - 2 * var(--gutter)), var(--max)); margin: 0 auto; padding-bottom: 54px; }
 
   .two-sides { padding: clamp(56px, 6vw, 88px) var(--gutter); color: var(--ink); background: #f3f1ea; }
@@ -850,7 +859,7 @@
     .day-scroll__moment h3 { font-size: clamp(2rem, 6vw, 3rem); }
     .day-scroll__progress { margin-top: 16px; }
     .day-scroll__visual { min-height: 0; height: 100%; }
-    .day-scroll__track { height: 420svh; }
+    .day-scroll__track { height: 490svh; }
   }
 
   @media (max-width: 520px) {
@@ -876,8 +885,11 @@
     .day-scroll__progress { gap: 4px; margin-top: 10px; }
     .day-scroll__visual { border-radius: 12px; }
     .day-scroll__visual > p { right: 14px; bottom: 12px; left: 14px; font-size: .58rem; }
-    .day-scroll__track { height: 390svh; }
-    .day--scroll .day__closing { min-height: 0; padding: 42px 0 38px; }
+    .day-scroll__track { height: 455svh; }
+    .day--scroll .day__closing { padding: 42px 28px 38px; }
+    .day--scroll .day__closing h3 { max-width: 330px; font-size: 2.2rem; }
+    .day--scroll .day__closing p { max-width: 330px; margin-top: 14px; font-size: .72rem; }
+    .day--scroll .day__closing .button { width: min(100%, 380px); }
     .day--scroll > .product-note { padding-bottom: 42px; }
     .two-sides__lead-copy { padding: 58px 20px 28px; text-align: center; }
     .two-sides__lead-copy h2 { max-width: 350px; margin: 12px auto 15px; font-size: 2.75rem; }
