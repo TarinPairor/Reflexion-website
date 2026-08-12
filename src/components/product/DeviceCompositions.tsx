@@ -18,7 +18,7 @@ export function MirrorScene({
       fill
       loading={compact ? "lazy" : "eager"}
       fetchPriority={compact ? "auto" : "high"}
-      sizes={compact ? "(max-width: 768px) 72vw, 34vw" : "(max-width: 768px) 100vw, 58vw"}
+      sizes={compact ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 58vw"}
     />
   </div>;
 }
