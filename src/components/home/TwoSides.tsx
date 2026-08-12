@@ -7,20 +7,18 @@ import type { getHomeContent, Locale } from "@/i18n/content";
 import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
+import { CaregiverForYouStory } from "./CaregiverForYouStory";
 
 type Content = ReturnType<typeof getHomeContent>;
 type Perspective = "loved" | "caregiver";
 
 const lovedIcons: IconName[] = ["sun", "message", "check", "heart"];
-const caregiverIcons: IconName[] = ["sun", "spark", "message", "check", "heart"];
 
 export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
   const [perspective, setPerspective] = useState<Perspective>("loved");
   const [lovedSlide, setLovedSlide] = useState(0);
   const reduceMotion = useReducedMotion();
   const caregiver = perspective === "caregiver";
-  const features = caregiver ? content.sides.caregiverFeatures : content.sides.lovedFeatures;
-  const icons = caregiver ? caregiverIcons : lovedIcons;
 
   const choosePerspective = (next: Perspective) => {
     setPerspective(next);
@@ -49,16 +47,8 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
           </div>
         </div>
 
-        <div className="two-sides__stage" aria-live="polite" data-motion-item>
-          {caregiver ? <motion.div
-            className="two-sides__caregiver-panel"
-            initial={reduceMotion ? false : { y: "100%" }}
-            animate={{ y: 0 }}
-            transition={{ duration: reduceMotion ? 0 : .64, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <Image src="/reflexion-assets/generated/phase1/two-sides-for-you-v2.webp" alt="Margaret using the Reflexion Mirror to check in and receive a family message" fill sizes="(max-width: 820px) 100vw, 60vw" className="two-sides__caregiver-scene"/>
-            <div className="two-sides__stage-veil" aria-hidden="true"/>
-          </motion.div> : <div className="two-sides__loved-carousel">
+        {caregiver ? <CaregiverForYouStory content={content} locale={locale}/> : <div className="two-sides__stage" aria-live="polite" data-motion-item>
+          <div className="two-sides__loved-carousel">
             <AnimatePresence mode="wait" initial={false}>
               <motion.article
                 className="two-sides__loved-slide"
@@ -85,17 +75,17 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
             <div className="two-sides__loved-dots" aria-label={locale === "zh" ? "挚爱家人幻灯片" : "Loved-one slides"}>
               {[0, 1].map((slide) => <button type="button" key={slide} aria-label={`${locale === "zh" ? "幻灯片" : "Slide"} ${slide + 1}`} aria-current={slide === lovedSlide ? "true" : undefined} onClick={() => setLovedSlide(slide)}/>) }
             </div>
-          </div>}
-        </div>
+          </div>
+        </div>}
       </div>
 
-      <div className="two-sides__detail" role="tabpanel" data-motion-item>
-        <p className="eyebrow">{caregiver ? content.sides.caregiverTab.replace("02 — ", "") : content.sides.lovedTab.replace("01 — ", "")}</p>
-        <h3>{caregiver ? content.sides.caregiverTitle : content.sides.lovedTitle}</h3>
-        <p className="two-sides__detail-intro">{caregiver ? content.sides.caregiverBody : content.sides.lovedBody}</p>
+      {!caregiver && <div className="two-sides__detail" role="tabpanel" data-motion-item>
+        <p className="eyebrow">{content.sides.lovedTab.replace("01 — ", "")}</p>
+        <h3>{content.sides.lovedTitle}</h3>
+        <p className="two-sides__detail-intro">{content.sides.lovedBody}</p>
         <div className="two-sides__features">
-          {features.map((feature, index) => <article key={feature[0]}>
-            <span className="two-sides__feature-icon" aria-hidden="true"><Icon name={icons[index]}/></span>
+          {content.sides.lovedFeatures.map((feature, index) => <article key={feature[0]}>
+            <span className="two-sides__feature-icon" aria-hidden="true"><Icon name={lovedIcons[index]}/></span>
             <div><h4>{feature[0]}</h4><b>{feature[1]}</b><p>{feature[2]}</p></div>
           </article>)}
         </div>
@@ -103,7 +93,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
           <p>{content.sides.closingTitle}</p>
           <ButtonLink href={localisedHref("/products", locale)} variant="secondary">{content.sides.cta}</ButtonLink>
         </div>
-      </div>
+      </div>}
     </div>
   </section>;
 }
