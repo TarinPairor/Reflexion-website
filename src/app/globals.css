@@ -45,13 +45,20 @@
   .interest-button--quiet { color: var(--forest); background: transparent; border-color: var(--line); }
   .interest-button--quiet:hover { background: rgba(255,255,255,.45); }
   .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0; border: 0; }
-  .choice-card { min-height: 190px; position: relative; display: flex; flex-direction: column; align-items: flex-start; padding: 24px; background: rgba(255,253,248,.62); border: 1px solid var(--line); border-radius: 14px; cursor: pointer; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
-  .choice-card:first-of-type { grid-column: 1 / -1; min-height: 155px; }
+  .choice-card { min-height: 190px; position: relative; display: grid; grid-template-columns: minmax(0, 1fr) minmax(116px, 34%); padding: 0; overflow: hidden; background: rgba(255,253,248,.62); border: 1px solid var(--line); border-radius: 14px; cursor: pointer; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+  .choice-card--mirror { grid-column: 1 / -1; grid-template-columns: 1fr; grid-template-rows: 136px minmax(0, 1fr); min-height: 270px; }
   .choice-card:hover { transform: translateY(-2px); border-color: rgba(23,53,44,.42); }
   .choice-card[data-selected="true"] { border-color: var(--forest); background: var(--paper); box-shadow: 0 12px 34px rgba(23,53,44,.07); }
   .choice-card input { position: absolute; opacity: 0; pointer-events: none; }
   .choice-card__check { width: 19px; height: 19px; position: absolute; top: 21px; right: 21px; border: 1px solid #8da097; border-radius: 50%; }
   .choice-card[data-selected="true"] .choice-card__check { border: 6px solid var(--forest); }
+  .choice-card__media { min-width: 0; min-height: 0; position: relative; grid-column: 2; grid-row: 1; overflow: hidden; background: #e5ded1; border-left: 1px solid var(--line); }
+  .choice-card__media img { object-fit: cover; }
+  .choice-card--mirror .choice-card__media { grid-column: 1; grid-row: 1; border-left: 0; border-bottom: 1px solid var(--line); }
+  .choice-card--mirror .choice-card__media img { object-position: center top; }
+  .choice-card--bear .choice-card__media img, .choice-card--home-hub .choice-card__media img { padding: 12px; object-fit: contain; }
+  .choice-card__body { min-width: 0; display: flex; flex-direction: column; align-items: flex-start; grid-column: 1; grid-row: 1; padding: 24px; }
+  .choice-card--mirror .choice-card__body { grid-column: 1; grid-row: 2; }
   .choice-card strong { max-width: calc(100% - 32px); font: 400 1.55rem/1.08 var(--serif); }
   .choice-card small { margin-top: 8px; color: var(--clay); font-size: .61rem; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
   .choice-card p { max-width: 450px; margin-top: auto; padding-top: 20px; color: #60736c; font-size: .7rem; line-height: 1.5; }
@@ -123,7 +130,7 @@
     .interest-form__heading { margin-bottom: 30px; }.interest-form__heading h1 { margin-top: 14px; font-size: 3.05rem; }.interest-form__heading > p:last-child { font-size: .82rem; }
     .choice-grid, .price-options, .field-grid, .package-summary__body, .preference-questions { grid-template-columns: 1fr; }
     .preference-questions .field > span { min-height: 0; }
-    .choice-card, .choice-card:first-of-type { grid-column: auto; min-height: 158px; padding: 20px; }.choice-card__check { top: 18px; right: 18px; }.choice-card strong { font-size: 1.4rem; }.choice-card p { padding-top: 17px; }
+    .choice-card { min-height: 185px; }.choice-card--mirror { grid-column: auto; grid-template-rows: 122px minmax(0, 1fr); min-height: 260px; }.choice-card__body { padding: 20px; }.choice-card__check { top: 18px; right: 18px; }.choice-card strong { font-size: 1.4rem; }.choice-card p { padding-top: 17px; }
     .package-summary__top { align-items: flex-start; flex-direction: column; gap: 4px; padding: 14px 18px; }.package-summary__body { gap: 24px; padding: 22px; }.package-summary__price { padding: 22px 0 0; border-top: 1px solid var(--line); border-left: 0; }.package-summary__price strong { font-size: 2rem; }
     .price-options label { min-height: 72px; }.field--wide { grid-column: auto; }
     .price-confirmation strong { font-size: 2.45rem; }.decision-options label { align-items: flex-start; }

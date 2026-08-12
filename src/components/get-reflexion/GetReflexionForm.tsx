@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, type FormEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   getExactPrice,
@@ -37,6 +38,39 @@ const initialDetails: Details = {
 };
 
 const stepLabels = ["Choose", "Your Reflexion", "Your details", "Price", "Next step", "Confirmation"];
+
+const choicePresentation = {
+  mirror: {
+    image: "/reflexion-assets/generated/phase1/get-reflexion-mirror.png",
+    alt: "Reflexion Mirror in a warm home setting",
+    maturity: "Current flagship",
+    description: "A 21.5-inch home experience for check-ins, companionship, routine support and family connection.",
+  },
+  "loved-one-app": {
+    image: "/reflexion-assets/generated/phase1/get-reflexion-loved-one-app.png",
+    alt: "Reflexion Loved-one App showing a morning check-in",
+    maturity: "Coming soon",
+    description: "A functional phone-based alternative for families who prefer a familiar screen.",
+  },
+  bear: {
+    image: "/reflexion-assets/generated/phase1/get-reflexion-bear.png",
+    alt: "Reflexion Bear companion concept",
+    maturity: "Coming soon",
+    description: "A softer companion form being explored for homes where a screen may feel less natural.",
+  },
+  "home-hub": {
+    image: "/reflexion-assets/generated/phase1/get-reflexion-home-hub.png",
+    alt: "Reflexion Home Hub concept",
+    maturity: "Coming soon",
+    description: "A compact home-based concept designed for smart home users.",
+  },
+  "tabletop-companion": {
+    image: "/reflexion-assets/generated/phase1/get-reflexion-tabletop-companion.png",
+    alt: "Reflexion Tabletop Companion concept",
+    maturity: "Coming soon",
+    description: "A more expressive tabletop form being explored as a future direction.",
+  },
+} satisfies Record<ProductId, { image: string; alt: string; maturity: string; description: string }>;
 
 export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductId }) {
   const [step, setStep] = useState(1);
@@ -164,12 +198,15 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         </header>
         <fieldset className="choice-grid">
           <legend className="sr-only">Choose a Reflexion form</legend>
-          {productOptions.map((option) => <label className="choice-card" key={option.id} data-selected={productId === option.id}>
+          {productOptions.map((option) => <label className={`choice-card choice-card--${option.id}`} key={option.id} data-selected={productId === option.id}>
             <input type="radio" name="product" value={option.id} checked={productId === option.id} onChange={() => setProductId(option.id)}/>
+            <span className="choice-card__media"><Image src={choicePresentation[option.id].image} alt={choicePresentation[option.id].alt} fill priority={option.id === "mirror"} sizes="(max-width: 520px) 38vw, (max-width: 820px) 30vw, 220px"/></span>
             <span className="choice-card__check" aria-hidden="true"/>
-            <strong>{option.name}</strong>
-            <small>{option.maturity}</small>
-            <p>{option.description}</p>
+            <span className="choice-card__body">
+              <strong>{option.name}</strong>
+              <small>{choicePresentation[option.id].maturity}</small>
+              <p>{choicePresentation[option.id].description}</p>
+            </span>
           </label>)}
         </fieldset>
         <div className="preference-questions">
