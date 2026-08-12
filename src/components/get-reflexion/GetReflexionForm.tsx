@@ -11,7 +11,7 @@ import {
   type MirrorPlan,
   type ProductId,
 } from "@/lib/get-reflexion/config";
-import { recordFunnelMetric, resetFunnelSession } from "@/lib/website-metrics/client";
+import { recordFunnelMetric } from "@/lib/website-metrics/client";
 
 type Details = {
   firstName: string;
@@ -22,6 +22,7 @@ type Details = {
   city: string;
   postalCode: string;
   recipient: string;
+  recipientOther: string;
   readiness: boolean;
 };
 
@@ -34,6 +35,7 @@ const initialDetails: Details = {
   city: "",
   postalCode: "",
   recipient: "",
+  recipientOther: "",
   readiness: false,
 };
 
@@ -72,22 +74,32 @@ const choicePresentation = {
   },
 } satisfies Record<ProductId, { image: string; alt: string; maturity: string; description: string }>;
 
-type ShareStatus = "idle" | "copied" | "shared";
+type ShareStatus = "idle" | "copied" | "shared" | "ready";
+type PreviewStep = 5 | 6;
 
-export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductId }) {
-  const [step, setStep] = useState(1);
+export function GetReflexionForm({ initialProduct, previewStep }: { initialProduct?: ProductId; previewStep?: PreviewStep }) {
+  const isPreview = previewStep !== undefined;
+  const previewProduct = initialProduct ?? "mirror";
+  const previewFollowUp = previewProduct === "mirror"
+    ? "pilot"
+    : previewProduct === "loved-one-app"
+      ? "availability"
+      : "progress";
+  const [step, setStep] = useState(previewStep ?? 1);
   const [productId, setProductId] = useState<ProductId>(initialProduct ?? "mirror");
   const [parentAcceptancePreference, setParentAcceptancePreference] = useState<ProductId | "">("");
   const [caregiverPurchasePreference, setCaregiverPurchasePreference] = useState<ProductId | "">("");
   const [mirrorPlan, setMirrorPlan] = useState<MirrorPlan>("a");
   const [details, setDetails] = useState<Details>(initialDetails);
-  const [priceDecision, setPriceDecision] = useState<"yes" | "no" | "">("");
-  const [followUp, setFollowUp] = useState("");
+  const [priceDecision, setPriceDecision] = useState<"yes" | "no" | "">(isPreview ? "yes" : "");
+  const [followUp, setFollowUp] = useState(isPreview ? previewFollowUp : "");
   const [noReason, setNoReason] = useState("");
+  const [noReasonOther, setNoReasonOther] = useState("");
   const [decisionReason, setDecisionReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
   const [shareStatus, setShareStatus] = useState<ShareStatus>("idle");
+  const [shareLink, setShareLink] = useState("");
 
   const product = getProduct(productId);
   const exactPrice = getExactPrice(productId, mirrorPlan);
@@ -134,6 +146,9 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
       url: shareUrl,
     };
 
+    setShareLink(shareUrl);
+    setShareStatus("ready");
+
     try {
       if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
         await navigator.share(shareData);
@@ -143,15 +158,19 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
       if (typeof navigator !== "undefined" && navigator.clipboard) {
         await navigator.clipboard.writeText(shareUrl);
         setShareStatus("copied");
+        return;
       }
+      setShareLink(shareUrl);
+      setShareStatus("ready");
     } catch {
-      setShareStatus("idle");
+      setShareLink(shareUrl);
+      setShareStatus("ready");
     }
   }
 
   async function submitInterest(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (!priceDecision || isSubmitting) return;
+    if (isPreview || !priceDecision || isSubmitting) return;
 
     setIsSubmitting(true);
     setSubmissionError("");
@@ -167,6 +186,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           priceDecision,
           followUp: priceDecision === "yes" ? followUp : null,
           noReason: priceDecision === "no" ? noReason : null,
+          noReasonOther: priceDecision === "no" && noReason === "Other" ? noReasonOther : null,
           decisionReason: decisionReason.trim() || null,
         }),
       });
@@ -199,7 +219,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           ["none", "No follow-up for now"],
         ]
       : [
-          ["progress", "Keep me updated if this form progresses"],
+          ["progress", "Keep me updated of Singapore launch"],
           ["none", "No follow-up for now"],
         ];
 
@@ -281,7 +301,8 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <label className="field field--wide"><span>Street address</span><input required autoComplete="street-address" maxLength={160} value={details.streetAddress} onChange={(event) => updateDetails("streetAddress", event.target.value)}/></label>
           <label className="field"><span>Town / City <small>(optional)</small></span><input autoComplete="address-level2" maxLength={100} value={details.city} onChange={(event) => updateDetails("city", event.target.value)}/></label>
           <label className="field"><span>Postcode / ZIP</span><input required autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{6}" maxLength={6} placeholder="6 digits" title="Enter a 6-digit postcode" value={details.postalCode} onChange={(event) => updateDetails("postalCode", event.target.value.replace(/\D/g, "").slice(0, 6))}/></label>
-          <label className="field"><span>Intended recipient</span><select required value={details.recipient} onChange={(event) => updateDetails("recipient", event.target.value)}><option value="">Choose one</option><option>Parent</option><option>Grandparent</option><option>Spouse</option><option>Other</option></select></label>
+          <label className="field"><span>Intended recipient</span><select required value={details.recipient} onChange={(event) => setDetails((current) => ({ ...current, recipient: event.target.value, recipientOther: event.target.value === "Other" ? current.recipientOther : "" }))}><option value="">Choose one</option><option>Parent</option><option>Grandparent</option><option>Spouse</option><option>Other</option></select></label>
+          {details.recipient === "Other" ? <label className="field field--wide"><span>Other relationship</span><input required autoComplete="off" maxLength={100} value={details.recipientOther} onChange={(event) => updateDetails("recipientOther", event.target.value)} placeholder="Tell us who this is for"/></label> : null}
         </div>
         <label className="acknowledgement"><input required type="checkbox" checked={details.readiness} onChange={(event) => updateDetails("readiness", event.target.checked)}/><span>I have discussed—or am willing to discuss—this with my loved one.<small>This acknowledgement is not older-adult consent.</small></span></label>
         <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
@@ -302,22 +323,24 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
-      {step === 5 ? <form onSubmit={submitInterest} className="interest-form">
+      {step === 5 ? <form onSubmit={isPreview ? (event) => event.preventDefault() : submitInterest} className="interest-form">
         {priceDecision === "yes" ? <p className="eyebrow interest-form__step-heading">Choose a follow-up</p> : <header className="interest-form__heading">
           <p className="eyebrow">Help us understand</p>
           <h1>What is the main reason?</h1>
           <p>Your answer helps us understand the price decision without treating it as a sale.</p>
         </header>}
+        {isPreview ? <p className="preview-notice" role="status">Preview only — this form will not submit.</p> : null}
         {priceDecision === "yes" ? <fieldset className="decision-options">
           <legend className="sr-only">Choose a follow-up</legend>
           {followUpOptions.map(([value, label]) => <label key={value} data-selected={followUp === value}><input required type="radio" name="follow-up" value={value} checked={followUp === value} onChange={() => setFollowUp(value)}/><span><b>{label}</b></span></label>)}
-        </fieldset> : <label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => setNoReason(event.target.value)}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>We do not need it yet</option><option>My parent may not use it</option><option>I have a privacy concern</option><option>I need to discuss it with my family</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>Other</option></select></label>}
+        </fieldset> : <div className="field-stack"><label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => { setNoReason(event.target.value); if (event.target.value !== "Other") setNoReasonOther(""); }}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>We do not need it yet</option><option>My parent may not use it</option><option>I have a privacy concern</option><option>I need to discuss it with my family</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>Other</option></select></label>{noReason === "Other" ? <label className="field field--wide"><span>Please specify</span><input required autoComplete="off" maxLength={160} value={noReasonOther} onChange={(event) => setNoReasonOther(event.target.value)} placeholder="Tell us what matters most"/></label> : null}</div>}
         <label className="field field--wide decision-driver"><span>What drove your decision? <small>Optional</small></span><textarea rows={4} value={decisionReason} onChange={(event) => setDecisionReason(event.target.value)} placeholder="Tell us what mattered most to you."/></label>
         {submissionError ? <p className="interest-form__error" role="alert">{submissionError}</p> : null}
-        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack} disabled={isSubmitting}>Back</button><button className="interest-button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Saving…" : "Finish"}{!isSubmitting ? <span aria-hidden="true">→</span> : null}</button></div>
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack} disabled={isSubmitting}>Back</button><button className="interest-button" type="submit" disabled={isSubmitting || isPreview}>{isPreview ? "Preview only" : isSubmitting ? "Saving…" : "Finish"}{!isSubmitting && !isPreview ? <span aria-hidden="true">→</span> : null}</button></div>
       </form> : null}
 
       {step === 6 ? <div className="interest-form interest-confirmation">
+        {isPreview ? <p className="preview-notice" role="status">Preview only — no submission was made.</p> : null}
         <span className="interest-confirmation__mark" aria-hidden="true">✓</span>
         <header className="interest-form__heading">
           <p className="eyebrow">Thank you</p>
@@ -333,8 +356,12 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <button className="interest-button" type="button" onClick={shareReflexion}>Share Reflexion <span aria-hidden="true">↗</span></button>
           {shareStatus === "copied" ? <small role="status">Link copied.</small> : null}
           {shareStatus === "shared" ? <small role="status">Thanks for sharing Reflexion.</small> : null}
+          {shareStatus === "ready" ? <div className="share-invite__fallback" role="status">
+            <label htmlFor="reflexion-share-link">Copy this link to share Reflexion</label>
+            <input id="reflexion-share-link" type="text" readOnly value={shareLink} onFocus={(event) => event.currentTarget.select()}/>
+          </div> : null}
         </aside> : null}
-        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { resetFunnelSession(); setStep(1); setParentAcceptancePreference(""); setCaregiverPurchasePreference(""); setPriceDecision(""); setFollowUp(""); setNoReason(""); setDecisionReason(""); setDetails(initialDetails); setShareStatus("idle"); recordFunnelMetric({ event: "funnel_started" }); }}>Review another form</button></div>
+        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link></div>
       </div> : null}
     </section>
   </main>;

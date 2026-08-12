@@ -15,7 +15,7 @@ export function AboutPage({ locale, home, page, common }: { locale: Locale; home
   return <>
     <section className="about-origin" id="top" aria-labelledby="about-title" data-motion-chapter>
       <div className="about-origin__image" data-motion-item><Image src="/reflexion-assets/people/family/production-candidates/mama-family-photo.jpg" alt="Kong Kei-Lyn sharing a family moment with her grandmother, Mama" fill priority sizes="(max-width: 820px) 100vw, 58vw"/></div>
-      <div className="about-origin__copy" data-motion-item><p className="eyebrow">{home.nav[2]}</p><h1 id="about-title">{page.heroTitle}</h1><p>{page.heroBody}</p><small>{page.heroLimit}</small></div>
+      <div className="about-origin__copy" data-motion-item><p className="eyebrow">{home.nav[2]}</p><h1 id="about-title">{page.heroTitle}</h1><p>{page.heroBody}</p></div>
     </section>
 
     <section className="about-story interior-section" aria-labelledby="about-story-title" data-motion-chapter>
@@ -44,6 +44,10 @@ export function AboutPage({ locale, home, page, common }: { locale: Locale; home
     <section className="about-founders interior-section interior-section--sage" aria-labelledby="founders-title" data-motion-chapter>
       <div className="interior-section__heading" data-motion-item><h2 id="founders-title">{page.foundersTitle}</h2></div>
       <div className="about-founders__list" data-motion-item>{page.founders.map((founder, index) => <article key={founder[0]}><span>0{index + 1}</span><h3>{founder[0]}</h3><b>{founder[1]}</b><p>{founder[2]}</p></article>)}</div>
+      <figure className="about-founders__photo" data-motion-item>
+        <div className="about-founders__photo-media"><Image src="/reflexion-assets/people/founders/IMG_4042.JPG" alt="Kong Kei-Lyn and Chloe Tan together" fill sizes="(max-width: 767px) calc(100vw - 40px), 52vw"/></div>
+        <figcaption><span>{page.founders[0][1]}</span><strong>{page.founders.map(([name]) => name).join(" + ")}</strong></figcaption>
+      </figure>
     </section>
 
     <section className="about-journey interior-section" aria-labelledby="journey-title" data-motion-chapter>

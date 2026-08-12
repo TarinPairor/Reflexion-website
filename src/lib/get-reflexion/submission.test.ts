@@ -13,11 +13,13 @@ const validMirrorSubmission = {
     city: "Singapore",
     postalCode: "123456",
     recipient: "Parent",
+    recipientOther: "",
     readiness: true,
   },
   priceDecision: "yes",
   followUp: "pilot",
   noReason: null,
+  noReasonOther: null,
   decisionReason: "A calm way to stay connected.",
 };
 
@@ -48,5 +50,31 @@ describe("websiteFormSubmissionSchema", () => {
     };
 
     expect(websiteFormSubmissionSchema.safeParse(submission).success).toBe(false);
+  });
+
+  it("requires details when Other is selected", () => {
+    const submission = {
+      ...validMirrorSubmission,
+      details: { ...validMirrorSubmission.details, recipient: "Other", recipientOther: "" },
+    };
+
+    expect(websiteFormSubmissionSchema.safeParse(submission).success).toBe(false);
+    expect(websiteFormSubmissionSchema.safeParse({
+      ...submission,
+      details: { ...submission.details, recipientOther: "Sibling" },
+    }).success).toBe(true);
+  });
+
+  it("requires a specified reason when Other is selected", () => {
+    const submission = {
+      ...validMirrorSubmission,
+      priceDecision: "no",
+      followUp: null,
+      noReason: "Other",
+      noReasonOther: "",
+    };
+
+    expect(websiteFormSubmissionSchema.safeParse(submission).success).toBe(false);
+    expect(websiteFormSubmissionSchema.safeParse({ ...submission, noReasonOther: "The form felt unfamiliar." }).success).toBe(true);
   });
 });

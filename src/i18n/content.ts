@@ -175,8 +175,22 @@ const working = {
       finalTitle: "Ready to explore what Reflexion could feel like at home?",
       finalBody: "Start with a conversation about the person you care for, the rhythm of their day and what staying connected means to your family.",
     },
-    footerLine: "Care that feels closer.",
-    footerNote: "Consumer wellness + caregiver support. Not an emergency monitoring service.",
+    footer: {
+      line: "Care that feels closer.",
+      explore: "EXPLORE",
+      connect: "CONNECT",
+      instagram: "Instagram: @reflexion.sg",
+      instagramHref: "https://instagram.com/reflexion.sg",
+      emailLabel: "Email:",
+      emailParts: ["reflexion.", "aitechnologies", "@gmail.com"],
+      emailHref: "mailto:reflexion.aitechnologies@gmail.com",
+      phone: "Phone number: +65 9001 2005",
+      phoneHref: "https://wa.me/6590012005",
+      cta: "Get Reflexion",
+      disclaimer: "Reflexion supports everyday wellbeing and family connection. It is not a medical, diagnostic or emergency service.",
+      privacy: "Privacy",
+      terms: "Terms",
+    },
   },
   zh: {
     nav: ["运作方式", "产品", "关于我们", "常见问题"],
@@ -292,12 +306,42 @@ const working = {
       items: [["Reflexion 只适合已经需要全天照护的人吗？", "不是。Reflexion 为仍可能独立生活的年长家人而设计，也帮助家庭建立更自然的对话、理解与联系节奏。"], ["晨间交流是一项认知测试吗？", "这是结构化的认知与身心状态交流，设计成温暖对话。Reflexion 不诊断失智症，也不取代专业认知评估。"], ["作为照护者，我会看到什么？", "照护者 App 旨在呈现有用背景、与家人平常模式不同之处、相关近况及家庭信息，不提供临床分数。"], ["Reflexion 如何尊重家人的尊严？", "体验围绕清楚参与、主动互动与家庭联系而设计。详细隐私、同意与数据处理措辞仍需最终法律及产品审核。"]],
       finalEyebrow: "为了你的家庭", finalTitle: "准备好想象 Reflexion 在家中的感觉吗？", finalBody: "从你关心的人、他们一天的节奏，以及家人保持联系的意义开始。",
     },
-    footerLine: "让关怀感觉更靠近。",
-    footerNote: "消费级身心健康 + 照护者支持；并非紧急监测服务。",
+    footer: {
+      line: "让关怀感觉更靠近。",
+      explore: "探索",
+      connect: "联系",
+      instagram: "Instagram：@reflexion.sg",
+      instagramHref: "https://instagram.com/reflexion.sg",
+      emailLabel: "邮箱：",
+      emailParts: ["reflexion.", "aitechnologies", "@gmail.com"],
+      emailHref: "mailto:reflexion.aitechnologies@gmail.com",
+      phone: "电话号码：+65 9001 2005",
+      phoneHref: "https://wa.me/6590012005",
+      cta: "了解 Reflexion",
+      disclaimer: "Reflexion 支持日常身心健康与家庭联系。它不是医疗、诊断或紧急服务。",
+      privacy: "隐私",
+      terms: "条款",
+    },
   },
 } as const;
 
 export type HomeContent = typeof working.en;
+export type FooterContent = {
+  line: string;
+  explore: string;
+  connect: string;
+  instagram: string;
+  instagramHref: string;
+  emailLabel: string;
+  emailParts: readonly string[];
+  emailHref: string;
+  phone: string;
+  phoneHref: string;
+  cta: string;
+  disclaimer: string;
+  privacy: string;
+  terms: string;
+};
 
 export function getHomeContent(locale: Locale) {
   const hero = getHomeSection("home.hero") as unknown as {

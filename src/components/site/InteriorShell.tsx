@@ -12,7 +12,7 @@ export function InteriorShell({ locale, content, currentPath, children }: { loca
   return <div lang={locale === "zh" ? "zh-Hans" : "en"} className="interior-page">
     <SiteHeader locale={locale} labels={content.nav} getLabel={content.hero.primary} currentPath={currentPath}/>
     <MotionMain>{children}</MotionMain>
-    <SiteFooter locale={locale} line={content.footerLine} note={content.footerNote} nav={content.nav} currentPath={currentPath}/>
+    <SiteFooter locale={locale} footer={content.footer} nav={content.nav} currentPath={currentPath}/>
     <StickyCta label={content.hero.primary} href={localisedHref("/get-reflexion", locale)}/>
   </div>;
 }

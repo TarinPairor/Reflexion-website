@@ -27,11 +27,12 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
     "tabletop-companion": { name: home.products.companionName, maturity: home.products.companion },
   } satisfies Record<ProductId, { name: string; maturity: string }>;
   const localizedProductCopy = {
+    mirror: home.products.mirrorBody,
     "loved-one-app": home.products.appBody,
     bear: home.products.bearBody,
     "home-hub": home.products.hubBody,
     "tabletop-companion": home.products.companionBody,
-  } satisfies Record<Exclude<ProductId, "mirror">, string>;
+  } satisfies Record<ProductId, string>;
   return <>
     <section className="interior-hero interior-hero--products" id="top" aria-labelledby="products-page-title" data-motion-chapter>
       <div className="interior-hero__image" data-motion-item><Image src="/reflexion-assets/generated/phase1/product-family-mirror.webp" alt="Reflexion Mirror in a warm home setting" fill priority sizes="(max-width: 820px) 100vw, 58vw"/></div>

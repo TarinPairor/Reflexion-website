@@ -27,7 +27,7 @@ export function HomePage({ locale, content }: { locale: Locale; content: Content
       <TrustFounder content={content}/>
       <FaqFinal content={content} locale={locale}/>
     </MotionMain>
-    <SiteFooter locale={locale} line={content.footerLine} note={content.footerNote} nav={content.nav}/>
+    <SiteFooter locale={locale} footer={content.footer} nav={content.nav}/>
     <StickyCta label={content.hero.primary} href={locale === "zh" ? "/get-reflexion?lang=zh" : "/get-reflexion"}/>
   </div>;
 }
