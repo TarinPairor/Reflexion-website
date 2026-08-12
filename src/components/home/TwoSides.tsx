@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useRef, useState, type TouchEvent, type WheelEvent } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { getHomeContent, Locale } from "@/i18n/content";
 import { localisedHref } from "@/lib/siteRoutes";
@@ -13,8 +13,17 @@ type Perspective = "loved" | "caregiver";
 
 const lovedIcons: IconName[] = ["sun", "message", "check", "heart"];
 const caregiverIcons: IconName[] = ["sun", "spark", "message", "check", "heart"];
+const lovedSlideAdvanceDelay = 5200;
+const scrollTransitionThreshold = 42;
+
+function isInteractiveTarget(target: EventTarget | null) {
+  return target instanceof Element && Boolean(target.closest("button, a, input, select, textarea"));
+}
 
 export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
+  const detailRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef<number | null>(null);
+  const revealCaregiverOnScroll = useRef(false);
   const [perspective, setPerspective] = useState<Perspective>("loved");
   const [lovedSlide, setLovedSlide] = useState(0);
   const reduceMotion = useReducedMotion();
@@ -22,7 +31,29 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
   const features = caregiver ? content.sides.caregiverFeatures : content.sides.lovedFeatures;
   const icons = caregiver ? caregiverIcons : lovedIcons;
 
+  useEffect(() => {
+    if (caregiver || reduceMotion) return;
+
+    const timer = window.setTimeout(() => {
+      setLovedSlide((current) => current === 0 ? 1 : 0);
+    }, lovedSlideAdvanceDelay);
+
+    return () => window.clearTimeout(timer);
+  }, [caregiver, lovedSlide, reduceMotion]);
+
+  useEffect(() => {
+    if (perspective !== "caregiver" || !revealCaregiverOnScroll.current) return;
+
+    revealCaregiverOnScroll.current = false;
+    const frame = window.requestAnimationFrame(() => {
+      detailRef.current?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [perspective, reduceMotion]);
+
   const choosePerspective = (next: Perspective) => {
+    revealCaregiverOnScroll.current = false;
     setPerspective(next);
     if (next === "loved") setLovedSlide(0);
   };
@@ -31,7 +62,34 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     if (Math.abs(offset) > 42) setLovedSlide((current) => current === 0 ? 1 : 0);
   };
 
-  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter data-sticky-cta-suppression>
+  const showCaregiverFromScroll = () => {
+    if (caregiver) return;
+
+    revealCaregiverOnScroll.current = true;
+    setPerspective("caregiver");
+  };
+
+  const handleWheel = (event: WheelEvent<HTMLElement>) => {
+    if (caregiver || event.deltaY <= 0 || isInteractiveTarget(event.target)) return;
+
+    showCaregiverFromScroll();
+  };
+
+  const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
+    if (!caregiver) touchStartY.current = event.touches[0]?.clientY ?? null;
+  };
+
+  const handleTouchEnd = (event: TouchEvent<HTMLElement>) => {
+    const startY = touchStartY.current;
+    const endY = event.changedTouches[0]?.clientY;
+    touchStartY.current = null;
+
+    if (caregiver || startY === null || endY === undefined || startY - endY <= scrollTransitionThreshold || isInteractiveTarget(event.target)) return;
+
+    showCaregiverFromScroll();
+  };
+
+  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter data-sticky-cta-suppression onWheel={handleWheel} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
     <div className="two-sides__composition">
       <div className="two-sides__lead">
         <div className="two-sides__lead-copy" data-motion-item>
@@ -40,16 +98,16 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
           <p>{content.sides.intro}</p>
 
           <div className="two-sides__perspectives" role="tablist" aria-label={content.sides.eyebrow}>
-            <button type="button" role="tab" aria-selected={!caregiver} onClick={() => choosePerspective("loved")}>
+            <button type="button" role="tab" aria-selected={!caregiver} aria-controls="two-sides-detail" onClick={() => choosePerspective("loved")}>
               <span>01</span>{content.sides.lovedTab.replace("01 — ", "")}
             </button>
-            <button type="button" role="tab" aria-selected={caregiver} onClick={() => choosePerspective("caregiver")}>
+            <button type="button" role="tab" aria-selected={caregiver} aria-controls="two-sides-detail" onClick={() => choosePerspective("caregiver")}>
               <span>02</span>{content.sides.caregiverTab.replace("02 — ", "")}
             </button>
           </div>
         </div>
 
-        <div className="two-sides__stage" aria-live="polite" data-motion-item>
+        <div className="two-sides__stage" id="two-sides-stage" aria-live="polite" data-motion-item>
           {caregiver ? <motion.div
             className="two-sides__caregiver-panel"
             initial={reduceMotion ? false : { y: "100%" }}
@@ -72,7 +130,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
                 exit={reduceMotion ? { opacity: 1 } : { opacity: 0, x: lovedSlide === 0 ? 28 : -28 }}
                 transition={{ duration: reduceMotion ? 0 : .42, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Image src="/reflexion-assets/generated/phase1/two-sides-loved-one-v2.webp" alt="Margaret beginning her morning check-in with the Reflexion Mirror" fill sizes="(max-width: 820px) 100vw, 60vw"/>
+                <Image src={lovedSlide === 0 ? "/reflexion-assets/generated/phase1/two-sides-loved-one-v2.webp" : "/reflexion-assets/generated/phase1/two-sides-loved-one-check-in.png"} alt={lovedSlide === 0 ? "An older adult beginning a morning check-in with the Reflexion Mirror" : "An older adult using the Reflexion Mirror during a morning check-in"} fill sizes="(max-width: 820px) 100vw, 60vw"/>
                 <div className="two-sides__loved-overlay">
                   <p>{locale === "zh" ? "为你的挚爱家人" : "FOR YOUR LOVED ONE"}</p>
                   <h3>{lovedSlide === 0 ? content.sides.lovedTitle : locale === "zh" ? "融入她生活的支持。" : "Support that belongs in her day."}</h3>
@@ -89,7 +147,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
         </div>
       </div>
 
-      <div className="two-sides__detail" role="tabpanel" data-motion-item>
+      <div ref={detailRef} className="two-sides__detail" id="two-sides-detail" role="tabpanel" data-motion-item>
         <p className="eyebrow">{caregiver ? content.sides.caregiverTab.replace("02 — ", "") : content.sides.lovedTab.replace("01 — ", "")}</p>
         <h3>{caregiver ? content.sides.caregiverTitle : content.sides.lovedTitle}</h3>
         <p className="two-sides__detail-intro">{caregiver ? content.sides.caregiverBody : content.sides.lovedBody}</p>
