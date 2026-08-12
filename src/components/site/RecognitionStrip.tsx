@@ -9,9 +9,9 @@ const recognitionMarks = [
   { src: "/reflexion-assets/awards/blk 71 1.png", alt: "BLOCK71" },
 ] as const;
 
-export function RecognitionStrip({ title, note, items, heading = "RECOGNISED FOR INNOVATION AND IMPACT" }: { title: string; note: string; items: readonly string[]; heading?: string }) {
-  return <div className="recognition" aria-labelledby="recognition-title" data-motion-item>
-    <div className="recognition__heading"><p className="eyebrow">{heading}</p><h3 id="recognition-title">{title}</h3><p>{note}</p></div>
+export function RecognitionStrip({ title, note, items, heading = "RECOGNISED FOR INNOVATION AND IMPACT" }: { title?: string; note?: string; items: readonly string[]; heading?: string }) {
+  return <div className="recognition" aria-labelledby={title ? "recognition-title" : "recognition-heading"} data-motion-item>
+    <div className="recognition__heading"><p className="eyebrow" id={title ? undefined : "recognition-heading"}>{heading}</p>{title ? <h3 id="recognition-title">{title}</h3> : null}{note ? <p className="recognition__note">{note}</p> : null}</div>
     <ul>{items.map((item, index) => {
       const mark = recognitionMarks[index];
       return <li key={item}>

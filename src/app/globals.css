@@ -646,7 +646,7 @@
   .trust__principles p { color: #51665e; font-size: .62rem; line-height: 1.5; }
   .recognition { padding: 24px 0 28px; background: transparent; }
   .recognition__heading { display: grid; justify-items: center; gap: 4px; margin-bottom: 15px; text-align: center; }
-  .recognition__heading .eyebrow { grid-column: 1; }.recognition__heading h3 { font-size: 1.1rem; }.recognition__heading > p:last-child { max-width: 560px; color: #667a73; font-size: .53rem; text-align: center; }
+  .recognition__heading .eyebrow { grid-column: 1; }.recognition__heading h3 { font-size: 1.1rem; }.recognition__heading .recognition__note { max-width: 560px; color: #667a73; font-size: .53rem; text-align: center; }
   .recognition ul { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); list-style: none; border-top: 1px solid var(--line); }
   .recognition li { min-width: 0; min-height: 170px; display: grid; grid-template-rows: 76px auto; gap: 10px; align-content: start; padding: 18px 14px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); text-align: center; }
   .recognition li:last-child { border-right: 0; }

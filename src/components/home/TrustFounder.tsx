@@ -55,7 +55,7 @@ export function TrustFounder({ content, locale }: { content: Content; locale: Lo
       {content.trust.principles.map((principle, index) => <article key={principle[0]}><span><Icon name={principleIcons[index]}/></span><div><h3>{principle[0]}</h3><p>{principle[1]}</p></div></article>)}
     </div>
 
-    <RecognitionStrip title={content.trust.recognitionTitle} note={content.trust.recognitionNote} items={content.trust.recognition}/>
+    <RecognitionStrip items={content.trust.recognition}/>
     <div className="trust__faq-prompt" data-motion-item>
       <span aria-hidden="true">?</span>
       <p>{locale === "zh" ? "还有关于隐私、适配或如何开始的问题？" : "Still have questions about privacy, fit or getting started?"}</p>
