@@ -1,15 +1,40 @@
 import Image from "next/image";
 import type { getHomeContent } from "@/i18n/content";
-import { Icon } from "@/components/ui/Icon";
+import { Icon, type IconName } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
 
+const principleIcons: IconName[] = ["heart", "spark", "message"];
+
+const recognitionMarks = [
+  { src: "/reflexion-assets/awards/partnerLogo-NUSMedicineDigitalAdvancedTechnologyAccelerator(DATA)-fe4fd070-6cb0-471c-828c-4b523dff2129.png", alt: "HealthHack Singapore" },
+  { src: "/reflexion-assets/awards/tigerlaunch_logo.jpeg", alt: "TigerLaunch Asia" },
+  { src: "/reflexion-assets/awards/images.png", alt: "Mapletree" },
+  { src: "/reflexion-assets/awards/Huawei_Standard_logo.svg.webp", alt: "Huawei" },
+  { src: "/reflexion-assets/awards/medtech actuator.jpeg", alt: "MedTech Actuator" },
+  { src: "/reflexion-assets/awards/blk 71 1.png", alt: "BLOCK71" },
+] as const;
+
 export function TrustFounder({ content }: { content: Content }) {
   return <section className="trust" id="trust" aria-labelledby="trust-title" data-motion-chapter>
-    <div className="trust__families">
-      <h2 id="trust-title">{content.trust.familiesEyebrow}</h2>
+    <div className="trust__manifesto" data-motion-item>
+      <p className="trust__manifesto-eyebrow">{content.trust.builtEyebrow}</p>
+      <h2 id="trust-title">{content.trust.independenceTitle}</h2>
+    </div>
+
+    <figure className="trust__family-scene" data-motion-item>
+      <Image
+        src="/reflexion-assets/generated/phase1/trust-family-scene-user.png"
+        alt="Illustrative family scene of an older woman and her daughter sharing a photograph at home with Reflexion nearby"
+        fill
+        sizes="(max-width: 820px) 100vw, 1180px"
+      />
+    </figure>
+
+    <div className="trust__families" data-motion-item>
+      <h3>{content.trust.familiesEyebrow}</h3>
       <div className="trust__family-quotes">
-        {content.trust.familyQuotes.map(([quote, attribution]) => <figure key={attribution} data-motion-item>
+        {content.trust.familyQuotes.map(([quote, attribution]) => <figure key={attribution}>
           <div className="trust__quote-copy">
             <span className="trust__quote-mark" aria-hidden="true">“</span>
             <blockquote>{quote}</blockquote>
@@ -25,15 +50,37 @@ export function TrustFounder({ content }: { content: Content }) {
         <p>{content.trust.founderPanelBody}</p>
         <div className="trust__built-in">
           <span className="trust__singapore-badge" aria-hidden="true">
-            <svg viewBox="0 0 32 22" fill="none"><path fill="#ED2939" d="M1 1h30v10H1z"/><path fill="#fff" d="M1 11h30v10H1z"/><circle cx="9" cy="6" r="3.7" fill="#fff"/><circle cx="10.6" cy="5.2" r="3.2" fill="#ED2939"/><path fill="#fff" d="m14.8 2.9.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m18.8 5.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m14.8 8.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m10.8 8.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m18.8 2.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/></svg>
+            <Image src="/reflexion-assets/generated/phase1/singapore-flag-round.png" alt="" fill sizes="32px" />
           </span>
           <span>{content.trust.founderLocation}</span>
         </div>
       </div>
       <figure className="trust__founders">
-        <span className="trust__founders-portrait"><Image src="/reflexion-assets/people/founders/IMG_4042.JPG" alt="Kei-Lyn and Chloe, Reflexion co-founders" fill sizes="(max-width: 520px) 110px, 140px"/></span>
+        <span className="trust__founders-portrait"><Image src="/reflexion-assets/people/founders/IMG_4042.JPG" alt="Kei-Lyn and Chloe, Reflexion co-founders" fill sizes="(max-width: 520px) 150px, 260px" /></span>
         <figcaption><strong>{content.trust.founderNames}</strong><span>{content.trust.founderRole}</span></figcaption>
       </figure>
+    </div>
+
+    <div className="trust__principles" aria-label="Principles behind Reflexion" data-motion-item>
+      <ul>
+        {content.trust.principles.map(([title, body], index) => <li key={title}>
+          <span className="trust__principle-icon" aria-hidden="true"><Icon name={principleIcons[index]}/></span>
+          <div><h3>{title}</h3><p>{body}</p></div>
+        </li>)}
+      </ul>
+    </div>
+
+    <div className="trust__recognition" aria-labelledby="trust-recognition-title" data-motion-item>
+      <p className="trust__recognition-eyebrow" id="trust-recognition-title">{content.trust.recognitionEyebrow}</p>
+      <ul className="trust__recognition-grid">
+        {content.trust.recognition.map((item, index) => {
+          const mark = recognitionMarks[index];
+          return <li key={item}>
+            <span className="trust__recognition-mark"><Image src={mark.src} alt={mark.alt} fill sizes="(max-width: 520px) 28vw, (max-width: 820px) 22vw, 170px" /></span>
+            <p>{item}</p>
+          </li>;
+        })}
+      </ul>
     </div>
   </section>;
 }

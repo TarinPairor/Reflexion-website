@@ -151,6 +151,7 @@ const working = {
       founderBody: "Mama’s experience with dementia shaped a deeply personal question: how might families stay meaningfully present while respecting the life and dignity of the person they love? Reflexion grew from that question.",
       founders: "Kong Kei-Lyn — Co-Founder · Chloe Tan — Co-Founder",
       recognitionTitle: "Recognition along the way",
+      recognitionEyebrow: "RECOGNISED FOR INNOVATION AND IMPACT",
       recognition: [
         "HealthHack 2025 — 1st Place, Silver Generation Healthcare",
         "TigerLaunch Asia Regionals 2026 — Grand Champion",
@@ -284,7 +285,7 @@ const working = {
       builtEyebrow: "为信任而设计", independenceTitle: "支持他们的独立生活，而不是夺走自主。", quietEyebrow: "照护者告诉我们的事", quietQuote: "我不需要知道每一个时刻。只希望有足够的背景，让我知道什么时候打个电话更重要。", quietQuoteLabel: "照护者访谈洞察 · 意译，非逐字见证", perspectivesTitle: "早期家庭试用 Reflexion", lovedPerspectiveLabel: "年长使用者体验方向", caregiverPerspectiveLabel: "照护者访谈洞察",
       principles: [["由他们选择", "围绕年长者的参与、同意与控制而设计。"], ["主动，而非环境监测", "清楚、有意识的互动，而非持续背景监测。"], ["人的照护仍属于人", "Reflexion 为家庭提供背景与重新联系的方式，并不取代人的照护。"]],
       founderEyebrow: "源自照护者的心", founderTitle: "一切始于 Mama，以及一个我们无法放下的问题。", founderBody: "Mama 的失智症经历，让我们认真思考：家人如何在尊重所爱之人的生活与尊严时，仍能有意义地陪伴？Reflexion 从这个问题中成长。", founders: "Kong Kei-Lyn — 联合创始人 · Chloe Tan — 联合创始人",
-      recognitionTitle: "一路上的肯定", recognition: ["HealthHack 2025 — Silver Generation Healthcare 第一名", "TigerLaunch Asia Regionals 2026 — 总冠军", "MBEC 2026 — 四支获奖团队之一", "Huawei Tech4City 2025 — Budding Youths Track 三等奖", "入选 MedTech Actuator Origin Singapore 2026", "获 BLOCK71 Start-up Runway 接纳"], recognitionNote: "项目肯定不代表临床验证或背书。",
+      recognitionTitle: "一路上的肯定", recognitionEyebrow: "认可创新与影响力", recognition: ["HealthHack 2025 — Silver Generation Healthcare 第一名", "TigerLaunch Asia Regionals 2026 — 总冠军", "MBEC 2026 — 四支获奖团队之一", "Huawei Tech4City 2025 — Budding Youths Track 三等奖", "入选 MedTech Actuator Origin Singapore 2026", "获 BLOCK71 Start-up Runway 接纳"], recognitionNote: "项目肯定不代表临床验证或背书。",
     },
     faq: {
       eyebrow: "家人常问", title: "迈出下一步前，多一点清楚。",
