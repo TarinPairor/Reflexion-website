@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { websiteMetricSchema } from "./schema";
+import { followThroughUpdateSchema } from "./follow-through";
+import { buildDropOffStages } from "./summary";
 
 const base = {
   visitorId: "cb8a7bb6-cf2d-49f9-a580-b882ab2224cc",
@@ -47,5 +49,32 @@ describe("websiteMetricSchema", () => {
       referrerHost: null,
       attribution: base.attribution,
     }).success).toBe(true);
+  });
+});
+
+describe("follow-through reporting", () => {
+  it("accepts a supported milestone for a WebsiteForms submission", () => {
+    expect(followThroughUpdateSchema.safeParse({
+      submissionId: "64b7abdecf2160b649ab6085",
+      stage: "pilot_qualified",
+    }).success).toBe(true);
+  });
+
+  it("rejects arbitrary statuses", () => {
+    expect(followThroughUpdateSchema.safeParse({
+      submissionId: "64b7abdecf2160b649ab6085",
+      stage: "sold",
+    }).success).toBe(false);
+  });
+
+  it("calculates drop-off at each visible funnel stage", () => {
+    expect(buildDropOffStages({ starts: 100, priceReached: 80, continued: 50, detailsCompleted: 40, decisions: 30, completed: 24 }))
+      .toEqual([
+        { key: "product_choice", label: "Product choice", entered: 100, advanced: 80, dropped: 20, dropOffRate: 20 },
+        { key: "price", label: "Exact price", entered: 80, advanced: 50, dropped: 30, dropOffRate: 37.5 },
+        { key: "details", label: "Personal details", entered: 50, advanced: 40, dropped: 10, dropOffRate: 20 },
+        { key: "price_confirmation", label: "Price confirmation", entered: 40, advanced: 30, dropped: 10, dropOffRate: 25 },
+        { key: "next_step", label: "Next step", entered: 30, advanced: 24, dropped: 6, dropOffRate: 20 },
+      ]);
   });
 });
