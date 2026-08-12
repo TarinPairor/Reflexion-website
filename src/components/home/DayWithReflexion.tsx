@@ -16,7 +16,7 @@ const scenes = [
   "/reflexion-assets/generated/phase1/day-with-reflexion-1400-family-message.png",
   "/reflexion-assets/generated/phase1/day-with-reflexion-1405-voice-reply.png",
   "/reflexion-assets/generated/phase1/day-with-reflexion-1800-routine-support.png",
-  "/reflexion-assets/generated/phase1/day-with-reflexion-caregiver-insight.png",
+  "/reflexion-assets/generated/phase1/day-with-reflexion-caregiver-insight-phone.png",
   "/reflexion-assets/generated/phase1/day-with-reflexion-family-connection.png",
 ];
 const sceneAlts = [
@@ -43,6 +43,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
 
   const activeMoment = content.day.moments[activeIndex];
   const activeScene = scenes[activeIndex] ?? scenes[0];
+  const visualVariant = activeIndex === 5 ? " day-scroll__visual--phone" : activeIndex === 6 ? " day-scroll__visual--family" : "";
   const transition = reduceMotion ? { duration: 0 } : { duration: .48, ease: [0.16, 1, 0.3, 1] as const };
 
   return <section ref={sectionRef} className="day day--scroll" id="day-with-reflexion" aria-labelledby="day-title" data-motion-chapter>
@@ -76,7 +77,7 @@ export function DayWithReflexion({ content, locale }: { content: Content; locale
           </ol>
         </div>
 
-        <div className={`day-scroll__visual${activeIndex >= 5 ? " day-scroll__visual--contained" : ""}`}>
+        <div className={`day-scroll__visual${visualVariant}`}>
           <AnimatePresence mode="sync" initial={false}>
             <motion.div
               className="day-scroll__visual-frame"
