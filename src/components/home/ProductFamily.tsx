@@ -7,10 +7,10 @@ type Content = ReturnType<typeof getHomeContent>;
 
 export function ProductFamily({ content }: { content: Content }) {
   const alternatives = [
-    [content.products.bearName, content.products.bear, content.products.bearBody, "bear", "/reflexion-assets/generated/phase1/product-family-bear.webp", "Illustrative Reflexion Bear prototype in a warm home setting"],
+    [content.products.bearName, content.products.bear, content.products.bearBody, "bear", "/reflexion-assets/generated/phase1/product-family-bear.webp", "Illustrative Reflexion Bear product direction in a warm home setting"],
     [content.products.appName, content.products.app, content.products.appBody, "app", "/reflexion-assets/generated/phase1/product-family-loved-app-user.webp", "Illustrative older adult using the Reflexion Loved-one App for a morning check-in"],
-    [content.products.hubName, content.products.hub, content.products.hubBody, "hub", "/reflexion-assets/generated/phase1/product-family-home-hub.webp", "Illustrative Reflexion Home Hub concept on a side table"],
-    [content.products.companionName, content.products.companion, content.products.companionBody, "companion", "/reflexion-assets/generated/phase1/product-family-tabletop.webp", "Illustrative Tabletop Companion future concept in a warm home setting"],
+    [content.products.hubName, content.products.hub, content.products.hubBody, "hub", "/reflexion-assets/generated/phase1/product-family-home-hub.webp", "Illustrative Reflexion Home Hub product direction on a side table"],
+    [content.products.companionName, content.products.companion, content.products.companionBody, "companion", "/reflexion-assets/generated/phase1/product-family-tabletop.webp", "Illustrative Tabletop Companion product direction in a warm home setting"],
   ] as const;
   return <section className="product-family" id="find-your-reflexion" aria-labelledby="products-title" data-motion-chapter data-sticky-cta-suppression>
     <div className="product-family__layout">

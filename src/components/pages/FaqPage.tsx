@@ -28,7 +28,7 @@ export function FaqPage({ locale, home, page, common }: { locale: Locale; home: 
     </section>
 
     <section className="faq-close interior-section interior-section--dark" aria-labelledby="faq-close-title" data-motion-chapter>
-      <div data-motion-item><h2 id="faq-close-title">{locale === "zh" ? "准备好探索适合你家庭的选择了吗？" : "Ready to explore what could fit your family?"}</h2><p>{locale === "zh" ? "选择一种形态，查看适用的拟议新加坡发布优惠。今天不会收取付款。" : "Choose a form and see the applicable proposed Singapore launch offer. No payment will be taken today."}</p><div className="interior-final-actions"><ButtonLink href={localisedHref("/get-reflexion", locale)} variant="light">{common.get}</ButtonLink><ButtonLink href={localisedHref("/products", locale)} variant="secondary">{common.products}</ButtonLink></div></div>
+      <div data-motion-item><h2 id="faq-close-title">{locale === "zh" ? "准备好探索适合你家庭的选择了吗？" : "Ready to explore what could fit your family?"}</h2><p>{locale === "zh" ? "选择一种形态，查看适用的新加坡发布优惠。今天不会收取付款。" : "Choose a form and see the applicable Singapore launch offer. No payment will be taken today."}</p><div className="interior-final-actions"><ButtonLink href={localisedHref("/get-reflexion", locale)} variant="light">{common.get}</ButtonLink><ButtonLink href={localisedHref("/products", locale)} variant="secondary">{common.products}</ButtonLink></div></div>
     </section>
   </>;
 }

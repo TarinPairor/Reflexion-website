@@ -22,7 +22,7 @@ export function FaqFinal({ content, locale }: { content: Content; locale: Locale
         <h2>{content.faq.finalTitle}</h2>
         <p>{content.faq.finalBody}</p>
         <div className="hero__actions"><ButtonLink href={localisedHref("/get-reflexion", locale)} variant="light">{content.hero.primary}</ButtonLink><ButtonLink href={localisedHref("/how-it-works", locale)} variant="secondary">{content.hero.secondary}</ButtonLink></div>
-        <small>Explore proposed Singapore launch offers. No payment will be taken today.</small>
+        <small>Explore Singapore launch offers. No payment will be taken today.</small>
       </div>
       <div className="final-cta__visual" aria-hidden="true">
         <MirrorScene

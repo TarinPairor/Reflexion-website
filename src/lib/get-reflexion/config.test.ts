@@ -17,8 +17,8 @@ describe("Get Reflexion commercial-intent configuration", () => {
     expect(getExactPrice("mirror", "b")).toBe("S$74.90/month for 24 months, then S$39.90/month");
   });
 
-  it("preserves maturity labels for gated and concept forms", () => {
-    expect(getProduct("loved-one-app").maturity).toContain("QA-gated");
+  it("keeps form maturity visible instead of presenting every direction as equally ready", () => {
+    expect(getProduct("loved-one-app").maturity).toBe("Functional alternative · QA gate");
     expect(getProduct("bear").maturity).toBe("Prototype");
     expect(getProduct("home-hub").maturity).toBe("Concept");
     expect(getProduct("tabletop-companion").maturity).toBe("Future concept");

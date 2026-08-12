@@ -62,7 +62,7 @@ const pages = {
       compareHeadings: ["Form", "Display", "Companion feel", "Likely placement", "Morning fit", "Interaction", "Stage"],
       compareRows: [
         ["Reflexion Mirror", "Dedicated display", "Familiar home presence", "Bedroom or personal living space", "Built around a consistent morning place", "Voice-first with readable display", "Current flagship"],
-        ["Loved-one App", "Phone screen", "Familiar personal device", "Carried or kept nearby", "Fits an existing phone habit", "Touch and voice", "Functional alternative · QA-gated"],
+        ["Loved-one App", "Phone screen", "Familiar personal device", "Carried or kept nearby", "Fits an existing phone habit", "Touch and voice", "Functional alternative · QA gate"],
         ["Reflexion Bear", "No prominent display", "Softer companion form", "Bedside or favourite seat", "Exploratory companion routine", "Conversation-led direction", "Prototype"],
         ["Reflexion Home Hub", "Compact display direction", "Shared home presence", "Common living area", "Exploratory shared-space fit", "Voice and glanceable display direction", "Concept"],
         ["Tabletop Companion", "Expressive display direction", "More characterful presence", "Table or shared surface", "Future routine direction", "Conversation-led concept", "Future concept"],
@@ -144,9 +144,9 @@ const pages = {
           ["Does it verify medication or routine completion?", "No. Routine responses are self-reported. The website does not claim verified adherence."],
         ]],
         ["Getting started and availability", [
-          ["Which forms are currently available?", "The Mirror is the current flagship. The Loved-one App is QA-gated; Bear is a prototype; Home Hub is a concept; Tabletop Companion is a future concept."],
+          ["Which forms are currently available?", "The Mirror is the current flagship. The Loved-one App is a functional alternative still subject to its QA gate; Bear is a prototype; Home Hub is a concept; and Tabletop Companion is a future concept."],
           ["Will payment be taken when I submit interest?", "No payment will be taken today. Get Reflexion records commercial interest and next-step preferences, not a completed order or reservation."],
-          ["Where can I see proposed pricing?", "Continue to Get Reflexion to choose a form and view the exact applicable proposed Singapore launch offer."],
+          ["Where can I see Singapore launch pricing?", "Continue to Get Reflexion to choose a form and view the exact applicable proposed Singapore launch offer. All prices are for validation and are not guaranteed final launch pricing."],
         ]],
         ["Contact", [
           ["How can I follow Reflexion?", "Follow @reflexion.sg on Instagram. General email, partnership email and WhatsApp details will be published only after they are confirmed."],
@@ -171,7 +171,7 @@ const pages = {
       relationshipTitle: "围绕关系而设计。", relationshipBody: "体验以主动参与、清楚边界与家庭联系为核心。", relationshipPoints: [["尊严", "挚爱家人主动参与，而非被动观察。"], ["隐私", "只有获准的背景在相连体验中流动。"], ["同意与控制", "商业兴趣不等于挚爱家人的参与或同意。"], ["人的联系", "每一条有用背景都应指向电话、信息或探访。"], ["清楚限制", "Reflexion 不是诊断、紧急或保证安全的服务。"]],
     },
     products: {
-      heroTitle: "找到适合家中生活的 Reflexion。", heroBody: "从最符合挚爱家人日常与空间的形态开始。五种方向并非同等成熟或可用。", mirrorTitle: "Reflexion Mirror", mirrorBody: "当前旗舰：21.5 英寸家庭体验，用于晨间交流、陪伴、温和日常支持与双向家庭联系，并连接 Reflexion 照护者 App。", otherTitle: "不同家庭，可能适合不同形态。", otherBody: "按熟悉程度、可能摆放位置与陪伴感探索，同时清楚保留成熟度标签。", compareTitle: "比较人与家庭的适配。", compareBody: "这些维度描述不同形态可能带来的家庭体验，不是虚构技术规格，也不代表同等成熟。", compareHeadings: ["形态", "显示", "陪伴感", "可能位置", "晨间适配", "互动", "阶段"],
+      heroTitle: "找到适合家中生活的 Reflexion。", heroBody: "从最符合挚爱家人日常与空间的形态开始。五种方向并非同等成熟或可用。", mirrorTitle: "Reflexion Mirror", mirrorBody: "当前旗舰：21.5 英寸家庭体验，用于晨间交流、陪伴、温和日常支持与双向家庭联系，并连接照护者 App。", otherTitle: "不同家庭，可能适合不同形态。", otherBody: "按熟悉程度、可能摆放位置与陪伴感探索，同时清楚保留成熟度标签。", compareTitle: "比较人与家庭的适配。", compareBody: "这些维度描述不同形态可能带来的家庭体验，不是虚构技术规格，也不代表同等成熟。", compareHeadings: ["形态", "显示", "陪伴感", "可能位置", "晨间适配", "互动", "阶段"],
       compareRows: [["Reflexion Mirror", "专用显示", "熟悉的家庭存在", "卧室或个人空间", "固定晨间位置", "语音为主、清晰显示", "当前旗舰"], ["挚爱家人 App", "手机屏幕", "熟悉的个人设备", "随身或放在近处", "适合现有手机习惯", "触控与语音", "功能替代方案 · QA 审核中"], ["Reflexion Bear", "无突出屏幕", "柔和陪伴形态", "床边或常坐位置", "探索性陪伴日常", "对话方向", "原型"], ["Reflexion Home Hub", "紧凑显示方向", "共享家庭存在", "公共生活空间", "探索性共享空间适配", "语音与易读显示方向", "概念"], ["桌面陪伴设备", "表达型显示方向", "更有个性的存在", "桌面或共享表面", "未来日常方向", "对话型概念", "未来概念"]],
       selectTitle: "哪一种最自然地融入挚爱家人的家？", selectBody: "选择一种形态并带入 Get Reflexion。今天不会收取付款。", caregiverTitle: "照护者 App 连接整个系统。", caregiverBody: "照护者体验帮助你了解今天、留意有意义的变化、保持联系，并决定下一步如何亲自关心。", supportTitle: "为人选择，而不是为规格表选择。", supportBody: "考虑他们早上自然停留的位置、是否已习惯手机、固定位置是否更容易，以及怎样的存在感在家中更尊重。", proofLabel: "选择支持", proofBody: "当前证据包未包含已核实的形态偏好引述，因此本页不会虚构见证。",
     },
@@ -181,7 +181,7 @@ const pages = {
     faq: {
       heroTitle: "重要问题，值得清楚而有人情味的回答。", heroBody: "从家庭最常问的问题开始，再只探索与你决定有关的类别。",
       featured: [["Reflexion 适合我的挚爱家人吗？", "Reflexion 为仍可能独立生活的年长者及希望建立自然对话、日常支持与联系节奏的家庭而设计。适配取决于个人偏好、日常与参与意愿。"], ["晨间交流会发生什么？", "每天早上第一次对话是简短的结构化认知与身心状态交流，设计成温暖对话；不诊断失智症，也不取代专业认知评估。"], ["照护者会看到什么？", "照护者 App 旨在呈现有用且获准的背景、相对本人近期平常模式的变化、相关近况及家庭信息，不提供临床分数。"], ["隐私如何处理？", "体验拟围绕清楚参与、同意与控制建立。最终公开隐私、同意与数据处理措辞仍须产品与法律审核。"]],
-      categories: [["适配", [["需要患有失智症才能使用吗？", "不需要。Reflexion 不是诊断工具，而是面向老龄家庭的消费级身心健康与照护者支持。"], ["独立生活的年长者可以使用吗？", "可以。体验围绕独立与尊严设计，并应与实际使用者讨论。"], ["不熟悉科技怎么办？", "体验以简单对话为方向；家庭仍应选择最熟悉、最尊重的形态。"]]], ["Reflexion 做什么", [["可以随时聊天吗？", "晨间交流后，可随时继续开放式陪伴对话。"], ["可以提供哪些日常支持？", "已设定提醒可支持日常、预约、计划与家庭活动；仅记录本人自述，不独立验证完成。"], ["会监测家中吗？", "Reflexion 围绕主动互动设计，而非背景环境监测。公开网站不使用摄像头营销。"]]], ["照护者与家庭联系", [["需要不断查看 App 吗？", "预期体验以推送为先，在重要时提供消息。"], ["家人可以发送信息和照片吗？", "照护者 App 旨在通过 Reflexion 发送文字、语音与照片。"], ["挚爱家人可以回复吗？", "语音回复是当前产品要求；公开可用性仍须通过实现与 QA。"]]], ["信任、安全与限制", [["会诊断失智症吗？", "不会。Reflexion 不诊断、筛查或预测失智症，也不取代专业评估。"], ["是紧急服务吗？", "不是。Reflexion 不是紧急监测，也不应用于紧急或保证安全的情况。"], ["会验证用药或日常完成吗？", "不会。日常回应为本人自述，不声称验证依从。"]]], ["开始与可用性", [["哪些形态目前可用？", "Mirror 是当前旗舰；挚爱家人 App 仍在 QA；Bear 是原型；Home Hub 是概念；桌面陪伴设备是未来概念。"], ["提交兴趣会付款吗？", "不会。今天不会收取付款；这是商业兴趣和后续偏好，不是完成订单或预订。"], ["在哪里看拟议价格？", "前往 Get Reflexion 选择形态并查看适用的拟议新加坡发布优惠。"]]], ["联系", [["如何关注 Reflexion？", "在 Instagram 关注 @reflexion.sg。一般邮箱、合作邮箱与 WhatsApp 仅在确认后发布。"]]]],
+      categories: [["适配", [["需要患有失智症才能使用吗？", "不需要。Reflexion 不是诊断工具，而是面向老龄家庭的消费级身心健康与照护者支持。"], ["独立生活的年长者可以使用吗？", "可以。体验围绕独立与尊严设计，并应与实际使用者讨论。"], ["不熟悉科技怎么办？", "体验以简单对话为方向；家庭仍应选择最熟悉、最尊重的形态。"]]], ["Reflexion 做什么", [["可以随时聊天吗？", "晨间交流后，可随时继续开放式陪伴对话。"], ["可以提供哪些日常支持？", "已设定提醒可支持日常、预约、计划与家庭活动；仅记录本人自述，不独立验证完成。"], ["会监测家中吗？", "Reflexion 围绕主动互动设计，而非背景环境监测。公开网站不使用摄像头营销。"]]], ["照护者与家庭联系", [["需要不断查看 App 吗？", "预期体验以推送为先，在重要时提供消息。"], ["家人可以发送信息和照片吗？", "照护者 App 旨在通过 Reflexion 发送文字、语音与照片。"], ["挚爱家人可以回复吗？", "语音回复是当前产品要求；公开可用性仍须通过实现与 QA。"]]], ["信任、安全与限制", [["会诊断失智症吗？", "不会。Reflexion 不诊断、筛查或预测失智症，也不取代专业评估。"], ["是紧急服务吗？", "不是。Reflexion 不是紧急监测，也不应用于紧急或保证安全的情况。"], ["会验证用药或日常完成吗？", "不会。日常回应为本人自述，不声称验证依从。"]]], ["开始与可用性", [["哪些形态目前可用？", "Mirror 是当前旗舰；挚爱家人 App 是 QA 审核中的功能替代方案；Bear 是原型；Home Hub 是概念；桌面陪伴设备是未来概念。"], ["提交兴趣会付款吗？", "不会。今天不会收取付款；这是商业兴趣和后续偏好，不是完成订单或预订。"], ["在哪里看新加坡发布价格？", "前往 Get Reflexion 选择形态并查看适用的拟议新加坡发布优惠。所有价格用于验证，不能视为最终发布价格。"]]], ["联系", [["如何关注 Reflexion？", "在 Instagram 关注 @reflexion.sg。一般邮箱、合作邮箱与 WhatsApp 仅在确认后发布。"]]]],
     },
   },
 } as const;

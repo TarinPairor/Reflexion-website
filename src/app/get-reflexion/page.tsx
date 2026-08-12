@@ -7,7 +7,7 @@ import { isProductId } from "@/lib/get-reflexion/config";
 
 export const metadata: Metadata = {
   title: "Get Reflexion — Express your interest",
-  description: "Explore Reflexion forms and proposed Singapore launch pricing. No payment will be taken today.",
+  description: "Explore Reflexion forms and Singapore launch pricing. No payment will be taken today.",
 };
 
 export default async function GetReflexionPage({ searchParams }: { searchParams: Promise<{ lang?: string | string[]; form?: string }> }) {

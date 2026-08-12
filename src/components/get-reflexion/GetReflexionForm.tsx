@@ -43,34 +43,36 @@ const choicePresentation = {
   mirror: {
     image: "/reflexion-assets/generated/phase1/get-reflexion-mirror.png",
     alt: "Reflexion Mirror in a warm home setting",
-    maturity: "Current flagship",
-    description: "A 21.5-inch home experience for check-ins, companionship, routine support and family connection.",
+    maturity: getProduct("mirror").maturity,
+    description: getProduct("mirror").description,
   },
   "loved-one-app": {
     image: "/reflexion-assets/generated/phase1/get-reflexion-loved-one-app.png",
     alt: "Reflexion Loved-one App showing a morning check-in",
-    maturity: "Coming soon",
-    description: "A functional phone-based alternative for families who prefer a familiar screen.",
+    maturity: getProduct("loved-one-app").maturity,
+    description: getProduct("loved-one-app").description,
   },
   bear: {
     image: "/reflexion-assets/generated/phase1/get-reflexion-bear.png",
-    alt: "Reflexion Bear companion concept",
-    maturity: "Coming soon",
-    description: "A softer companion form being explored for homes where a screen may feel less natural.",
+    alt: "Reflexion Bear companion form",
+    maturity: getProduct("bear").maturity,
+    description: getProduct("bear").description,
   },
   "home-hub": {
     image: "/reflexion-assets/generated/phase1/get-reflexion-home-hub.png",
-    alt: "Reflexion Home Hub concept",
-    maturity: "Coming soon",
-    description: "A compact home-based concept designed for smart home users.",
+    alt: "Reflexion Home Hub",
+    maturity: getProduct("home-hub").maturity,
+    description: getProduct("home-hub").description,
   },
   "tabletop-companion": {
     image: "/reflexion-assets/generated/phase1/get-reflexion-tabletop-companion.png",
-    alt: "Reflexion Tabletop Companion concept",
-    maturity: "Coming soon",
-    description: "A more expressive tabletop form being explored as a future direction.",
+    alt: "Reflexion Tabletop Companion",
+    maturity: getProduct("tabletop-companion").maturity,
+    description: getProduct("tabletop-companion").description,
   },
 } satisfies Record<ProductId, { image: string; alt: string; maturity: string; description: string }>;
+
+type ShareStatus = "idle" | "copied" | "shared";
 
 export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductId }) {
   const [step, setStep] = useState(1);
@@ -85,6 +87,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
   const [decisionReason, setDecisionReason] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState("");
+  const [shareStatus, setShareStatus] = useState<ShareStatus>("idle");
 
   const product = getProduct(productId);
   const exactPrice = getExactPrice(productId, mirrorPlan);
@@ -119,6 +122,31 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
 
   function updateDetails<Key extends keyof Details>(key: Key, value: Details[Key]) {
     setDetails((current) => ({ ...current, [key]: value }));
+  }
+
+  async function shareReflexion() {
+    const shareUrl = typeof window !== "undefined"
+      ? `${window.location.origin}/get-reflexion?ref=shared`
+      : "/get-reflexion?ref=shared";
+    const shareData = {
+      title: "Reflexion",
+      text: "Explore Reflexion for families caring for ageing parents.",
+      url: shareUrl,
+    };
+
+    try {
+      if (typeof navigator !== "undefined" && typeof navigator.share === "function") {
+        await navigator.share(shareData);
+        setShareStatus("shared");
+        return;
+      }
+      if (typeof navigator !== "undefined" && navigator.clipboard) {
+        await navigator.clipboard.writeText(shareUrl);
+        setShareStatus("copied");
+      }
+    } catch {
+      setShareStatus("idle");
+    }
   }
 
   async function submitInterest(event: FormEvent<HTMLFormElement>) {
@@ -167,11 +195,11 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
       ]
     : productId === "loved-one-app"
       ? [
-          ["availability", "Contact me if availability is confirmed after QA"],
+          ["availability", "Contact me when availability is confirmed"],
           ["none", "No follow-up for now"],
         ]
       : [
-          ["progress", "Keep me updated if this concept progresses"],
+          ["progress", "Keep me updated if this form progresses"],
           ["none", "No follow-up for now"],
         ];
 
@@ -200,7 +228,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <legend className="sr-only">Choose a Reflexion form</legend>
           {productOptions.map((option) => <label className={`choice-card choice-card--${option.id}`} key={option.id} data-selected={productId === option.id}>
             <input type="radio" name="product" value={option.id} checked={productId === option.id} onChange={() => setProductId(option.id)}/>
-            <span className="choice-card__media"><Image src={choicePresentation[option.id].image} alt={choicePresentation[option.id].alt} fill priority={option.id === "mirror"} sizes="(max-width: 520px) 38vw, (max-width: 820px) 30vw, 220px"/></span>
+            <span className="choice-card__media"><Image src={choicePresentation[option.id].image} alt={choicePresentation[option.id].alt} fill loading="eager" sizes="(max-width: 520px) 38vw, (max-width: 820px) 30vw, 220px"/></span>
             <span className="choice-card__check" aria-hidden="true"/>
             <span className="choice-card__body">
               <strong>{option.name}</strong>
@@ -223,7 +251,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <p>{product.description}</p>
         </header>
         <div className="package-summary">
-          <div className="package-summary__top"><span>{product.maturity}</span><strong>Proposed Singapore launch offer</strong></div>
+          <div className="package-summary__top"><span>{product.maturity}</span><strong>Singapore launch offer</strong></div>
           <div className="package-summary__body">
             <div><p className="package-summary__label">What is included</p><ul>{product.included.map((item) => <li key={item}>{item}</li>)}</ul></div>
             <div className="package-summary__price"><p className="package-summary__label">Proposed price</p><strong>{exactPrice}</strong></div>
@@ -236,7 +264,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
             <span><b>Mirror {id.toUpperCase()}</b><small>{price}</small></span>
           </label>)}
         </fieldset> : null}
-        <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment will be taken today.</strong> Prices are being validated and are not guaranteed final launch pricing.</p>
+        <p className="no-payment"><span className="no-payment__icon" aria-hidden="true">○</span><strong>No payment will be taken today.</strong><span className="no-payment__body">Prices are being validated and are not guaranteed final launch pricing.</span></p>
         <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
@@ -244,7 +272,6 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         <header className="interest-form__heading">
           <p className="eyebrow">Your details</p>
           <h1>Who should we stay in touch with?</h1>
-          <p>Only the minimum details needed for this expression of interest.</p>
         </header>
         <div className="field-grid">
           <label className="field"><span>First name</span><input required autoComplete="given-name" maxLength={80} value={details.firstName} onChange={(event) => updateDetails("firstName", event.target.value)}/></label>
@@ -257,31 +284,30 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <label className="field"><span>Intended recipient</span><select required value={details.recipient} onChange={(event) => updateDetails("recipient", event.target.value)}><option value="">Choose one</option><option>Parent</option><option>Grandparent</option><option>Spouse</option><option>Other</option></select></label>
         </div>
         <label className="acknowledgement"><input required type="checkbox" checked={details.readiness} onChange={(event) => updateDetails("readiness", event.target.checked)}/><span>I have discussed—or am willing to discuss—this with my loved one.<small>This acknowledgement is not older-adult consent.</small></span></label>
-        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Review exact price <span aria-hidden="true">→</span></button></div>
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
       {step === 4 ? <form onSubmit={advance} className="interest-form">
         <header className="interest-form__heading">
           <p className="eyebrow">Confirm your interest at this price</p>
-          <h1>Would you seriously consider {product.name} at this price?</h1>
-          <p>Subject to final specifications, availability and commercial terms.</p>
+          <h1>Confirm this price</h1>
         </header>
         <div className="price-confirmation"><span>{product.name}</span><strong>{exactPrice}</strong><small>{product.maturity}</small></div>
         <fieldset className="decision-options">
           <legend className="sr-only">Confirm interest at the exact price</legend>
-          <label data-selected={priceDecision === "yes"}><input required type="radio" name="price-decision" value="yes" checked={priceDecision === "yes"} onChange={() => setPriceDecision("yes")}/><span><b>Yes, I’d consider it at this price</b><small>I understand this is not a purchase or reservation.</small></span></label>
+          <label data-selected={priceDecision === "yes"}><input required type="radio" name="price-decision" value="yes" checked={priceDecision === "yes"} onChange={() => setPriceDecision("yes")}/><span><b>Yes, contact me at this price</b><small>I understand this is not a purchase or reservation.</small></span></label>
           <label data-selected={priceDecision === "no"}><input required type="radio" name="price-decision" value="no" checked={priceDecision === "no"} onChange={() => setPriceDecision("no")}/><span><b>No, not at this price</b><small>I can share the main reason on the next screen.</small></span></label>
         </fieldset>
-        <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment will be taken today.</strong> This records commercial intent only.</p>
+        <p className="no-payment"><span className="no-payment__icon" aria-hidden="true">○</span><strong>No payment will be taken today.</strong><span className="no-payment__body">Reflexion is preparing its Singapore launch. By confirming, you are telling us that you would seriously consider purchasing this option at {exactPrice}, subject to final specifications, availability and commercial terms.</span></p>
         <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
       {step === 5 ? <form onSubmit={submitInterest} className="interest-form">
-        <header className="interest-form__heading">
-          <p className="eyebrow">{priceDecision === "yes" ? "Your preferred next step" : "Help us understand"}</p>
-          <h1>{priceDecision === "yes" ? "What would feel useful from here?" : "What is the main reason?"}</h1>
-          <p>{priceDecision === "yes" ? "Choose a follow-up that matches this product’s current maturity." : "Your answer helps us understand the price decision without treating it as a sale."}</p>
-        </header>
+        {priceDecision === "yes" ? <p className="eyebrow interest-form__step-heading">Choose a follow-up</p> : <header className="interest-form__heading">
+          <p className="eyebrow">Help us understand</p>
+          <h1>What is the main reason?</h1>
+          <p>Your answer helps us understand the price decision without treating it as a sale.</p>
+        </header>}
         {priceDecision === "yes" ? <fieldset className="decision-options">
           <legend className="sr-only">Choose a follow-up</legend>
           {followUpOptions.map(([value, label]) => <label key={value} data-selected={followUp === value}><input required type="radio" name="follow-up" value={value} checked={followUp === value} onChange={() => setFollowUp(value)}/><span><b>{label}</b></span></label>)}
@@ -299,8 +325,16 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <p>Your form was saved securely. No payment has been taken and this is not a purchase or reservation.</p>
         </header>
         <dl className="confirmation-summary"><div><dt>Selected form</dt><dd>{product.name}</dd></div><div><dt>Exact price considered</dt><dd>{exactPrice}</dd></div><div><dt>Your response</dt><dd>{priceDecision === "yes" ? "Would consider at this price" : "Not at this price"}</dd></div><div><dt>Requested next step</dt><dd>{priceDecision === "no" ? "No follow-up requested" : followUpOptions.find(([value]) => value === followUp)?.[1] ?? "Recorded"}</dd></div></dl>
-        <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment has been taken.</strong> This is not a purchase, order or reservation.</p>
-        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { resetFunnelSession(); setStep(1); setParentAcceptancePreference(""); setCaregiverPurchasePreference(""); setPriceDecision(""); setFollowUp(""); setNoReason(""); setDecisionReason(""); setDetails(initialDetails); recordFunnelMetric({ event: "funnel_started" }); }}>Review another form</button></div>
+        <p className="no-payment"><span className="no-payment__icon" aria-hidden="true">○</span><strong>No payment has been taken.</strong><span className="no-payment__body">This is not a purchase, order or reservation.</span></p>
+        {priceDecision === "yes" ? <aside className="share-invite" aria-labelledby="share-invite-title">
+          <p className="eyebrow">Share with someone you care about</p>
+          <h2 id="share-invite-title">Know another family exploring care?</h2>
+          <p>Invite them to explore Reflexion and choose the form that feels right for their home.</p>
+          <button className="interest-button" type="button" onClick={shareReflexion}>Share Reflexion <span aria-hidden="true">↗</span></button>
+          {shareStatus === "copied" ? <small role="status">Link copied.</small> : null}
+          {shareStatus === "shared" ? <small role="status">Thanks for sharing Reflexion.</small> : null}
+        </aside> : null}
+        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { resetFunnelSession(); setStep(1); setParentAcceptancePreference(""); setCaregiverPurchasePreference(""); setPriceDecision(""); setFollowUp(""); setNoReason(""); setDecisionReason(""); setDetails(initialDetails); setShareStatus("idle"); recordFunnelMetric({ event: "funnel_started" }); }}>Review another form</button></div>
       </div> : null}
     </section>
   </main>;
