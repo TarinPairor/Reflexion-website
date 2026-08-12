@@ -6,36 +6,47 @@ type Content = ReturnType<typeof getHomeContent>;
 
 export function CaregivingTension({ content }: { content: Content }) {
   const concernIcons: IconName[] = ["moon", "check", "cup", "message"];
+  const responseIcons: IconName[] = ["voice", "message"];
   return <section className="tension" aria-labelledby="tension-title" data-motion-chapter>
-    <div className="tension__hero" data-motion-item>
-      <Image className="tension__image tension__image--desktop" src="/reflexion-assets/generated/phase1/caregiving-distance-v2.webp" alt="Illustrative scene of an independent older mother at home and her adult daughter pausing during a busy workday" fill sizes="(max-width: 820px) 1px, 100vw"/>
-      <Image className="tension__image tension__image--mobile" src="/reflexion-assets/generated/phase1/caregiving-mum-mobile-v2.webp" alt="Illustrative portrait of an independent older mother holding a cup at home" fill sizes="(max-width: 820px) 100vw, 1px"/>
-      <div className="tension__veil" aria-hidden="true"/>
-      <div className="tension__hero-content">
-        <p className="eyebrow eyebrow--light">{content.tension.eyebrow}</p>
-        <h2 id="tension-title">{content.tension.title}</h2>
-        <p className="tension__prompt">“{content.tension.prompt}”</p>
-        <p className="tension__intro">{content.tension.intro}</p>
-        <ul className="tension__concerns" aria-label="Questions caregivers may carry">
-          {content.tension.concerns.map((concern, index) => <li key={concern}><Icon name={concernIcons[index]}/><span>{concern}</span></li>)}
-        </ul>
-      </div>
+    <div className="tension__lead" data-motion-item>
+      <p className="eyebrow eyebrow--light">{content.tension.eyebrow}</p>
+      <h2 id="tension-title">{content.tension.title}</h2>
+      <p className="tension__lead-note">“{content.tension.prompt}”</p>
     </div>
-    <div className="tension__fine" data-motion-item>
-      <div className="tension__fine-image"><Image src="/reflexion-assets/generated/phase1/caregiving-caregiver-close.webp" alt="Illustrative adult daughter pausing with her phone during the workday" fill sizes="(max-width: 820px) 100vw, 40vw"/></div>
-      <div className="tension__fine-copy"><p>{content.tension.fineLead}</p><strong>“{content.tension.fineAnswer}”</strong></div>
-      <ul>{content.tension.limits.map((limit, index) => <li key={limit}><Icon name={index === 0 ? "voice" : "message"}/><span>{limit}</span></li>)}</ul>
+    <ul className="tension__questions" aria-label="Questions caregivers may carry" data-motion-item>
+      {content.tension.concerns.map((concern, index) => <li key={concern}>
+        <Icon name={concernIcons[index]}/>
+        <span>{concern}</span>
+      </li>)}
+    </ul>
+    <div className="tension__signal" data-motion-item>
+      <div className="tension__signal-stage">
+        <div className="tension__signal-image">
+          <Image src="/reflexion-assets/generated/phase1/caregiving-stressed-phone.png" alt="Illustrative adult daughter calling her ageing mother during the workday" fill sizes="(max-width: 820px) 100vw, 36vw"/>
+          <div className="tension__signal-veil" aria-hidden="true"/>
+        </div>
+        <div className="tension__signal-copy">
+          <p>{content.tension.intro}</p>
+          <strong>“{content.tension.fineAnswer}”</strong>
+        </div>
+      </div>
+      <ul className="tension__responses" aria-label="Why caregivers need more than a phone call">
+        {content.tension.limits.map((limit, index) => <li key={limit}>
+          <span className="tension__response-icon"><Icon name={responseIcons[index]}/></span>
+          <span>{limit}</span>
+        </li>)}
+      </ul>
     </div>
     <p className="tension__change" data-motion-item>{content.tension.change}</p>
-    {/* SYNTHETIC / ILLUSTRATIVE marketing perspective. No real-person attribution. */}
+    {/* Caregiver discovery insight. The copy is intentionally labelled as paraphrased. */}
     <figure className="tension__quote" data-motion-item>
-      <span aria-hidden="true">“</span>
-      <div><figcaption>{content.tension.quoteLabel}</figcaption><blockquote>“{content.tension.quote}”</blockquote><cite>{content.tension.quoteAttribution}</cite></div>
+      <span className="tension__quote-mark" aria-hidden="true">“</span>
+      <div>
+        <figcaption>{content.tension.quoteLabel}</figcaption>
+        <blockquote>{content.tension.quote}</blockquote>
+        <cite>{content.tension.quoteAttribution}</cite>
+      </div>
     </figure>
-    <div className="tension__why" data-motion-item>
-      <p>{content.tension.question}</p>
-      <p>{content.tension.body}</p>
-    </div>
     <p className="tension__closing" data-motion-item>{content.tension.closing}<span aria-hidden="true">⌄</span></p>
   </section>;
 }
