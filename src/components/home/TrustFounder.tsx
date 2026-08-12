@@ -1,65 +1,39 @@
 import Image from "next/image";
-import type { getHomeContent, Locale } from "@/i18n/content";
-import { localisedHref } from "@/lib/siteRoutes";
-import { Icon, type IconName } from "@/components/ui/Icon";
-import { RecognitionStrip } from "@/components/site/RecognitionStrip";
+import type { getHomeContent } from "@/i18n/content";
+import { Icon } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
-const principleIcons: IconName[] = ["heart", "spark", "message"];
 
-export function TrustFounder({ content, locale }: { content: Content; locale: Locale }) {
+export function TrustFounder({ content }: { content: Content }) {
   return <section className="trust" id="trust" aria-labelledby="trust-title" data-motion-chapter>
-    <div className="trust__story" data-motion-item>
-      <div className="trust__story-image">
-        <Image src="/reflexion-assets/generated/phase1/trust-family-scene-v2.png" alt="Illustrative older adult and her daughter sharing a family photograph at home, with Reflexion nearby" fill sizes="(max-width: 900px) 100vw, 62vw"/>
-      </div>
-      <div className="trust__story-copy">
-        <div className="trust__story-lead">
-          <p className="eyebrow">{content.trust.builtEyebrow}</p>
-          <h2 id="trust-title">{content.trust.independenceTitle}</h2>
-          <p>{content.trust.intro}</p>
-        </div>
-        <div className="trust__quiet-proof">
-          <p className="eyebrow">{content.trust.quietEyebrow}</p>
-          <p className="trust__proof-statement">{content.trust.quietQuote}</p>
-          <small>{content.trust.quietQuoteLabel}</small>
-        </div>
-      </div>
-    </div>
-
-    <div className="trust__perspectives" data-motion-item>
-      <h3>{content.trust.perspectivesTitle}</h3>
-      <div className="trust__perspectives-grid">
-        <figure>
-          <span className="trust__perspective-portrait">
-            <Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="Illustrative older loved one" fill sizes="84px"/>
-          </span>
-          <div>
-            <figcaption><strong>{content.sides.lovedTab.replace("01 — ", "")}</strong><small>{content.trust.lovedPerspectiveLabel}</small></figcaption>
-            <p className="trust__perspective-statement">{content.sides.lovedBody}</p>
+    <div className="trust__families">
+      <h2 id="trust-title">{content.trust.familiesEyebrow}</h2>
+      <div className="trust__family-quotes">
+        {content.trust.familyQuotes.map(([quote, attribution]) => <figure key={attribution} data-motion-item>
+          <div className="trust__quote-copy">
+            <span className="trust__quote-mark" aria-hidden="true">“</span>
+            <blockquote>{quote}</blockquote>
           </div>
-        </figure>
-        <figure>
-          <span className="trust__perspective-portrait">
-            <Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="Illustrative adult-child caregiver" fill sizes="84px"/>
-          </span>
-          <div>
-            <figcaption><strong>{content.sides.caregiverTab.replace("02 — ", "")}</strong><small>{content.trust.caregiverPerspectiveLabel}</small></figcaption>
-            <p className="trust__perspective-statement">{content.trust.quietQuote}</p>
-          </div>
-        </figure>
+          <figcaption><cite>{attribution}</cite><span className="trust__quote-heart" aria-hidden="true"><Icon name="heart"/></span></figcaption>
+        </figure>)}
       </div>
     </div>
 
-    <div className="trust__principles" data-motion-item>
-      {content.trust.principles.map((principle, index) => <article key={principle[0]}><span><Icon name={principleIcons[index]}/></span><div><h3>{principle[0]}</h3><p>{principle[1]}</p></div></article>)}
-    </div>
-
-    <RecognitionStrip items={content.trust.recognition}/>
-    <div className="trust__faq-prompt" data-motion-item>
-      <span aria-hidden="true">?</span>
-      <p>{locale === "zh" ? "还有关于隐私、适配或如何开始的问题？" : "Still have questions about privacy, fit or getting started?"}</p>
-      <a href={localisedHref("/faq", locale)}>{locale === "zh" ? "查看全部常见问题" : "Explore all FAQs"}<Icon name="arrow"/></a>
+    <div className="trust__founder-panel" data-motion-item>
+      <div className="trust__founder-copy">
+        <h3>{content.trust.founderPanelTitle}</h3>
+        <p>{content.trust.founderPanelBody}</p>
+        <div className="trust__built-in">
+          <span className="trust__singapore-badge" aria-hidden="true">
+            <svg viewBox="0 0 32 22" fill="none"><path fill="#ED2939" d="M1 1h30v10H1z"/><path fill="#fff" d="M1 11h30v10H1z"/><circle cx="9" cy="6" r="3.7" fill="#fff"/><circle cx="10.6" cy="5.2" r="3.2" fill="#ED2939"/><path fill="#fff" d="m14.8 2.9.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m18.8 5.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m14.8 8.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m10.8 8.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/><path fill="#fff" d="m18.8 2.2.7 1.5 1.6.2-1.2 1 .3 1.6-1.4-.8-1.4.8.3-1.6-1.2-1 1.6-.2.7-1.5Z"/></svg>
+          </span>
+          <span>{content.trust.founderLocation}</span>
+        </div>
+      </div>
+      <figure className="trust__founders">
+        <span className="trust__founders-portrait"><Image src="/reflexion-assets/people/founders/IMG_4042.JPG" alt="Kei-Lyn and Chloe, Reflexion co-founders" fill sizes="(max-width: 520px) 110px, 140px"/></span>
+        <figcaption><strong>{content.trust.founderNames}</strong><span>{content.trust.founderRole}</span></figcaption>
+      </figure>
     </div>
   </section>;
 }

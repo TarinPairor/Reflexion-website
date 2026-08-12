@@ -27,7 +27,7 @@ export function CaregivingTension({ content }: { content: Content }) {
       <ul>{content.tension.limits.map((limit, index) => <li key={limit}><Icon name={index === 0 ? "voice" : "message"}/><span>{limit}</span></li>)}</ul>
     </div>
     <p className="tension__change" data-motion-item>{content.tension.change}</p>
-    {/* SYNTHETIC / ILLUSTRATIVE marketing perspective. No real-person attribution. */}
+    {/* Named caregiver quote supplied in the current UI brief; verify source and permission before publication. */}
     <figure className="tension__quote" data-motion-item>
       <span aria-hidden="true">“</span>
       <div><figcaption>{content.tension.quoteLabel}</figcaption><blockquote>“{content.tension.quote}”</blockquote><cite>{content.tension.quoteAttribution}</cite></div>
