@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import Link from "next/link";
 import {
   getExactPrice,
@@ -10,21 +10,28 @@ import {
   type MirrorPlan,
   type ProductId,
 } from "@/lib/get-reflexion/config";
+import { recordFunnelMetric, resetFunnelSession } from "@/lib/website-metrics/client";
 
 type Details = {
-  fullName: string;
-  email: string;
+  firstName: string;
+  lastName: string;
   mobile: string;
-  postalSector: string;
+  email: string;
+  streetAddress: string;
+  city: string;
+  postalCode: string;
   recipient: string;
   readiness: boolean;
 };
 
 const initialDetails: Details = {
-  fullName: "",
-  email: "",
+  firstName: "",
+  lastName: "",
   mobile: "",
-  postalSector: "",
+  email: "",
+  streetAddress: "",
+  city: "",
+  postalCode: "",
   recipient: "",
   readiness: false,
 };
@@ -32,26 +39,46 @@ const initialDetails: Details = {
 const stepLabels = ["Choose", "Your Reflexion", "Your details", "Price", "Next step", "Confirmation"];
 
 export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductId }) {
-  const [step, setStep] = useState(initialProduct ? 2 : 1);
+  const [step, setStep] = useState(1);
   const [productId, setProductId] = useState<ProductId>(initialProduct ?? "mirror");
+  const [parentAcceptancePreference, setParentAcceptancePreference] = useState<ProductId | "">("");
+  const [caregiverPurchasePreference, setCaregiverPurchasePreference] = useState<ProductId | "">("");
   const [mirrorPlan, setMirrorPlan] = useState<MirrorPlan>("a");
   const [details, setDetails] = useState<Details>(initialDetails);
   const [priceDecision, setPriceDecision] = useState<"yes" | "no" | "">("");
   const [followUp, setFollowUp] = useState("");
   const [noReason, setNoReason] = useState("");
   const [decisionReason, setDecisionReason] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState("");
 
   const product = getProduct(productId);
   const exactPrice = getExactPrice(productId, mirrorPlan);
   const progress = `${Math.round((step / stepLabels.length) * 100)}%`;
 
+  useEffect(() => {
+    recordFunnelMetric({ event: "funnel_started" });
+  }, []);
+
+  useEffect(() => {
+    if (step !== 2) return;
+    recordFunnelMetric({ event: "price_viewed", productId, mirrorPlan: productId === "mirror" ? mirrorPlan : null });
+  }, [mirrorPlan, productId, step]);
+
   function advance(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (step === 1 && parentAcceptancePreference && caregiverPurchasePreference) {
+      recordFunnelMetric({ event: "pre_price_preferences", productId, parentAcceptancePreference, caregiverPurchasePreference });
+    }
+    if (step === 2) recordFunnelMetric({ event: "continued_after_price" });
+    if (step === 3) recordFunnelMetric({ event: "details_completed" });
+    if (step === 4 && priceDecision) recordFunnelMetric({ event: "price_decision", accepted: priceDecision === "yes" });
     setStep((current) => Math.min(current + 1, stepLabels.length));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function goBack() {
+    setSubmissionError("");
     setStep((current) => Math.max(current - 1, 1));
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
@@ -60,10 +87,49 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
     setDetails((current) => ({ ...current, [key]: value }));
   }
 
+  async function submitInterest(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (!priceDecision || isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmissionError("");
+
+    try {
+      const response = await fetch("/api/website-forms", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          productId,
+          mirrorPlan: productId === "mirror" ? mirrorPlan : null,
+          details,
+          priceDecision,
+          followUp: priceDecision === "yes" ? followUp : null,
+          noReason: priceDecision === "no" ? noReason : null,
+          decisionReason: decisionReason.trim() || null,
+        }),
+      });
+
+      if (!response.ok) {
+        const result = await response.json().catch(() => null) as { error?: string } | null;
+        throw new Error(result?.error ?? "We could not save your details. Please try again.");
+      }
+
+      if (priceDecision === "no") recordFunnelMetric({ event: "price_rejection", reason: noReason });
+      if (priceDecision === "yes") recordFunnelMetric({ event: "follow_up_selected", followUp });
+      recordFunnelMetric({ event: "funnel_completed" });
+      setStep(6);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch (error) {
+      setSubmissionError(error instanceof Error ? error.message : "We could not save your details. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
+
   const followUpOptions = productId === "mirror"
     ? [
+        ["pilot", "Book a parent suitability call + Apply for the Reflexion Home Pilot"],
         ["orders", "Contact me when orders open"],
-        ["none", "No follow-up for now"],
       ]
     : productId === "loved-one-app"
       ? [
@@ -106,6 +172,10 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
             <p>{option.description}</p>
           </label>)}
         </fieldset>
+        <div className="preference-questions">
+          <label className="field"><span>Which form would your parent be most likely to accept at home?</span><select required value={parentAcceptancePreference} onChange={(event) => setParentAcceptancePreference(event.target.value as ProductId)}><option value="">Choose one</option>{productOptions.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}</select></label>
+          <label className="field"><span>Which form would you personally be most willing to pay for?</span><select required value={caregiverPurchasePreference} onChange={(event) => setCaregiverPurchasePreference(event.target.value as ProductId)}><option value="">Choose one</option>{productOptions.map((option) => <option key={option.id} value={option.id}>{option.name}</option>)}</select></label>
+        </div>
         <div className="interest-form__actions"><button className="interest-button" type="submit">See package and price <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
@@ -140,10 +210,13 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
           <p>Only the minimum details needed for this expression of interest.</p>
         </header>
         <div className="field-grid">
-          <label className="field field--wide"><span>Full name</span><input required autoComplete="name" value={details.fullName} onChange={(event) => updateDetails("fullName", event.target.value)}/></label>
+          <label className="field"><span>First name</span><input required autoComplete="given-name" maxLength={80} value={details.firstName} onChange={(event) => updateDetails("firstName", event.target.value)}/></label>
+          <label className="field"><span>Last name</span><input required autoComplete="family-name" maxLength={80} value={details.lastName} onChange={(event) => updateDetails("lastName", event.target.value)}/></label>
+          <label className="field"><span>Mobile</span><input required type="tel" autoComplete="tel" inputMode="tel" value={details.mobile} onChange={(event) => updateDetails("mobile", event.target.value)}/></label>
           <label className="field"><span>Email</span><input required type="email" autoComplete="email" value={details.email} onChange={(event) => updateDetails("email", event.target.value)}/></label>
-          <label className="field"><span>Mobile number</span><input required type="tel" autoComplete="tel" inputMode="tel" value={details.mobile} onChange={(event) => updateDetails("mobile", event.target.value)}/></label>
-          <label className="field"><span>Postal sector</span><input required inputMode="numeric" pattern="[0-9]{2}" maxLength={2} placeholder="First two digits only" value={details.postalSector} onChange={(event) => updateDetails("postalSector", event.target.value.replace(/\D/g, "").slice(0, 2))}/></label>
+          <label className="field field--wide"><span>Street address</span><input required autoComplete="street-address" maxLength={160} value={details.streetAddress} onChange={(event) => updateDetails("streetAddress", event.target.value)}/></label>
+          <label className="field"><span>Town / City <small>(optional)</small></span><input autoComplete="address-level2" maxLength={100} value={details.city} onChange={(event) => updateDetails("city", event.target.value)}/></label>
+          <label className="field"><span>Postcode / ZIP</span><input required autoComplete="postal-code" inputMode="numeric" pattern="[0-9]{6}" maxLength={6} placeholder="6 digits" title="Enter a 6-digit postcode" value={details.postalCode} onChange={(event) => updateDetails("postalCode", event.target.value.replace(/\D/g, "").slice(0, 6))}/></label>
           <label className="field"><span>Intended recipient</span><select required value={details.recipient} onChange={(event) => updateDetails("recipient", event.target.value)}><option value="">Choose one</option><option>Parent</option><option>Grandparent</option><option>Spouse</option><option>Other</option></select></label>
         </div>
         <label className="acknowledgement"><input required type="checkbox" checked={details.readiness} onChange={(event) => updateDetails("readiness", event.target.checked)}/><span>I have discussed—or am willing to discuss—this with my loved one.<small>This acknowledgement is not older-adult consent.</small></span></label>
@@ -166,7 +239,7 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Continue <span aria-hidden="true">→</span></button></div>
       </form> : null}
 
-      {step === 5 ? <form onSubmit={advance} className="interest-form">
+      {step === 5 ? <form onSubmit={submitInterest} className="interest-form">
         <header className="interest-form__heading">
           <p className="eyebrow">{priceDecision === "yes" ? "Your preferred next step" : "Help us understand"}</p>
           <h1>{priceDecision === "yes" ? "What would feel useful from here?" : "What is the main reason?"}</h1>
@@ -175,21 +248,22 @@ export function GetReflexionForm({ initialProduct }: { initialProduct?: ProductI
         {priceDecision === "yes" ? <fieldset className="decision-options">
           <legend className="sr-only">Choose a follow-up</legend>
           {followUpOptions.map(([value, label]) => <label key={value} data-selected={followUp === value}><input required type="radio" name="follow-up" value={value} checked={followUp === value} onChange={() => setFollowUp(value)}/><span><b>{label}</b></span></label>)}
-        </fieldset> : <label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => setNoReason(event.target.value)}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>I am not ready yet</option><option>Other</option></select></label>}
+        </fieldset> : <label className="field field--wide"><span>Primary reason</span><select required value={noReason} onChange={(event) => setNoReason(event.target.value)}><option value="">Choose one</option><option>The price is higher than I would consider</option><option>The monthly cost is higher than I would consider</option><option>We do not need it yet</option><option>My parent may not use it</option><option>I have a privacy concern</option><option>I need to discuss it with my family</option><option>I need more product information</option><option>The form does not suit my loved one</option><option>Other</option></select></label>}
         <label className="field field--wide decision-driver"><span>What drove your decision? <small>Optional</small></span><textarea rows={4} value={decisionReason} onChange={(event) => setDecisionReason(event.target.value)} placeholder="Tell us what mattered most to you."/></label>
-        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack}>Back</button><button className="interest-button" type="submit">Finish <span aria-hidden="true">→</span></button></div>
+        {submissionError ? <p className="interest-form__error" role="alert">{submissionError}</p> : null}
+        <div className="interest-form__actions"><button className="interest-button interest-button--quiet" type="button" onClick={goBack} disabled={isSubmitting}>Back</button><button className="interest-button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Saving…" : "Finish"}{!isSubmitting ? <span aria-hidden="true">→</span> : null}</button></div>
       </form> : null}
 
       {step === 6 ? <div className="interest-form interest-confirmation">
         <span className="interest-confirmation__mark" aria-hidden="true">✓</span>
         <header className="interest-form__heading">
           <p className="eyebrow">Thank you</p>
-          <h1>Your choices are clear.</h1>
-          <p>This front-end preview does not yet send or store your details. Submission storage, communications consent and follow-up remain implementation gates.</p>
+          <h1>Your interest has been recorded.</h1>
+          <p>Your form was saved securely. No payment has been taken and this is not a purchase or reservation.</p>
         </header>
-        <dl className="confirmation-summary"><div><dt>Selected form</dt><dd>{product.name}</dd></div><div><dt>Exact price considered</dt><dd>{exactPrice}</dd></div><div><dt>Your response</dt><dd>{priceDecision === "yes" ? "Would consider at this price" : "Not at this price"}</dd></div><div><dt>What happens next</dt><dd>No contact will be made from this preview.</dd></div></dl>
+        <dl className="confirmation-summary"><div><dt>Selected form</dt><dd>{product.name}</dd></div><div><dt>Exact price considered</dt><dd>{exactPrice}</dd></div><div><dt>Your response</dt><dd>{priceDecision === "yes" ? "Would consider at this price" : "Not at this price"}</dd></div><div><dt>Requested next step</dt><dd>{priceDecision === "no" ? "No follow-up requested" : followUpOptions.find(([value]) => value === followUp)?.[1] ?? "Recorded"}</dd></div></dl>
         <p className="no-payment"><span aria-hidden="true">○</span><strong>No payment has been taken.</strong> This is not a purchase, order or reservation.</p>
-        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { setStep(1); setPriceDecision(""); setFollowUp(""); setNoReason(""); }}>Review another form</button></div>
+        <div className="interest-form__actions"><Link className="interest-button interest-button--quiet" href="/">Return home</Link><button className="interest-button" type="button" onClick={() => { resetFunnelSession(); setStep(1); setParentAcceptancePreference(""); setCaregiverPurchasePreference(""); setPriceDecision(""); setFollowUp(""); setNoReason(""); setDecisionReason(""); setDetails(initialDetails); recordFunnelMetric({ event: "funnel_started" }); }}>Review another form</button></div>
       </div> : null}
     </section>
   </main>;

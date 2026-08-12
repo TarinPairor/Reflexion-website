@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import { WebsiteMetricsTracker } from "@/components/analytics/WebsiteMetricsTracker";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,6 +19,6 @@ export const viewport: Viewport = { width: "device-width", initialScale: 1, them
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="en" suppressHydrationWarning>
-    <body>{children}</body>
+    <body><WebsiteMetricsTracker/>{children}</body>
   </html>;
 }

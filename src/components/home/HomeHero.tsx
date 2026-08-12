@@ -10,13 +10,20 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
   return <section className="hero" id="top" aria-labelledby="hero-title" data-motion-hero>
     <div className="hero__artwork" data-motion-hero-artwork>
       <Image
-        className="hero__art"
+        className="hero__art hero__art--desktop"
         src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
         alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
         fill
         priority
         fetchPriority="high"
         sizes="100vw"
+      />
+      <Image
+        className="hero__art hero__art--mobile"
+        src="/reflexion-assets/generated/phase1/reflexion-hero-mobile-v2.webp"
+        alt="The Reflexion Mirror and Caregiver App together in a warm home setting"
+        fill
+        sizes="(max-width: 820px) 100vw, 1px"
       />
       <p className="hero__caption">21.5-inch Reflexion Mirror <span>+ Caregiver App</span></p>
     </div>

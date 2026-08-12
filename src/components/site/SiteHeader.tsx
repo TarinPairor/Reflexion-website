@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Locale } from "@/i18n/content";
-import { localisedHref, primaryPaths } from "@/lib/siteRoutes";
+import { localisedHref, visibleNavigationItems } from "@/lib/siteRoutes";
 import { MobileNav } from "./MobileNav";
 
 export function SiteHeader({ locale, labels, getLabel, currentPath = "/" }: { locale: Locale; labels: readonly string[]; getLabel: string; currentPath?: string }) {
@@ -17,7 +17,7 @@ export function SiteHeader({ locale, labels, getLabel, currentPath = "/" }: { lo
         <Image src="/reflexion-assets/reflexion logo/Reflexion logo-Photoroom.png" alt="Reflexion — Care. Connected." width={185} height={72} priority/>
       </Link>
       <nav className="desktop-nav" aria-label="Primary navigation">
-        {labels.map((label, index) => <Link href={localisedHref(primaryPaths[index], locale)} aria-current={currentPath === primaryPaths[index] ? "page" : undefined} key={label}>{label}</Link>)}
+        {visibleNavigationItems(labels).map(({ label, path }) => <Link href={localisedHref(path, locale)} aria-current={currentPath === path ? "page" : undefined} key={path}>{label}</Link>)}
       </nav>
       <div className="header-actions">
         <div className="locale-switch" aria-label="Language">

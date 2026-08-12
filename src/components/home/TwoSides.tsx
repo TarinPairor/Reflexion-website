@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { getHomeContent, Locale } from "@/i18n/content";
 import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
@@ -14,12 +15,23 @@ const lovedIcons: IconName[] = ["sun", "message", "check", "heart"];
 const caregiverIcons: IconName[] = ["sun", "spark", "message", "check", "heart"];
 
 export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
-  const [perspective, setPerspective] = useState<Perspective>("caregiver");
+  const [perspective, setPerspective] = useState<Perspective>("loved");
+  const [lovedSlide, setLovedSlide] = useState(0);
+  const reduceMotion = useReducedMotion();
   const caregiver = perspective === "caregiver";
   const features = caregiver ? content.sides.caregiverFeatures : content.sides.lovedFeatures;
   const icons = caregiver ? caregiverIcons : lovedIcons;
 
-  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter>
+  const choosePerspective = (next: Perspective) => {
+    setPerspective(next);
+    if (next === "loved") setLovedSlide(0);
+  };
+
+  const moveLovedSlide = (offset: number) => {
+    if (Math.abs(offset) > 42) setLovedSlide((current) => current === 0 ? 1 : 0);
+  };
+
+  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter data-sticky-cta-suppression>
     <div className="two-sides__composition">
       <div className="two-sides__lead">
         <div className="two-sides__lead-copy" data-motion-item>
@@ -28,32 +40,52 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
           <p>{content.sides.intro}</p>
 
           <div className="two-sides__perspectives" role="tablist" aria-label={content.sides.eyebrow}>
-            <button type="button" role="tab" aria-selected={!caregiver} onClick={() => setPerspective("loved")}>
+            <button type="button" role="tab" aria-selected={!caregiver} onClick={() => choosePerspective("loved")}>
               <span>01</span>{content.sides.lovedTab.replace("01 — ", "")}
             </button>
-            <button type="button" role="tab" aria-selected={caregiver} onClick={() => setPerspective("caregiver")}>
+            <button type="button" role="tab" aria-selected={caregiver} onClick={() => choosePerspective("caregiver")}>
               <span>02</span>{content.sides.caregiverTab.replace("02 — ", "")}
             </button>
           </div>
         </div>
 
         <div className="two-sides__stage" aria-live="polite" data-motion-item>
-          <Image
-            src="/reflexion-assets/generated/phase1/two-sides-home-context.webp"
-            alt="Illustrative warm home scene showing an exploratory Reflexion form on a bedroom dresser"
-            fill
-            sizes="(max-width: 820px) 100vw, 60vw"
-            className="two-sides__home-context"
-          />
-          <div className="two-sides__stage-veil" aria-hidden="true"/>
-          <Image
-            src="/reflexion-assets/generated/phase1/two-sides-caregiver-app-cutout.webp"
-            alt="Website representation of the Reflexion Caregiver App showing weekly check-in context, usual-pattern context and a recent highlight"
-            width={677}
-            height={1302}
-            sizes="(max-width: 520px) 62vw, (max-width: 820px) 42vw, 22vw"
-            className="two-sides__app-phone"
-          />
+          {caregiver ? <motion.div
+            className="two-sides__caregiver-panel"
+            initial={reduceMotion ? false : { y: "100%" }}
+            animate={{ y: 0 }}
+            transition={{ duration: reduceMotion ? 0 : .64, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <Image src="/reflexion-assets/generated/phase1/two-sides-for-you-v2.webp" alt="Margaret using the Reflexion Mirror to check in and receive a family message" fill sizes="(max-width: 820px) 100vw, 60vw" className="two-sides__caregiver-scene"/>
+            <div className="two-sides__stage-veil" aria-hidden="true"/>
+          </motion.div> : <div className="two-sides__loved-carousel">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.article
+                className="two-sides__loved-slide"
+                key={lovedSlide}
+                drag={reduceMotion ? false : "x"}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={.18}
+                onDragEnd={(_, info) => moveLovedSlide(info.offset.x)}
+                initial={reduceMotion ? false : { opacity: 0, x: lovedSlide === 0 ? -28 : 28 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={reduceMotion ? { opacity: 1 } : { opacity: 0, x: lovedSlide === 0 ? 28 : -28 }}
+                transition={{ duration: reduceMotion ? 0 : .42, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <Image src="/reflexion-assets/generated/phase1/two-sides-loved-one-v2.webp" alt="Margaret beginning her morning check-in with the Reflexion Mirror" fill sizes="(max-width: 820px) 100vw, 60vw"/>
+                <div className="two-sides__loved-overlay">
+                  <p>{locale === "zh" ? "为你的挚爱家人" : "FOR YOUR LOVED ONE"}</p>
+                  <h3>{lovedSlide === 0 ? content.sides.lovedTitle : locale === "zh" ? "融入她生活的支持。" : "Support that belongs in her day."}</h3>
+                  <div className="two-sides__loved-points">
+                    {(lovedSlide === 0 ? content.sides.lovedFeatures.slice(0, 2).map((feature) => [feature[0], feature[2]]) : locale === "zh" ? [["温和的日常支持", "贴心提醒，不让她觉得被管理。"], ["家人联系", "通过 Reflexion 接收家人的文字、语音和照片。"]] : [["Gentle routine support", "Helpful reminders without making her feel managed."], ["Family connection", "Receive text, voice and photos from family through Reflexion."]]).map((point) => <div key={point[0]}><Icon name={point[0].toLowerCase().includes("family") || point[0].includes("家人") ? "heart" : lovedSlide === 0 ? "sun" : "check"}/><span><strong>{point[0]}</strong><small>{point[1]}</small></span></div>)}
+                  </div>
+                </div>
+              </motion.article>
+            </AnimatePresence>
+            <div className="two-sides__loved-dots" aria-label={locale === "zh" ? "挚爱家人幻灯片" : "Loved-one slides"}>
+              {[0, 1].map((slide) => <button type="button" key={slide} aria-label={`${locale === "zh" ? "幻灯片" : "Slide"} ${slide + 1}`} aria-current={slide === lovedSlide ? "true" : undefined} onClick={() => setLovedSlide(slide)}/>) }
+            </div>
+          </div>}
         </div>
       </div>
 

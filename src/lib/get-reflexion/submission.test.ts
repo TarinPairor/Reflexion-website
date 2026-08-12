@@ -1,0 +1,52 @@
+import { describe, expect, it } from "vitest";
+import { websiteFormSubmissionSchema } from "./submission";
+
+const validMirrorSubmission = {
+  productId: "mirror",
+  mirrorPlan: "a",
+  details: {
+    firstName: "Mei",
+    lastName: "Tan",
+    mobile: "+65 8123 4567",
+    email: "mei@example.com",
+    streetAddress: "10 Example Street",
+    city: "Singapore",
+    postalCode: "123456",
+    recipient: "Parent",
+    readiness: true,
+  },
+  priceDecision: "yes",
+  followUp: "pilot",
+  noReason: null,
+  decisionReason: "A calm way to stay connected.",
+};
+
+describe("websiteFormSubmissionSchema", () => {
+  it("accepts a complete Mirror submission", () => {
+    expect(websiteFormSubmissionSchema.safeParse(validMirrorSubmission).success).toBe(true);
+  });
+
+  it("requires an exact six-digit postcode", () => {
+    const submission = {
+      ...validMirrorSubmission,
+      details: { ...validMirrorSubmission.details, postalCode: "12345" },
+    };
+
+    expect(websiteFormSubmissionSchema.safeParse(submission).success).toBe(false);
+  });
+
+  it("rejects a follow-up that does not match the product", () => {
+    expect(websiteFormSubmissionSchema.safeParse({ ...validMirrorSubmission, followUp: "progress" }).success).toBe(false);
+  });
+
+  it("requires a reason when the exact-price response is no", () => {
+    const submission = {
+      ...validMirrorSubmission,
+      priceDecision: "no",
+      followUp: null,
+      noReason: null,
+    };
+
+    expect(websiteFormSubmissionSchema.safeParse(submission).success).toBe(false);
+  });
+});
