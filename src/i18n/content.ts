@@ -207,7 +207,7 @@ const working = {
       headline: "即使无法时刻陪伴，也能把关怀留在家中。",
       supporting: "Reflexion 通过每日对话、温和的日常支持和有意义的照护者近况，帮助家人保持联系。",
       feature: "每日认知与身心状态交流",
-      primary: "了解 Reflexion",
+      primary: "加入试点",
       secondary: "查看运作方式",
     },
     heroFeatureLead: "一个相连的日常节奏，带来",

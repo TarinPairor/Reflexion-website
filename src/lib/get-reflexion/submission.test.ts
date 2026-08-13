@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { websiteFormSubmissionSchema } from "./submission";
+import { pilotFormSubmissionSchema, websiteFormSubmissionSchema } from "./submission";
 
 const validMirrorSubmission = {
   productId: "mirror",
@@ -76,5 +76,36 @@ describe("websiteFormSubmissionSchema", () => {
 
     expect(websiteFormSubmissionSchema.safeParse(submission).success).toBe(false);
     expect(websiteFormSubmissionSchema.safeParse({ ...submission, noReasonOther: "The form felt unfamiliar." }).success).toBe(true);
+  });
+});
+
+describe("pilotFormSubmissionSchema", () => {
+  it("accepts the minimum pilot interest details", () => {
+    expect(pilotFormSubmissionSchema.safeParse({
+      form: "join-pilot",
+      productId: "mirror",
+      details: {
+        fullName: "Amy Wong",
+        mobile: "+65 8123 4567",
+        email: "amy@example.com",
+        recipient: "My parent",
+      },
+      referralSource: null,
+    }).success).toBe(true);
+  });
+
+  it("does not accept medical or extra details", () => {
+    expect(pilotFormSubmissionSchema.safeParse({
+      form: "join-pilot",
+      productId: "mirror",
+      details: {
+        fullName: "Amy Wong",
+        mobile: "+65 8123 4567",
+        email: "amy@example.com",
+        recipient: "My parent",
+        diagnosis: "not collected",
+      },
+      referralSource: null,
+    }).success).toBe(false);
   });
 });

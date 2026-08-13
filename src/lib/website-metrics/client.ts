@@ -16,12 +16,15 @@ type Attribution = {
 };
 
 type FunnelMetric =
-  | { event: "get_reflexion_click" | "funnel_started" | "continued_after_price" | "details_completed" | "funnel_completed" }
+  | { event: "get_reflexion_click" | "join_pilot_click" | "funnel_started" | "continued_after_price" | "details_completed" | "funnel_completed" | "pilot_started" | "pilot_details_completed" }
   | { event: "pre_price_preferences"; productId: ProductId; parentAcceptancePreference: ProductId; caregiverPurchasePreference: ProductId }
   | { event: "price_viewed"; productId: ProductId; mirrorPlan: MirrorPlan | null }
   | { event: "price_decision"; accepted: boolean }
   | { event: "price_rejection"; reason: string }
-  | { event: "follow_up_selected"; followUp: string };
+  | { event: "follow_up_selected"; followUp: string }
+  | { event: "pilot_form_factor_selected"; productId: ProductId }
+  | { event: "pilot_submitted"; productId: ProductId; recipient: string; referralSource: string | null }
+  | { event: "pilot_referral_shared"; method: "whatsapp" | "copy" };
 
 function getStorageId(storage: Storage, key: string) {
   const existing = storage.getItem(key);

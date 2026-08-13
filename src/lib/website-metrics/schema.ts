@@ -3,6 +3,7 @@ import { z } from "zod";
 export const metricProductIdSchema = z.enum(["mirror", "loved-one-app", "bear", "home-hub", "tabletop-companion"]);
 const mirrorPlanSchema = z.enum(["a", "b"]);
 const followUpSchema = z.enum(["pilot", "orders", "availability", "progress", "none"]);
+const pilotRecipientSchema = z.enum(["My parent", "My grandparent", "My spouse", "Myself", "Someone else"]);
 const attributionSchema = z.object({
   trafficSource: z.enum(["vivocity_brochure", "vivocity_backdrop_qr", "vivocity_easel_qr", "instagram", "direct", "referral", "campaign_other"]),
   utmSource: z.string().max(100).nullable(),
@@ -22,7 +23,19 @@ const baseMetricSchema = z.object({
 export const websiteMetricSchema = z.discriminatedUnion("event", [
   baseMetricSchema.extend({ event: z.literal("site_visit") }),
   baseMetricSchema.extend({ event: z.literal("get_reflexion_click"), funnelSessionId: z.uuid() }),
+  baseMetricSchema.extend({ event: z.literal("join_pilot_click"), funnelSessionId: z.uuid() }),
   baseMetricSchema.extend({ event: z.literal("funnel_started"), funnelSessionId: z.uuid() }),
+  baseMetricSchema.extend({ event: z.literal("pilot_started"), funnelSessionId: z.uuid() }),
+  baseMetricSchema.extend({ event: z.literal("pilot_details_completed"), funnelSessionId: z.uuid() }),
+  baseMetricSchema.extend({ event: z.literal("pilot_form_factor_selected"), funnelSessionId: z.uuid(), productId: metricProductIdSchema }),
+  baseMetricSchema.extend({
+    event: z.literal("pilot_submitted"),
+    funnelSessionId: z.uuid(),
+    productId: metricProductIdSchema,
+    recipient: pilotRecipientSchema,
+    referralSource: z.string().max(100).nullable(),
+  }),
+  baseMetricSchema.extend({ event: z.literal("pilot_referral_shared"), funnelSessionId: z.uuid(), method: z.enum(["whatsapp", "copy"]) }),
   baseMetricSchema.extend({
     event: z.literal("pre_price_preferences"),
     funnelSessionId: z.uuid(),

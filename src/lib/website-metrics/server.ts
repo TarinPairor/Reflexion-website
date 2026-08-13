@@ -3,7 +3,7 @@ import { getExactPrice } from "@/lib/get-reflexion/config";
 import { getRefDatabase } from "@/lib/mongodb";
 import type { WebsiteMetric } from "./schema";
 
-const metricVersion = "2026-08-12";
+const metricVersion = "2026-08-13";
 type WebsiteMetricDocument = Document & { _id: string };
 
 async function upsertMetricDocument(collection: Collection<WebsiteMetricDocument>, id: string, update: UpdateFilter<WebsiteMetricDocument>) {
@@ -26,8 +26,30 @@ function funnelUpdate(metric: Exclude<WebsiteMetric, { event: "site_visit" }>, n
     case "get_reflexion_click":
       set.getReflexionClickedAt = now;
       break;
+    case "join_pilot_click":
+      set.joinPilotClickedAt = now;
+      break;
     case "funnel_started":
       set.funnelStartedAt = now;
+      break;
+    case "pilot_started":
+      set.pilotStartedAt = now;
+      break;
+    case "pilot_details_completed":
+      set.pilotDetailsCompletedAt = now;
+      break;
+    case "pilot_form_factor_selected":
+      set.pilotFormFactor = metric.productId;
+      break;
+    case "pilot_submitted":
+      set.pilotSubmittedAt = now;
+      set.pilotFormFactor = metric.productId;
+      set.pilotRecipient = metric.recipient;
+      set.pilotReferralSource = metric.referralSource;
+      break;
+    case "pilot_referral_shared":
+      set.pilotReferralSharedAt = now;
+      set.pilotReferralMethod = metric.method;
       break;
     case "pre_price_preferences":
       set.prePricePreferencesRecordedAt = now;

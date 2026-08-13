@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getExactPrice, getProduct } from "@/lib/get-reflexion/config";
-import { websiteFormSubmissionSchema } from "@/lib/get-reflexion/submission";
+import { pilotFormSubmissionSchema, websiteFormSubmissionSchema } from "@/lib/get-reflexion/submission";
 import { getRefDatabase } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
@@ -25,12 +25,40 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Submission must be valid JSON." }, { status: 400 });
   }
 
-  const parsed = websiteFormSubmissionSchema.safeParse(body);
-  if (!parsed.success) {
-    return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
-  }
-
   try {
+    const isPilot = typeof body === "object" && body !== null && "form" in body && body.form === "join-pilot";
+
+    if (isPilot) {
+      const parsedPilot = pilotFormSubmissionSchema.safeParse(body);
+      if (!parsedPilot.success) {
+        return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
+      }
+
+      const submission = parsedPilot.data;
+      const product = getProduct(submission.productId);
+      const database = await getRefDatabase();
+      const result = await database.collection("WebsiteForms").insertOne({
+        form: "join-pilot",
+        formVersion: "2026-08-13",
+        source: "website",
+        pilot: {
+          product: { id: submission.productId, name: product.name },
+          recipient: submission.details.recipient,
+          referralSource: submission.referralSource,
+        },
+        details: submission.details,
+        status: "new",
+        createdAt: new Date(),
+      });
+
+      return NextResponse.json({ ok: true, submissionId: result.insertedId.toHexString() }, { status: 201 });
+    }
+
+    const parsed = websiteFormSubmissionSchema.safeParse(body);
+    if (!parsed.success) {
+      return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
+    }
+
     const submission = parsed.data;
     const product = getProduct(submission.productId);
     const exactPrice = getExactPrice(submission.productId, submission.mirrorPlan ?? "a");
