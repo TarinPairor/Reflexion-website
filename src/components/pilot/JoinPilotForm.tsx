@@ -113,7 +113,7 @@ export function JoinPilotForm({ initialProduct }: { initialProduct?: ProductId }
       <div className="pilot-hero__copy">
         <p className="pilot-hero__label">Reflexion home pilot</p>
         <h1 id="pilot-title">Join our pilot</h1>
-        <p className="pilot-hero__lead">Be part of earlier detection. Help shape the future of Reflexion.</p>
+        <p className="pilot-hero__lead">Be part of earlier understanding. Help shape the future of Reflexion.</p>
         <div className="pilot-hero__body">
           <p>We’re exploring how everyday conversations may help us understand changes in memory, speech and thinking over time.</p>
           <p>Join our pilot to try Reflexion with yourself or a loved one and help shape a more supportive experience for ageing adults and families.</p>
