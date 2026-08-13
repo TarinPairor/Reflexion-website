@@ -26,6 +26,8 @@ type FunnelMetric =
   | { event: "pilot_submitted"; productId: ProductId; recipient: string; referralSource: string | null }
   | { event: "pilot_referral_shared"; method: "whatsapp" | "copy" };
 
+type ContactMetric = { event: "contact_form_started" | "contact_submitted"; form: "contact" };
+
 function getStorageId(storage: Storage, key: string) {
   const existing = storage.getItem(key);
   if (existing) return existing;
@@ -124,5 +126,9 @@ export function recordSiteVisit() {
 }
 
 export function recordFunnelMetric(metric: FunnelMetric) {
+  send({ ...metric, visitorId: getAnonymousVisitorId(), funnelSessionId: getOrCreateFunnelSessionId(), ...currentContext() });
+}
+
+export function recordContactMetric(metric: ContactMetric) {
   send({ ...metric, visitorId: getAnonymousVisitorId(), funnelSessionId: getOrCreateFunnelSessionId(), ...currentContext() });
 }

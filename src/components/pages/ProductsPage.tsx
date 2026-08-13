@@ -5,7 +5,6 @@ import { productOptions, type ProductId } from "@/lib/get-reflexion/config";
 import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon } from "@/components/ui/Icon";
-import { CaregiverPhone } from "@/components/product/DeviceCompositions";
 import { ProductSelection } from "./ProductSelection";
 import { productFormImages } from "@/lib/productAssets";
 
@@ -29,7 +28,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
   } satisfies Record<ProductId, string>;
   return <>
     <section className="interior-hero interior-hero--products interior-hero--text-only" id="top" aria-labelledby="products-page-title" data-motion-chapter>
-      <div className="interior-hero__copy" data-motion-item><p className="eyebrow">{home.nav[1]}</p><h1 id="products-page-title">{page.heroTitle}</h1><p>{page.heroBody}</p><div className="hero__actions"><ButtonLink href="#choose-form">{locale === "zh" ? "选择形态" : "Choose a form"}</ButtonLink></div></div>
+      <div className="interior-hero__copy" data-motion-item><p className="eyebrow">{home.nav[2]}</p><h1 id="products-page-title">{page.heroTitle}</h1><p>{page.heroBody}</p><div className="hero__actions"><ButtonLink href="#choose-form">{locale === "zh" ? "选择形态" : "Choose a form"}</ButtonLink></div></div>
     </section>
 
     <section className="product-mirror interior-section" aria-labelledby="mirror-title" data-motion-chapter>
@@ -52,7 +51,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
 
     <section className="caregiver-connection interior-section interior-section--sage" aria-labelledby="caregiver-connection-title" data-motion-chapter>
       <div className="caregiver-connection__copy" data-motion-item><h2 id="caregiver-connection-title">{page.caregiverTitle}</h2><p>{page.caregiverBody}</p><ButtonLink href={localisedHref("/how-it-works", locale)} variant="secondary">{common.how}</ButtonLink></div>
-      <div className="caregiver-connection__phone" data-motion-item><CaregiverPhone mode="today"/></div>
+      <div className="caregiver-connection__phone" data-motion-item><Image className="caregiver-phone-asset" src="/reflexion-assets/generated/phase1/caregiver-app-home-high-quality.png" alt="Reflexion Caregiver App showing a morning update for Mum" fill sizes="(max-width: 767px) 58vw, 275px" unoptimized/></div>
     </section>
 
     <section className="decision-support decision-support--single interior-section" aria-labelledby="decision-support-title" data-motion-chapter>

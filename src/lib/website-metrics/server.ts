@@ -15,7 +15,9 @@ async function upsertMetricDocument(collection: Collection<WebsiteMetricDocument
   }
 }
 
-function funnelUpdate(metric: Exclude<WebsiteMetric, { event: "site_visit" }>, now: Date): UpdateFilter<WebsiteMetricDocument> {
+type FunnelMetric = Exclude<WebsiteMetric, { event: "site_visit" | "contact_form_started" | "contact_submitted" }>;
+
+function funnelUpdate(metric: FunnelMetric, now: Date): UpdateFilter<WebsiteMetricDocument> {
   const set: Document = {
     updatedAt: now,
     lastEvent: metric.event,
@@ -127,6 +129,30 @@ export async function recordWebsiteMetric(metric: WebsiteMetric) {
   );
 
   if (metric.event === "site_visit") return;
+
+  if (metric.event === "contact_form_started" || metric.event === "contact_submitted") {
+    await upsertMetricDocument(
+      collection,
+      `interaction:${metric.event}:${metric.visitorId}:${metric.funnelSessionId}:${metric.path}`,
+      {
+        $setOnInsert: {
+          documentType: "interaction",
+          metricVersion,
+          event: metric.event,
+          form: metric.form,
+          visitorId: metric.visitorId,
+          funnelSessionId: metric.funnelSessionId,
+          path: metric.path,
+          trafficSource: metric.attribution.trafficSource,
+          attribution: metric.attribution,
+          referrerHost: metric.referrerHost ?? null,
+          createdAt: now,
+        },
+        $set: { updatedAt: now },
+      },
+    );
+    return;
+  }
 
   await upsertMetricDocument(collection, `funnel:${metric.funnelSessionId}`, funnelUpdate(metric, now));
 }

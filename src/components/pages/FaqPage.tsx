@@ -10,7 +10,7 @@ export function FaqPage({ locale, home, page, common }: { locale: Locale; home: 
   return <>
     <section className="faq-hero" id="top" aria-labelledby="faq-page-title" data-motion-chapter>
       <div data-motion-item><h1 id="faq-page-title">{page.heroTitle}</h1><p>{page.heroBody}</p></div>
-      <nav aria-label={locale === "zh" ? "常见问题类别" : `${home.nav[3]} categories`} data-motion-item>{page.categories.map((category, index) => <a href={`#faq-category-${index + 1}`} key={category[0]}>{category[0]}</a>)}</nav>
+      <nav aria-label={locale === "zh" ? "常见问题类别" : `${home.nav[4]} categories`} data-motion-item>{page.categories.map((category, index) => <a href={`#faq-category-${index + 1}`} key={category[0]}>{category[0]}</a>)}</nav>
     </section>
 
     <section className="faq-featured interior-section" aria-labelledby="featured-questions-title" data-motion-chapter>

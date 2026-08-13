@@ -10,7 +10,7 @@ export function normaliseLocale(value: string | string[] | undefined): Locale {
 
 const working = {
   en: {
-    nav: ["How It Works", "Products", "About", "FAQ"],
+    nav: ["Home", "How It Works", "Products", "About", "FAQ"],
     localeLabel: "Language",
     hero: null,
     heroFeatureLead: "One connected rhythm for",
@@ -200,7 +200,7 @@ const working = {
     },
   },
   zh: {
-    nav: ["运作方式", "产品", "关于我们", "常见问题"],
+    nav: ["首页", "运作方式", "产品", "关于我们", "常见问题"],
     localeLabel: "语言",
     hero: {
       eyebrow: "为照顾年长父母的家庭而设计",

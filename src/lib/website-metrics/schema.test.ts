@@ -61,6 +61,11 @@ describe("websiteMetricSchema", () => {
     }).success).toBe(true);
   });
 
+  it("accepts contact form interaction metrics", () => {
+    expect(websiteMetricSchema.safeParse({ ...base, event: "contact_form_started", form: "contact" }).success).toBe(true);
+    expect(websiteMetricSchema.safeParse({ ...base, event: "contact_submitted", form: "contact" }).success).toBe(true);
+  });
+
   it("accepts the distinct VivoCity easel attribution", () => {
     expect(websiteMetricSchema.safeParse({
       visitorId: base.visitorId,

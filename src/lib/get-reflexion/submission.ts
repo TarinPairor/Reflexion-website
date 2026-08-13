@@ -91,3 +91,16 @@ export const pilotFormSubmissionSchema = z.object({
 }).strict();
 
 export type PilotFormSubmission = z.infer<typeof pilotFormSubmissionSchema>;
+
+export const contactFormSubmissionSchema = z.object({
+  form: z.literal("contact"),
+  locale: z.enum(["en", "zh"]),
+  details: z.object({
+    fullName: z.string().trim().min(1).max(120),
+    mobile: z.string().trim().min(6).max(30),
+    email: z.email().max(254),
+    message: z.string().trim().min(1).max(2_000),
+  }).strict(),
+}).strict();
+
+export type ContactFormSubmission = z.infer<typeof contactFormSubmissionSchema>;

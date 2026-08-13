@@ -36,6 +36,8 @@ export const websiteMetricSchema = z.discriminatedUnion("event", [
     referralSource: z.string().max(100).nullable(),
   }),
   baseMetricSchema.extend({ event: z.literal("pilot_referral_shared"), funnelSessionId: z.uuid(), method: z.enum(["whatsapp", "copy"]) }),
+  baseMetricSchema.extend({ event: z.literal("contact_form_started"), funnelSessionId: z.uuid(), form: z.literal("contact") }),
+  baseMetricSchema.extend({ event: z.literal("contact_submitted"), funnelSessionId: z.uuid(), form: z.literal("contact") }),
   baseMetricSchema.extend({
     event: z.literal("pre_price_preferences"),
     funnelSessionId: z.uuid(),

@@ -17,7 +17,7 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
   return <div className="how-it-works-page">
     <section className="interior-hero interior-hero--how interior-hero--text-only" id="top" aria-labelledby="how-title" data-motion-chapter>
       <div className="interior-hero__copy" data-motion-item>
-        <p className="eyebrow">{home.nav[0]}</p>
+        <p className="eyebrow">{home.nav[1]}</p>
         <h1 id="how-title">{page.heroTitle}</h1>
         <p>{page.heroBody}</p>
         <div className="hero__actions"><ButtonLink href={localisedHref("/get-reflexion", locale)}>{common.get}</ButtonLink></div>

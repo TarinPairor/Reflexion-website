@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { pilotFormSubmissionSchema, websiteFormSubmissionSchema } from "./submission";
+import { contactFormSubmissionSchema, pilotFormSubmissionSchema, websiteFormSubmissionSchema } from "./submission";
 
 const validMirrorSubmission = {
   productId: "mirror",
@@ -106,6 +106,29 @@ describe("pilotFormSubmissionSchema", () => {
         diagnosis: "not collected",
       },
       referralSource: null,
+    }).success).toBe(false);
+  });
+});
+
+describe("contactFormSubmissionSchema", () => {
+  it("accepts the minimum contact details", () => {
+    expect(contactFormSubmissionSchema.safeParse({
+      form: "contact",
+      locale: "en",
+      details: {
+        fullName: "Amy Wong",
+        mobile: "+65 8123 4567",
+        email: "amy@example.com",
+        message: "I would like to learn more.",
+      },
+    }).success).toBe(true);
+  });
+
+  it("rejects empty messages", () => {
+    expect(contactFormSubmissionSchema.safeParse({
+      form: "contact",
+      locale: "en",
+      details: { fullName: "Amy Wong", mobile: "+65 8123 4567", email: "amy@example.com", message: " " },
     }).success).toBe(false);
   });
 });

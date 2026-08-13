@@ -132,7 +132,7 @@ export function MetricsDashboard() {
   return <main className="metrics-dashboard">
     <header className="metrics-dashboard__header">
       <Link href="/" className="metrics-dashboard__brand">Reflexion</Link>
-      <div><h1>Website metrics</h1><p>Commercial-intent evidence from <code>ref.WebsiteMetrics</code>.</p></div>
+      <div><h1>Website metrics</h1><p>Pilot interest, contact interactions and commercial-intent evidence from <code>ref.WebsiteMetrics</code>.</p></div>
       <form onSubmit={loadMetrics} className="metrics-access">
         <label htmlFor="metrics-token">Access token</label>
         <div><input id="metrics-token" type="password" autoComplete="current-password" value={token} onChange={(event) => setToken(event.target.value)} placeholder="Enter WEBSITE_METRICS_TOKEN"/><button type="submit" disabled={!token || loading}>{loading ? "Loading…" : summary ? "Refresh" : "View metrics"}</button></div>
@@ -145,7 +145,9 @@ export function MetricsDashboard() {
     {summary ? <div className="metrics-dashboard__body">
       <section className="metrics-overview">
         <div><span>Unique visitors</span><strong>{summary.uniqueVisitors}</strong><small>Browser/device-based</small></div>
-        <div><span>Get Reflexion starts</span><strong>{summary.funnel.starts}</strong><small>Distinct funnel attempts</small></div>
+        <div><span>Commercial starts</span><strong>{summary.funnel.starts}</strong><small>Get Reflexion attempts</small></div>
+        <div><span>Pilot registrations</span><strong>{summary.pilot.submissions}</strong><small>{summary.pilot.starts} form starts</small></div>
+        <div><span>Contact messages</span><strong>{summary.contact.submissions}</strong><small>{summary.contact.starts} form starts</small></div>
         <p>Updated {new Date(summary.generatedAt).toLocaleString("en-SG")}</p>
       </section>
 

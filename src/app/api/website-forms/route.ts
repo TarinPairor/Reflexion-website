@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getExactPrice, getProduct } from "@/lib/get-reflexion/config";
-import { pilotFormSubmissionSchema, websiteFormSubmissionSchema } from "@/lib/get-reflexion/submission";
+import { contactFormSubmissionSchema, pilotFormSubmissionSchema, websiteFormSubmissionSchema } from "@/lib/get-reflexion/submission";
 import { getRefDatabase } from "@/lib/mongodb";
 
 export const runtime = "nodejs";
@@ -46,6 +46,28 @@ export async function POST(request: Request) {
           recipient: submission.details.recipient,
           referralSource: submission.referralSource,
         },
+        details: submission.details,
+        status: "new",
+        createdAt: new Date(),
+      });
+
+      return NextResponse.json({ ok: true, submissionId: result.insertedId.toHexString() }, { status: 201 });
+    }
+
+    const isContact = typeof body === "object" && body !== null && "form" in body && body.form === "contact";
+    if (isContact) {
+      const parsedContact = contactFormSubmissionSchema.safeParse(body);
+      if (!parsedContact.success) {
+        return NextResponse.json({ error: "Please check the form and try again." }, { status: 400 });
+      }
+
+      const submission = parsedContact.data;
+      const database = await getRefDatabase();
+      const result = await database.collection("WebsiteForms").insertOne({
+        form: "contact",
+        formVersion: "2026-08-13",
+        source: "website",
+        locale: submission.locale,
         details: submission.details,
         status: "new",
         createdAt: new Date(),
