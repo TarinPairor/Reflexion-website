@@ -41,13 +41,7 @@ const pages = {
       ],
       relationshipTitle: "Designed around the relationship.",
       relationshipBody: "The experience is built around active participation, understandable boundaries and family connection.",
-      relationshipPoints: [
-        ["Dignity", "Your loved one participates actively rather than being passively observed."],
-        ["Privacy", "Only permitted context should move through the connected experience."],
-        ["Consent and control", "Commercial interest is not a substitute for the loved one’s participation or consent."],
-        ["Human connection", "Every useful update should point back towards a call, message or meaningful visit."],
-        ["Clear limits", "Reflexion is not a diagnostic, emergency or guaranteed-safety service."],
-      ],
+      relationshipPoints: ["Dignity", "Privacy", "Consent and control", "Human connection"],
     },
     products: {
       heroTitle: "Find the Reflexion that feels right at home.",
@@ -167,7 +161,7 @@ const pages = {
       familyTitle: "一条信息，成为一段对话。", familyBody: "家庭联系双向流动，让了解重新回到关系。", familyFlow: [["照护者发送", "从照护者 App 发送文字、语音或照片。"], ["挚爱家人收到", "家庭信息通过 Reflexion 抵达。"], ["挚爱家人回复", "用自己的声音录制回复。"], ["照护者收到", "语音回复回到家庭聊天。"]],
       appTitle: "照护者 App，围绕真正的问题组织。", appBody: "有用背景应让下一步更清楚，而不是制造另一个需要盯着的仪表板。",
       caregiverQuestions: [["他们今天怎么样？", "查看简洁的早晨背景与最近获准分享的互动。"], ["有意义的变化吗？", "以非临床语言了解相对本人近期平常模式的变化。"], ["需要不断查看吗？", "以推送为先，在重要时提供消息。"], ["一段时间内发生了什么？", "需要时回顾近期模式与历史。"], ["之前发生了什么？", "查看获准的摘要与相关背景，而非假设可看完整逐字记录。"], ["如何参与他们的一天？", "发送文字、语音与照片，并在可用且通过 QA 后收到语音回复。"], ["我该做什么？", "打电话、发信息或亲自关心；Reflexion 促进人的照护，而不取代它。"]],
-      relationshipTitle: "围绕关系而设计。", relationshipBody: "体验以主动参与、清楚边界与家庭联系为核心。", relationshipPoints: [["尊严", "挚爱家人主动参与，而非被动观察。"], ["隐私", "只有获准的背景在相连体验中流动。"], ["同意与控制", "商业兴趣不等于挚爱家人的参与或同意。"], ["人的联系", "每一条有用背景都应指向电话、信息或探访。"], ["清楚限制", "Reflexion 不是诊断、紧急或保证安全的服务。"]],
+      relationshipTitle: "围绕关系而设计。", relationshipBody: "体验以主动参与、清楚边界与家庭联系为核心。", relationshipPoints: ["尊严", "隐私", "同意与控制", "人的联系"],
     },
     products: {
       heroTitle: "找到适合家中生活的 Reflexion。", heroBody: "从最符合挚爱家人日常与空间的形态开始。五种方向并非同等成熟或可用。", mirrorTitle: "Reflexion Mirror", mirrorBody: "当前旗舰：21.5 英寸家庭体验，用于晨间交流、陪伴、温和日常支持与双向家庭联系，并连接照护者 App。", otherTitle: "不同家庭，可能适合不同形态。", otherBody: "按熟悉程度、可能摆放位置与陪伴感探索，同时清楚保留成熟度标签。", compareTitle: "比较人与家庭的适配。", compareBody: "这些维度描述不同形态可能带来的家庭体验，不是虚构技术规格，也不代表同等成熟。", compareHeadings: ["形态", "显示", "陪伴感", "可能位置", "晨间适配", "互动", "阶段"],

@@ -11,7 +11,7 @@ import { TwoSides } from "@/components/home/TwoSides";
 
 type HomeContent = ReturnType<typeof getHomeContent>;
 const momentIcons: IconName[] = ["sun", "message", "check", "heart"];
-const trustIcons: IconName[] = ["heart", "message", "check", "spark", "sun"];
+const trustIcons: IconName[] = ["heart", "message", "check", "spark"];
 
 export function HowItWorksPage({ locale, home, page, common }: { locale: Locale; home: HomeContent; page: PageContent["how"]; common: PageContent["common"] }) {
   return <div className="how-it-works-page">
@@ -87,9 +87,8 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
         <p>{page.relationshipBody}</p>
       </div>
       <div className="relationship-close__principles" data-motion-item>
-        {page.relationshipPoints.map((item, index) => <article key={item[0]}><span><Icon name={trustIcons[index]}/></span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}
+        {page.relationshipPoints.map((item, index) => <article key={item}><span><Icon name={trustIcons[index]}/></span><h3>{item}</h3></article>)}
       </div>
-      <p className="relationship-close__limitation" data-motion-item>{common.limitation}</p>
       <div className="interior-final-actions" data-motion-item>
         <ButtonLink href={localisedHref("/get-reflexion", locale)}>{common.get}</ButtonLink>
         <ButtonLink href={localisedHref("/products", locale)} variant="secondary">{common.products}</ButtonLink>

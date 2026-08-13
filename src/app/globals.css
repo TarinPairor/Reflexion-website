@@ -1198,14 +1198,11 @@
   .question-led-list p { max-width: 580px; color: #5d736b; font-size: .76rem; }
 
   .relationship-close { background: var(--paper); }
-  .relationship-close__principles { display: grid; grid-template-columns: repeat(5, 1fr); margin-top: 62px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-  .relationship-close__principles article { min-height: 245px; padding: 28px 22px; border-right: 1px solid var(--line); }
-  .relationship-close__principles article:last-child { border-right: 0; }
-  .relationship-close__principles span { width: 46px; height: 46px; display: grid; place-items: center; background: #e9eee7; border-radius: 50%; }
-  .relationship-close__principles svg { width: 20px; }
-  .relationship-close__principles h3 { margin: 26px 0 12px; font: 400 1.35rem/1.08 var(--serif); }
-  .relationship-close__principles p { color: #60756d; font-size: .68rem; }
-  .relationship-close__limitation { max-width: 760px; margin: 35px auto 0; color: #6b7e76; font-size: .7rem; text-align: center; }
+  .relationship-close__principles { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(20px, 4vw, 56px); max-width: 1120px; margin: 62px auto 0; }
+  .relationship-close__principles article { min-height: 0; display: flex; flex-direction: column; align-items: center; padding: 0; text-align: center; }
+  .relationship-close__principles span { width: 58px; height: 58px; display: grid; place-items: center; color: var(--forest); background: #e9eee7; border-radius: 50%; }
+  .relationship-close__principles svg { width: 22px; }
+  .relationship-close__principles h3 { max-width: 180px; margin: 22px 0 0; font: 400 1.35rem/1.08 var(--serif); }
 
   .product-mirror { display: grid; grid-template-columns: 1.35fr .65fr; gap: 0; padding-block: 0; background: #e9e0d3; }
   .product-mirror__visual { min-height: 760px; position: relative; overflow: hidden; }
@@ -1379,7 +1376,7 @@
     .interior-hero { grid-template-columns: 1fr 1fr; }
     .how-day { grid-template-columns: 1fr; }.how-day .interior-section__heading { position: static; }.how-day__moments { grid-template-columns: 1fr 1fr; }.how-day__moments li:nth-child(2) { border-right: 0; }
     .caregiver-questions { grid-template-columns: 1fr; }.caregiver-questions__visual { min-height: 650px; position: relative; top: auto; }.caregiver-questions__phone--today { left: 14%; }.caregiver-questions__phone--context { right: 14%; }.caregiver-questions__phone--message { left: 40%; }
-    .relationship-close__principles { grid-template-columns: repeat(3, 1fr); }.relationship-close__principles article:nth-child(3) { border-right: 0; }
+    .relationship-close__principles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .product-forms__list article { grid-template-columns: 1fr; }.product-forms__image { min-height: 330px; }
     .product-selection__options { grid-template-columns: 1fr 1fr; }.product-selection__options button:nth-child(2n) { border-right: 0; }.product-selection__options button:last-child { grid-column: 1 / -1; }
     .about-why__points, .about-build__principles { grid-template-columns: 1fr 1fr; }.about-why__points article:nth-child(2), .about-build__principles article:nth-child(2) { border-right: 0; }
@@ -1388,7 +1385,7 @@
   @media (max-width: 820px) {
     .interior-hero, .about-origin { min-height: auto; grid-template-columns: 1fr; padding-top: 104px; }.interior-hero__copy, .about-origin__copy { order: 1; padding: 70px var(--gutter) 54px; }.interior-hero__image, .about-origin__image { order: 2; min-height: 580px; }.interior-hero__copy h1, .about-origin__copy h1 { font-size: clamp(4rem, 12vw, 6rem); }
     .family-exchange { grid-template-columns: 1fr; }.family-exchange__flow { grid-template-columns: 1fr 1fr; }.family-exchange__flow li:nth-child(2) { border-right: 0; }
-    .relationship-close__principles { grid-template-columns: 1fr 1fr; }.relationship-close__principles article:nth-child(2n) { border-right: 0; }.relationship-close__principles article:nth-child(3) { border-right: 1px solid var(--line); }
+    .relationship-close__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 22px; }
     .product-mirror, .caregiver-connection, .decision-support, .about-story, .about-system, .about-founders, .about-journey, .faq-hero, .faq-library { grid-template-columns: 1fr; }
     .product-mirror__visual { min-height: 600px; }.product-mirror__copy { padding: 70px var(--gutter); }
     .product-forms__list { grid-template-columns: 1fr; }.product-forms__list article { border-right: 0; }
@@ -1404,7 +1401,7 @@
     .how-day__scene { min-height: 480px; margin-inline: -20px; border-radius: 0; }.how-day__moments { grid-template-columns: 1fr; }.how-day__moments li, .how-day__moments li:nth-child(2) { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
     .family-exchange__visual { min-height: 430px; }.family-exchange__portrait { width: 250px; height: 250px; }.family-exchange__phone { width: 165px; }.family-exchange__flow { grid-template-columns: 1fr; }.family-exchange__flow li, .family-exchange__flow li:nth-child(2) { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
     .caregiver-questions__visual { min-height: 520px; margin-inline: -20px; overflow: hidden; }.caregiver-questions__phone { width: 165px; }.caregiver-questions__phone--today { left: 4%; }.caregiver-questions__phone--context { right: 4%; }.caregiver-questions__phone--message { left: 30%; }
-    .relationship-close__principles { grid-template-columns: 1fr; }.relationship-close__principles article, .relationship-close__principles article:nth-child(3), .relationship-close__principles article:nth-child(2n) { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
+    .relationship-close__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
     .product-mirror__visual { min-height: 480px; margin-inline: -20px; }.product-mirror__copy { padding: 58px 20px; }
     .product-forms__list { margin-inline: -20px; }.product-forms__image { min-height: 310px; }.product-forms__copy { min-height: 350px; padding: 32px 20px; }
     .product-selection__options { grid-template-columns: 1fr; }.product-selection__options button, .product-selection__options button:nth-child(2n), .product-selection__options button:last-child { min-height: 105px; grid-column: auto; border-right: 0; border-bottom: 1px solid rgba(255,255,255,.2); }.product-selection__options button:last-child { border-bottom: 0; }
@@ -1522,12 +1519,7 @@
     .how-it-works-page > .relationship-close .interior-section__heading h2 { font-size: clamp(2.35rem, 10vw, 3.2rem); }
     .how-it-works-page > .relationship-close .interior-section__heading > p:last-child { font-size: .76rem; }
     .how-it-works-page > .relationship-close .relationship-close__principles { margin-top: 24px; }
-    .how-it-works-page > .relationship-close .relationship-close__principles article,
-    .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(2n),
-    .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(3) { padding: 14px 10px; }
     .how-it-works-page > .relationship-close .relationship-close__principles h3 { margin: 12px 0 7px; font-size: 1.08rem; }
-    .how-it-works-page > .relationship-close .relationship-close__principles p { font-size: .64rem; line-height: 1.4; }
-    .how-it-works-page > .relationship-close .relationship-close__limitation { margin-top: 18px; font-size: .64rem; }
   }
 }
 
@@ -1738,14 +1730,7 @@
     .question-led-list p { font-size: .74rem; line-height: 1.5; }
 
     .relationship-close__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 32px; }
-    .relationship-close__principles article,
-    .relationship-close__principles article:nth-child(2n),
-    .relationship-close__principles article:nth-child(3) { min-height: 0; padding: 18px 12px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-    .relationship-close__principles article:nth-child(2n) { border-right: 0; }
-    .relationship-close__principles article:last-child { grid-column: 1 / -1; border-right: 0; border-bottom: 0; }
     .relationship-close__principles h3 { margin: 16px 0 8px; font-size: 1.25rem; }
-    .relationship-close__principles p { font-size: .74rem; line-height: 1.5; }
-    .relationship-close__limitation { margin-top: 25px; font-size: .7rem; line-height: 1.5; }
 
     .product-mirror { grid-template-columns: 1fr; }
     .product-mirror__visual { min-height: clamp(320px, 88vw, 450px); margin-inline: -20px; }
@@ -2026,14 +2011,14 @@
     .how-it-works-page > .relationship-close .interior-section__heading h2 { font-size: clamp(2.15rem, 9vw, 2.8rem); }
     .how-it-works-page > .relationship-close .interior-section__heading > p:last-child { font-size: .7rem; line-height: 1.45; }
     .how-it-works-page > .relationship-close .relationship-close__principles { margin-top: 20px; }
+    .how-it-works-page > .relationship-close .relationship-close__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 16px; border: 0; }
     .how-it-works-page > .relationship-close .relationship-close__principles article,
     .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(2n),
-    .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(3) { padding: 12px 9px; }
+    .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(3) { min-height: 0; padding: 0; border: 0; }
+    .how-it-works-page > .relationship-close .relationship-close__principles article:last-child { grid-column: auto; }
     .how-it-works-page > .relationship-close .relationship-close__principles span { width: 34px; height: 34px; }
     .how-it-works-page > .relationship-close .relationship-close__principles span svg { width: 15px; }
     .how-it-works-page > .relationship-close .relationship-close__principles h3 { margin: 10px 0 5px; font-size: .98rem; }
-    .how-it-works-page > .relationship-close .relationship-close__principles p { font-size: .6rem; line-height: 1.35; }
-    .how-it-works-page > .relationship-close .relationship-close__limitation { margin-top: 16px; font-size: .6rem; line-height: 1.4; }
     .about-system__phone { aspect-ratio: 444 / 834; overflow: hidden; border-radius: 28px; background: transparent; }
     .about-why__points article:nth-child(1),
     .about-why__points article:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,.18) !important; }
