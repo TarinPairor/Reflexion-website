@@ -25,24 +25,24 @@ const initialDetails: PilotDetails = {
 
 const choiceImages: Record<ProductId, { image: string; alt: string }> = {
   mirror: {
-    image: "/reflexion-assets/generated/phase1/product-family-mirror.webp",
+    image: "/reflexion-assets/pilot/form-factors/reflexion-mirror-pilot.png",
     alt: "Reflexion Mirror in a warm home setting",
   },
   "loved-one-app": {
-    image: "/reflexion-assets/generated/phase1/product-family-loved-app.webp",
-    alt: "Reflexion Loved-one App form",
+    image: "/reflexion-assets/pilot/form-factors/reflexion-loved-one-app-pilot.png",
+    alt: "Reflexion Loved-one App on a phone",
   },
   bear: {
-    image: "/reflexion-assets/generated/phase1/product-family-bear.webp",
-    alt: "Reflexion Bear form",
+    image: "/reflexion-assets/pilot/form-factors/reflexion-bear-pilot.png",
+    alt: "Reflexion Bear in a warm home setting",
   },
   "home-hub": {
-    image: "/reflexion-assets/generated/phase1/product-family-home-hub.webp",
-    alt: "Reflexion Home Hub form",
+    image: "/reflexion-assets/pilot/form-factors/reflexion-home-hub-pilot.png",
+    alt: "Reflexion Home Hub in a warm home setting",
   },
   "tabletop-companion": {
-    image: "/reflexion-assets/generated/phase1/product-family-tabletop.webp",
-    alt: "Reflexion Tabletop Companion form",
+    image: "/reflexion-assets/pilot/form-factors/reflexion-tabletop-companion-pilot.png",
+    alt: "Reflexion Tabletop Companion in a warm home setting",
   },
 };
 
@@ -113,10 +113,10 @@ export function JoinPilotForm({ initialProduct }: { initialProduct?: ProductId }
       <div className="pilot-hero__copy">
         <p className="pilot-hero__label">Reflexion home pilot</p>
         <h1 id="pilot-title">Join our pilot</h1>
-        <p className="pilot-hero__lead">Be part of earlier understanding. Help shape the future of Reflexion.</p>
+        <p className="pilot-hero__lead">Be part of earlier detection. Help shape the future of Reflexion.</p>
         <div className="pilot-hero__body">
-          <p>We’re exploring how everyday conversations may help us understand changes in memory, speech and thinking over time.</p>
-          <p>Join our pilot to try Reflexion with yourself or a loved one and help shape a more supportive experience for ageing adults and families.</p>
+          <p>We’re exploring whether everyday conversations could help identify subtle changes associated with <strong>Mild Cognitive Impairment (MCI)</strong> before they become obvious.</p>
+          <p>We’re inviting individuals and families to experience Reflexion at home and help us understand how it can better support ageing adults and the people who care for them. Join our pilot to try Reflexion, and help us learn how changes in speech, memory and thinking appear over time.</p>
         </div>
         <p className="pilot-hero__closing"><strong>Your participation can contribute to research towards earlier identification and earlier support for families.</strong></p>
       </div>
