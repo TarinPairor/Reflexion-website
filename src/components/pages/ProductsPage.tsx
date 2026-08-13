@@ -51,7 +51,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
 
     <section className="caregiver-connection interior-section interior-section--sage" aria-labelledby="caregiver-connection-title" data-motion-chapter>
       <div className="caregiver-connection__copy" data-motion-item><h2 id="caregiver-connection-title">{page.caregiverTitle}</h2><p>{page.caregiverBody}</p><ButtonLink href={localisedHref("/how-it-works", locale)} variant="secondary">{common.how}</ButtonLink></div>
-      <div className="caregiver-connection__phone" data-motion-item><Image className="caregiver-phone-asset" src="/reflexion-assets/generated/phase1/caregiver-app-home-high-quality.png" alt="Reflexion Caregiver App showing a morning update for Mum" fill sizes="(max-width: 767px) 58vw, 275px" unoptimized/></div>
+      <div className="caregiver-connection__phone" data-motion-item><Image className="caregiver-phone-asset" src="/reflexion-assets/generated/phase1/caregiver-app-home-high-quality-transparent.png" alt="Reflexion Caregiver App showing a morning update for Mum" fill sizes="(max-width: 767px) 58vw, 275px" unoptimized/></div>
     </section>
 
     <section className="decision-support decision-support--single interior-section" aria-labelledby="decision-support-title" data-motion-chapter>
