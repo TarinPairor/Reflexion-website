@@ -4,7 +4,6 @@ import type { PageContent } from "@/i18n/pages";
 import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { CaregiverPhone } from "@/components/product/DeviceCompositions";
 import { ClosedCareLoop } from "@/components/home/ClosedCareLoop";
 import { DayWithReflexion } from "@/components/home/DayWithReflexion";
 import { TwoSides } from "@/components/home/TwoSides";
@@ -63,11 +62,6 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
     </section>
 
     <section className="caregiver-questions interior-section" aria-labelledby="caregiver-app-title" data-motion-chapter>
-      <div className="caregiver-questions__visual" data-motion-item>
-        <div className="caregiver-questions__phone caregiver-questions__phone--today"><CaregiverPhone mode="today"/></div>
-        <div className="caregiver-questions__phone caregiver-questions__phone--context"><CaregiverPhone mode="context"/></div>
-        <div className="caregiver-questions__phone caregiver-questions__phone--message"><CaregiverPhone mode="message"/></div>
-      </div>
       <div className="caregiver-questions__content">
         <div className="interior-section__heading" data-motion-item>
           <p className="chapter-index">02 · {locale === "zh" ? "你的照护者 App" : "Your Caregiver App"}</p>

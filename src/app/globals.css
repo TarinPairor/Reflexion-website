@@ -520,33 +520,6 @@
   .mirror-scene { position: relative; width: 100%; height: 100%; min-height: 580px; overflow: hidden; border-radius: 28px 0 0 0; box-shadow: var(--shadow-soft); background: #d5bd9d; }
   .mirror-scene__photo { object-fit: cover; object-position: 52% 50%; }
   .hero__phone { position: absolute; z-index: 5; right: 1.5%; bottom: 2.5%; width: clamp(180px, 16vw, 232px); transform: rotate(1deg); filter: drop-shadow(0 32px 38px rgba(20,30,25,.26)); }
-  .phone { position: relative; aspect-ratio: .49; overflow: hidden; padding: 7px; color: var(--ink); background: #17201d; border: 1px solid rgba(255,255,255,.45); border-radius: 35px; box-shadow: var(--shadow-device); }
-  .phone::before { content: ""; position: absolute; z-index: 3; top: 11px; left: 50%; width: 34%; height: 17px; transform: translateX(-50%); background: #17201d; border-radius: 20px; }
-  .phone__bar { position: absolute; z-index: 4; top: 12px; left: 17px; right: 17px; display: flex; justify-content: space-between; color: #fff; font-size: 6px; }
-  .phone__screen { min-height: 100%; padding: 38px 15px 18px; overflow: hidden; background: linear-gradient(180deg, #f9f4eb, #ece6db); border-radius: 29px; }
-  .phone__brand { display: flex; justify-content: space-between; font-family: var(--serif); font-size: 12px; }
-  .phone__brand span { color: #61776f; font: 600 7px/1 var(--sans); }
-  .phone__eyebrow { margin-top: 25px; color: #70847c; font-size: 6px; font-weight: 700; letter-spacing: .16em; }
-  .phone h3 { margin: 7px 0 16px; font-size: clamp(18px, 2vw, 26px); line-height: 1.04; }
-  .phone__summary, .context-note { display: flex; gap: 9px; padding: 11px; background: rgba(255,255,255,.78); border-radius: 12px; }
-  .phone__summary svg, .context-note svg { flex: 0 0 auto; width: 17px; }
-  .phone__summary b, .context-note b { display: block; font-size: 8px; }
-  .phone__summary small, .context-note small { display: block; margin-top: 3px; color: #62756e; font-size: 6px; line-height: 1.35; }
-  .phone__body { margin: 15px 2px; color: #4c665d; font-size: 8px; line-height: 1.5; }
-  .phone__action { display: flex; align-items: center; justify-content: space-between; margin-top: 13px; padding: 10px 11px; color: #fff; background: var(--forest); border-radius: 999px; font-size: 7px; font-weight: 700; }
-  .phone__action svg { width: 12px; }
-  .chat-bubble { margin: 10px 0 9px 28px; padding: 10px; color: #fff; background: var(--forest-soft); border-radius: 12px 12px 3px 12px; font-size: 7px; }
-  .photo-memory { aspect-ratio: 1.6; display: flex; align-items: end; margin: 8px 0 8px 35px; padding: 8px; color: #fff; background: linear-gradient(150deg, #d9a967, #754631); border-radius: 10px; font: 500 7px/1 var(--sans); }
-  .voice-bubble { display: flex; align-items: center; gap: 7px; padding: 9px; background: rgba(255,255,255,.85); border-radius: 11px; }
-  .voice-bubble svg { width: 13px; }
-  .voice-bubble > span { flex: 1; display: flex; align-items: center; gap: 2px; }
-  .voice-bubble i { width: 2px; height: 8px; background: var(--forest-soft); }
-  .voice-bubble i:nth-child(even) { height: 14px; }
-  .voice-bubble__label { font-size: 6px; white-space: nowrap; }
-  .trend-lines { height: 80px; display: flex; align-items: end; gap: 5px; padding: 12px; background: rgba(255,255,255,.7); border-radius: 12px; }
-  .trend-lines span { flex: 1; height: 55%; background: #b8c4b7; border-radius: 6px 6px 0 0; }
-  .trend-lines span:nth-child(2) { height: 67%; }.trend-lines span:nth-child(3) { height: 62%; }.trend-lines span:nth-child(4) { height: 78%; }.trend-lines span:nth-child(5) { height: 72%; }.trend-lines span:nth-child(6) { height: 82%; }.trend-lines span:nth-child(7) { height: 76%; background: var(--amber); }
-  .context-note { margin-top: 10px; }
   .hero__caption { position: absolute; z-index: 3; right: 28px; bottom: 18px; left: auto; color: rgba(255,255,255,.92); font-size: .64rem; letter-spacing: .04em; text-shadow: 0 2px 12px rgba(0,0,0,.4); }
   .hero__caption span { opacity: .72; }
 
@@ -886,7 +859,7 @@
     .hero { min-height: auto; display: flex; flex-direction: column; padding-top: 122px; padding-bottom: 0; }.hero__copy { order: 1; width: 100%; min-height: 0; max-width: 670px; padding: 38px 0 48px; }.hero__copy h1 { font-size: clamp(3.8rem, 10vw, 5rem); }.hero__artwork { position: relative; inset: auto; order: 2; min-height: 650px; margin-right: calc(var(--gutter) * -1); margin-left: calc(var(--gutter) * -1); }.hero__art { object-position: 67% center; }.hero__glow { display: none; }.hero__visual { min-height: 650px; margin-right: calc(var(--gutter) * -1); margin-left: calc(var(--gutter) * -1); }.hero__visual .mirror-scene { border-radius: 0; }.hero__phone { right: 4%; bottom: 0; width: 185px; }.hero__caption { right: auto; left: var(--gutter); }
     .care-loop__story { min-height: auto; grid-template-columns: 1fr; gap: 28px; }.care-loop__story::before, .care-loop__path { display: none; }.care-loop__moments { width: 100%; }.care-loop__phone { position: relative; right: auto; bottom: auto; left: auto; width: 160px; margin: -40px 0 0 auto; }.care-loop__reply { margin-top: -80px; padding-right: 190px; }.care-loop__portrait { width: 140px; height: 140px; }
     .day__intro { margin-bottom: 65px; }.day__journey { grid-template-columns: 1fr; }.day__visual { position: relative; top: auto; min-height: 590px; border-radius: 250px 250px 24px 24px; }.day__moments li { min-height: 260px; }
-    .two-sides__header { grid-template-columns: 1fr; gap: 24px; }.two-sides__panel { grid-template-columns: 1fr; gap: 50px; padding: 70px 0; }.two-sides__stage { min-height: 0; }.two-sides__device { min-height: 580px; }.two-sides__device--phone .phone { width: 270px; }
+    .two-sides__header { grid-template-columns: 1fr; gap: 24px; }.two-sides__panel { grid-template-columns: 1fr; gap: 50px; padding: 70px 0; }.two-sides__stage { min-height: 0; }.two-sides__device { min-height: 580px; }
     .product-family__heading { grid-template-columns: 1fr; }.product-family__heading .eyebrow { grid-column: 1; }.flagship { grid-template-columns: 1fr; gap: 0; }.flagship__copy { padding: 100px 42px 42px; }.flagship__visual { min-height: 700px; }
     .trust__founder-panel { grid-template-columns: minmax(0, 1fr) minmax(180px, .68fr); gap: 30px; }.trust__manifesto h2 { font-size: clamp(2.35rem, 6vw, 3.15rem); }.trust__family-scene { aspect-ratio: 1.8 / 1; min-height: 0; }
     .faq-preview { grid-template-columns: 1fr; gap: 70px; }.faq-preview__heading { position: static; }.faq-preview__more { grid-column: 1 / -1; }.final-cta { grid-template-columns: 1fr; padding-top: 110px; }.final-cta__visual { min-height: 550px; margin-top: 65px; }.final-cta__visual .mirror-scene { min-height: 550px; }
@@ -907,7 +880,7 @@
     body { font-size: 15px; padding-bottom: 68px; }
     .announcement { min-height: 24px; padding-inline: 12px; font-size: .56rem; }
     .site-header__inner { min-height: 60px; }.brand-lockup { width: 108px; }
-    .hero { padding-top: 108px; }.hero__copy { padding: 26px 0 25px; }.hero__copy h1 { margin: 15px 0 17px; font-size: clamp(2.95rem, 12.4vw, 3.55rem); }.hero__support { font-size: .92rem; line-height: 1.55; }.hero__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 21px; }.hero__actions .button { width: 100%; min-height: 50px; padding: 0 12px; gap: 8px; font-size: .68rem; }.hero__feature { align-items: flex-start; margin-top: 20px; }.hero__feature-icon { width: 38px; height: 38px; }.hero__feature-copy strong { font-size: .75rem; }.hero__feature-points { max-width: 255px; font-size: .61rem; }.hero__artwork { min-height: 430px; }.hero__art { object-position: 68% center; }.hero__visual { min-height: 500px; }.hero__visual .mirror-scene { min-height: 500px; }.mirror-scene__photo { object-position: 52% center; }.hero__phone { width: 132px; right: 3%; }.phone { border-radius: 24px; padding: 5px; }.phone::before { top: 8px; height: 12px; }.phone__bar { top: 9px; left: 12px; right: 12px; }.phone__screen { padding: 29px 10px 12px; border-radius: 20px; }.phone__eyebrow { margin-top: 18px; }.phone h3 { font-size: 16px; margin-bottom: 10px; }.hero__caption { bottom: 14px; font-size: .56rem; }
+    .hero { padding-top: 108px; }.hero__copy { padding: 26px 0 25px; }.hero__copy h1 { margin: 15px 0 17px; font-size: clamp(2.95rem, 12.4vw, 3.55rem); }.hero__support { font-size: .92rem; line-height: 1.55; }.hero__actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 21px; }.hero__actions .button { width: 100%; min-height: 50px; padding: 0 12px; gap: 8px; font-size: .68rem; }.hero__feature { align-items: flex-start; margin-top: 20px; }.hero__feature-icon { width: 38px; height: 38px; }.hero__feature-copy strong { font-size: .75rem; }.hero__feature-points { max-width: 255px; font-size: .61rem; }.hero__artwork { min-height: 430px; }.hero__art { object-position: 68% center; }.hero__visual { min-height: 500px; }.hero__visual .mirror-scene { min-height: 500px; }.mirror-scene__photo { object-position: 52% center; }.hero__phone { width: 132px; right: 3%; }.hero__caption { bottom: 14px; font-size: .56rem; }
     .tension { width: calc(100% - 12px); margin-top: -88px; border-radius: 26px 26px 14px 14px; box-shadow: 0 -20px 44px rgba(4,24,18,.3), 0 16px 30px rgba(4,24,18,.12); }
     .tension::before { top: -30px; right: 8px; left: 8px; height: 44px; background: linear-gradient(180deg, transparent, rgba(7,27,22,.24) 48%, rgba(7,27,22,.76)); }
     .tension__lead { padding-top: 42px; padding-bottom: 24px; }
@@ -939,7 +912,7 @@
     .tension__closing span { font-size: 1.25rem; }
     .section-heading h2 { margin: 17px 0 22px; }.care-loop__story { margin-top: 58px; }.care-loop__moments article { padding: 17px; }.care-loop__phone { width: 125px; }.care-loop__reply { margin-top: -60px; padding-right: 140px; }.care-loop__reply > svg { width: 48px; height: 48px; padding: 12px; }.care-loop__closing { margin-top: 40px; font-size: 1.25rem; }
     .day__intro { margin-bottom: 45px; }.day__visual { min-height: 480px; padding: 28px; }.day__orb { top: 60px; width: 190px; height: 190px; }.day__phone { width: 125px; bottom: 25px; }.day__visual > p { font-size: 1.55rem; }.day__moments li { min-height: 210px; grid-template-columns: 55px 39px 1fr; gap: 11px; }.day__moments li::before { left: 73px; }.day__moment-icon { width: 36px; height: 36px; }.day__moment-icon svg { width: 16px; }.day__moments h3 { font-size: 1.55rem; }
-    .two-sides__tabs { margin-top: 54px; gap: 15px; }.two-sides__tabs button { font-size: .72rem; }.two-sides__copy h3 { font-size: 3.5rem; }.two-sides__copy ul { grid-template-columns: 1fr; }.two-sides__device { min-height: 480px; }.two-sides__device--mirror .mirror-scene { min-height: 445px; width: 88%; }.two-sides__device--phone .phone { width: 220px; }
+    .two-sides__tabs { margin-top: 54px; gap: 15px; }.two-sides__tabs button { font-size: .72rem; }.two-sides__copy h3 { font-size: 3.5rem; }.two-sides__copy ul { grid-template-columns: 1fr; }.two-sides__device { min-height: 480px; }.two-sides__device--mirror .mirror-scene { min-height: 445px; width: 88%; }
     .product-family { padding-top: 48px; }
     .product-family__heading { padding: 0 0 28px; }
     .product-family__heading h2 { max-width: 370px; margin: 12px 0 16px; font-size: 2.35rem; line-height: 1.02; }
@@ -1185,12 +1158,8 @@
   .family-exchange__flow p, .product-note--dark { color: rgba(255,255,255,.62); font-size: .68rem; }
   .product-note--dark { grid-column: 1 / -1; }
 
-  .caregiver-questions { display: grid; grid-template-columns: minmax(420px, .8fr) minmax(520px, 1.2fr); gap: clamp(60px, 8vw, 130px); background: #eef0e9; }
-  .caregiver-questions__visual { min-height: 780px; position: sticky; top: 90px; }
-  .caregiver-questions__phone { width: 230px; position: absolute; }
-  .caregiver-questions__phone--today { z-index: 2; top: 0; left: 2%; transform: rotate(-5deg); }
-  .caregiver-questions__phone--context { z-index: 3; top: 100px; right: 4%; transform: rotate(5deg); }
-  .caregiver-questions__phone--message { z-index: 1; bottom: 0; left: 24%; transform: rotate(-1deg); }
+  .caregiver-questions { display: grid; grid-template-columns: minmax(0, 1fr); gap: clamp(40px, 6vw, 80px); background: #eef0e9; }
+  .caregiver-questions__content { width: min(100%, 900px); margin-inline: auto; }
   .question-led-list { margin-top: 55px; border-top: 1px solid var(--line); }
   .question-led-list article { display: grid; grid-template-columns: 38px 1fr; gap: 18px; padding: 26px 0; border-bottom: 1px solid var(--line); }
   .question-led-list article > span { color: var(--clay); font-size: .62rem; }
@@ -1375,7 +1344,7 @@
   @media (max-width: 1100px) {
     .interior-hero { grid-template-columns: 1fr 1fr; }
     .how-day { grid-template-columns: 1fr; }.how-day .interior-section__heading { position: static; }.how-day__moments { grid-template-columns: 1fr 1fr; }.how-day__moments li:nth-child(2) { border-right: 0; }
-    .caregiver-questions { grid-template-columns: 1fr; }.caregiver-questions__visual { min-height: 650px; position: relative; top: auto; }.caregiver-questions__phone--today { left: 14%; }.caregiver-questions__phone--context { right: 14%; }.caregiver-questions__phone--message { left: 40%; }
+    .caregiver-questions { grid-template-columns: 1fr; }
     .relationship-close__principles { grid-template-columns: repeat(4, minmax(0, 1fr)); }
     .product-forms__list article { grid-template-columns: 1fr; }.product-forms__image { min-height: 330px; }
     .product-selection__options { grid-template-columns: 1fr 1fr; }.product-selection__options button:nth-child(2n) { border-right: 0; }.product-selection__options button:last-child { grid-column: 1 / -1; }
@@ -1400,7 +1369,6 @@
     .interior-hero, .about-origin { padding-top: 96px; }.interior-hero__copy, .about-origin__copy { padding: 54px 20px 42px; }.interior-hero__copy h1, .about-origin__copy h1 { font-size: 3.8rem; }.interior-hero__image, .about-origin__image { min-height: 430px; }
     .how-day__scene { min-height: 480px; margin-inline: -20px; border-radius: 0; }.how-day__moments { grid-template-columns: 1fr; }.how-day__moments li, .how-day__moments li:nth-child(2) { min-height: 0; border-right: 0; border-bottom: 1px solid var(--line); }
     .family-exchange__visual { min-height: 430px; }.family-exchange__portrait { width: 250px; height: 250px; }.family-exchange__phone { width: 165px; }.family-exchange__flow { grid-template-columns: 1fr; }.family-exchange__flow li, .family-exchange__flow li:nth-child(2) { border-right: 0; border-bottom: 1px solid rgba(255,255,255,.18); }
-    .caregiver-questions__visual { min-height: 520px; margin-inline: -20px; overflow: hidden; }.caregiver-questions__phone { width: 165px; }.caregiver-questions__phone--today { left: 4%; }.caregiver-questions__phone--context { right: 4%; }.caregiver-questions__phone--message { left: 30%; }
     .relationship-close__principles { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
     .product-mirror__visual { min-height: 480px; margin-inline: -20px; }.product-mirror__copy { padding: 58px 20px; }
     .product-forms__list { margin-inline: -20px; }.product-forms__image { min-height: 310px; }.product-forms__copy { min-height: 350px; padding: 32px 20px; }
@@ -1507,9 +1475,6 @@
     .how-it-works-page > .family-exchange .family-exchange__flow p { font-size: .63rem; line-height: 1.4; }
 
     .how-it-works-page > .caregiver-questions { gap: 20px; }
-    .how-it-works-page > .caregiver-questions .caregiver-questions__visual { min-height: clamp(315px, 84vw, 370px); }
-    .how-it-works-page > .caregiver-questions .caregiver-questions__phone { width: clamp(124px, 34vw, 142px); }
-    .how-it-works-page > .caregiver-questions .caregiver-questions__phone--context { top: 48px; }
     .how-it-works-page > .caregiver-questions .question-led-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; margin-top: 22px; }
     .how-it-works-page > .caregiver-questions .question-led-list article,
     .how-it-works-page > .caregiver-questions .question-led-list article:nth-child(2) { grid-template-columns: 22px 1fr; gap: 7px; padding: 14px 0; }
@@ -1719,11 +1684,6 @@
     .family-exchange__flow p { font-size: .72rem; line-height: 1.5; }
 
     .caregiver-questions { gap: 30px; }
-    .caregiver-questions__visual { min-height: clamp(390px, 108vw, 480px); margin-inline: -20px; overflow: hidden; }
-    .caregiver-questions__phone { width: clamp(150px, 42vw, 174px); }
-    .caregiver-questions__phone--today { top: 0; left: 0; }
-    .caregiver-questions__phone--context { top: 70px; right: 0; }
-    .caregiver-questions__phone--message { bottom: -18px; left: 28%; }
     .question-led-list { margin-top: 32px; }
     .question-led-list article { grid-template-columns: 30px 1fr; gap: 12px; padding: 21px 0; }
     .question-led-list h3 { margin-bottom: 7px; font-size: 1.3rem; }
@@ -1866,7 +1826,6 @@
 
     .interior-final-actions { display: grid; grid-template-columns: 1fr; }
     .interior-final-actions .button { width: 100%; }
-    .voice-bubble__label { font-size: 6px; }
   }
 }
 @layer sections {

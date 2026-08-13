@@ -59,7 +59,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
   }, []);
 
   const choosePerspective = (next: Perspective) => {
-    revealCaregiverOnScroll.current = false;
+    revealCaregiverOnScroll.current = next === "caregiver";
     setPerspective(next);
     if (next === "loved") setLovedSlide(0);
   };
