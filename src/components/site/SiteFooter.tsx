@@ -30,6 +30,10 @@ export function SiteFooter({ locale, footer, nav, currentPath = "/" }: { locale:
           </address>
         </div>
       </div>
+      <Link className="site-footer__contact" href={`${localisedHref("/faq", locale)}#contact-us`}>
+        <span>{footer.contact}</span>
+        <Icon name="arrow" width={18} height={18} aria-hidden="true" />
+      </Link>
       <Link className="site-footer__cta" href={localisedHref("/get-reflexion", locale)}>
         <span>{footer.cta}</span>
         <Icon name="arrow" width={18} height={18} aria-hidden="true" />

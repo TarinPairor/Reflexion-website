@@ -18,7 +18,7 @@ export function MirrorScene({
       fill
       loading={compact ? "lazy" : "eager"}
       fetchPriority={compact ? "auto" : "high"}
-      sizes={compact ? "(max-width: 768px) 72vw, 34vw" : "(max-width: 768px) 100vw, 58vw"}
+      sizes={compact ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 58vw"}
     />
   </div>;
 }
@@ -40,7 +40,7 @@ export function CaregiverPhone({ mode = "today" }: { mode?: "today" | "message" 
         <h3>Closer, in your own voice.</h3>
         <div className="chat-bubble chat-bubble--sent">Sent you a photo from lunch today.</div>
         <div className="photo-memory" aria-hidden="true"><span>Family lunch</span></div>
-        <div className="voice-bubble"><Icon name="voice"/><span className="voice-bubble__wave"><i/><i/><i/><i/><i/><i/></span><small className="voice-bubble__label">Voice reply · 0:18</small></div>
+        <div className="voice-bubble"><Icon name="voice"/><span><i/><i/><i/><i/><i/><i/></span><small>0:18</small></div>
       </>}
       {mode === "context" && <>
         <p className="phone__eyebrow">THIS WEEK</p>

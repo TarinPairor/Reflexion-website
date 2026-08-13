@@ -9,21 +9,28 @@ type Content = ReturnType<typeof getHomeContent>;
 export function ClosedCareLoop({ content, locale }: { content: Content; locale: Locale }) {
   return <section className="care-loop" aria-labelledby="care-loop-title" data-motion-chapter>
     <div className="care-loop__meet" data-motion-item>
-      <div className="care-loop__meet-shell">
-        <div className="care-loop__meet-copy">
-          <p className="eyebrow">{content.loop.meetEyebrow}</p>
-          <h2 id="care-loop-title">{content.loop.meetTitle}</h2>
-          <p>{content.loop.meetBody}</p>
-          <div className="care-loop__audiences">
-            <div><span><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="" fill sizes="44px"/></span><p>{locale === "zh" ? "为 Margaret：陪伴与日常支持。" : "For Margaret: companionship and routine support."}</p></div>
-            <div><span><Image src="/reflexion-assets/generated/phase1/closed-loop-caregiver.webp" alt="" fill sizes="44px"/></span><p>{locale === "zh" ? "为 Mei：有意义的了解与联系。" : "For Mei: meaningful awareness and connection."}</p></div>
+      <div className="care-loop__meet-copy">
+        <p className="eyebrow">{content.loop.meetEyebrow}</p>
+        <h2 id="care-loop-title">{content.loop.meetTitle}</h2>
+      </div>
+      <div className="care-loop__experience-cards">
+        <article className="care-loop__experience-card care-loop__experience-card--margaret">
+          <Image className="care-loop__margaret-scene" src="/reflexion-assets/generated/phase1/home-meet-margaret.png" alt="Margaret using the Reflexion Mirror during a morning check-in" fill sizes="(max-width: 820px) 100vw, 65vw"/>
+          <div className="care-loop__experience-copy">
+            <p>{content.loop.meetMargaretLabel}</p>
+            <h3>{content.loop.meetMargaretTitle}</h3>
           </div>
+        </article>
+        <div className="care-loop__experience-logo" aria-hidden="true">
+          <Image className="care-loop__experience-logo-mark" src="/reflexion-assets/generated/phase1/reflexion-loop-logo-v1.png" alt="" width={72} height={72}/>
         </div>
-        <div className="care-loop__meet-visual">
-          <Image className="care-loop__meet-scene" src="/reflexion-assets/generated/phase1/closed-loop-mirror.webp" alt="Margaret interacting with the Reflexion Mirror" fill sizes="(max-width: 820px) 100vw, 70vw"/>
-          <div className="care-loop__meet-fade" aria-hidden="true"/>
-          <Image className="care-loop__meet-phone" src="/reflexion-assets/generated/phase1/two-sides-caregiver-app-cutout.webp" alt="Reflexion Caregiver App showing useful context from Margaret’s morning" width={677} height={1302} sizes="(max-width: 520px) 52vw, (max-width: 820px) 42vw, 23vw"/>
-        </div>
+        <article className="care-loop__experience-card care-loop__experience-card--mei">
+          <Image className="care-loop__mei-scene" src="/reflexion-assets/generated/phase1/home-meet-mei.png" alt="Caregiver holding the Reflexion App while staying connected with Mei" fill sizes="(max-width: 820px) 100vw, 42vw"/>
+          <div className="care-loop__experience-copy">
+            <p>{content.loop.meetMeiLabel}</p>
+            <h3>{content.loop.meetMeiTitle}</h3>
+          </div>
+        </article>
       </div>
     </div>
 

@@ -46,7 +46,7 @@ export function AboutPage({ locale, home, page, common }: { locale: Locale; home
       <div className="about-founders__list" data-motion-item>{page.founders.map((founder, index) => <article key={founder[0]}><span>0{index + 1}</span><h3>{founder[0]}</h3><b>{founder[1]}</b><p>{founder[2]}</p></article>)}</div>
       <figure className="about-founders__photo" data-motion-item>
         <div className="about-founders__photo-media"><Image src="/reflexion-assets/people/founders/IMG_4042.JPG" alt="Kong Kei-Lyn and Chloe Tan together" fill sizes="(max-width: 767px) calc(100vw - 40px), 52vw"/></div>
-        <figcaption><span>{page.founders[0][1]}</span><strong>{page.founders.map(([name]) => name).join(" + ")}</strong></figcaption>
+        <figcaption><span>{page.founders[0][1]}</span><strong>{home.trust.founderNames}</strong></figcaption>
       </figure>
     </section>
 
@@ -56,7 +56,7 @@ export function AboutPage({ locale, home, page, common }: { locale: Locale; home
     </section>
 
     <section className="about-recognition interior-section" data-motion-chapter>
-      <RecognitionStrip title={home.trust.recognitionTitle} note={home.trust.recognitionNote} items={home.trust.recognition}/>
+      <RecognitionStrip heading={home.trust.recognitionEyebrow} items={home.trust.recognition}/>
     </section>
 
     <section className="about-future interior-section" aria-labelledby="future-title" data-motion-chapter>

@@ -22,7 +22,7 @@ export const productOptions: readonly ProductOption[] = [
   {
     id: "loved-one-app",
     name: "Loved-one App",
-    maturity: "Functional alternative · QA gate",
+    maturity: "Coming soon",
     description: "A functional phone-based alternative for families who prefer a familiar screen.",
     included: ["Loved-one App experience", "Connection with the Reflexion Caregiver App"],
     price: "S$29.90/month",
@@ -30,7 +30,7 @@ export const productOptions: readonly ProductOption[] = [
   {
     id: "bear",
     name: "Reflexion Bear",
-    maturity: "Prototype",
+    maturity: "Coming soon",
     description: "A softer companion form being explored for homes where a screen may feel less natural.",
     included: ["Bear direction", "Proposed Reflexion experience", "Proposed Caregiver App connection"],
     price: "S$199 once + S$29.90/month",
@@ -38,7 +38,7 @@ export const productOptions: readonly ProductOption[] = [
   {
     id: "home-hub",
     name: "Reflexion Home Hub",
-    maturity: "Concept",
+    maturity: "Coming soon",
     description: "A compact home-based concept designed for smart home users.",
     included: ["Home Hub direction", "Proposed Reflexion experience", "Proposed Caregiver App connection"],
     price: "S$29.90/month",
@@ -46,7 +46,7 @@ export const productOptions: readonly ProductOption[] = [
   {
     id: "tabletop-companion",
     name: "Tabletop Companion",
-    maturity: "Future concept",
+    maturity: "Coming soon",
     description: "A more expressive tabletop companion being explored as a future direction.",
     included: ["Tabletop Companion direction", "Proposed Reflexion experience", "Proposed Caregiver App connection"],
     price: "S$999 once + S$39.90/month",

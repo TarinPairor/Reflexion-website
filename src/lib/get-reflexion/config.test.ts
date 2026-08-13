@@ -18,9 +18,9 @@ describe("Get Reflexion commercial-intent configuration", () => {
   });
 
   it("keeps form maturity visible instead of presenting every direction as equally ready", () => {
-    expect(getProduct("loved-one-app").maturity).toBe("Functional alternative · QA gate");
-    expect(getProduct("bear").maturity).toBe("Prototype");
-    expect(getProduct("home-hub").maturity).toBe("Concept");
-    expect(getProduct("tabletop-companion").maturity).toBe("Future concept");
+    expect(getProduct("loved-one-app").maturity).toBe("Coming soon");
+    expect(getProduct("bear").maturity).toBe("Coming soon");
+    expect(getProduct("home-hub").maturity).toBe("Coming soon");
+    expect(getProduct("tabletop-companion").maturity).toBe("Coming soon");
   });
 });
