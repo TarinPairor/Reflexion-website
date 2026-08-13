@@ -15,9 +15,16 @@ export function WebsiteMetricsTracker() {
       if (!link) return;
 
       const destination = new URL(link.href, window.location.href);
-      if (destination.origin !== window.location.origin || destination.pathname !== "/get-reflexion") return;
+      if (destination.origin !== window.location.origin) return;
+      const isPilotEntry = destination.pathname === "/get-reflexion";
+      const isLegacyEntry = destination.pathname === "/get-reflexion-legacy";
+      if (!isPilotEntry && !isLegacyEntry) return;
 
       startNewFunnelSession();
+      if (isPilotEntry) {
+        recordFunnelMetric({ event: "join_pilot_click" });
+        return;
+      }
       recordFunnelMetric({ event: "get_reflexion_click" });
     };
 

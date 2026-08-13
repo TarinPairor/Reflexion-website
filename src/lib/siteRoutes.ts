@@ -1,6 +1,6 @@
 import type { Locale } from "@/i18n/content";
 
-export const primaryPaths = ["/how-it-works", "/products", "/about", "/faq"] as const;
+export const primaryPaths = ["/", "/how-it-works", "/products", "/about", "/faq"] as const;
 
 export function visibleNavigationItems(labels: readonly string[]) {
   return primaryPaths

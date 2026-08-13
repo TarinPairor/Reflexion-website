@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const productIdSchema = z.enum(["mirror", "loved-one-app", "bear", "home-hub", "tabletop-companion"]);
 const mirrorPlanSchema = z.enum(["a", "b"]);
+const pilotRecipientSchema = z.enum(["My parent", "My grandparent", "My spouse", "Myself", "Someone else"]);
 
 export const websiteFormSubmissionSchema = z.object({
   productId: productIdSchema,
@@ -76,3 +77,30 @@ export const websiteFormSubmissionSchema = z.object({
 });
 
 export type WebsiteFormSubmission = z.infer<typeof websiteFormSubmissionSchema>;
+
+export const pilotFormSubmissionSchema = z.object({
+  form: z.literal("join-pilot"),
+  productId: productIdSchema,
+  details: z.object({
+    fullName: z.string().trim().min(1).max(120),
+    mobile: z.string().trim().min(6).max(30),
+    email: z.email().max(254),
+    recipient: pilotRecipientSchema,
+  }).strict(),
+  referralSource: z.string().trim().max(100).nullable(),
+}).strict();
+
+export type PilotFormSubmission = z.infer<typeof pilotFormSubmissionSchema>;
+
+export const contactFormSubmissionSchema = z.object({
+  form: z.literal("contact"),
+  locale: z.enum(["en", "zh"]),
+  details: z.object({
+    fullName: z.string().trim().min(1).max(120),
+    mobile: z.string().trim().min(6).max(30),
+    email: z.email().max(254),
+    message: z.string().trim().min(1).max(2_000),
+  }).strict(),
+}).strict();
+
+export type ContactFormSubmission = z.infer<typeof contactFormSubmissionSchema>;

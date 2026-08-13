@@ -5,21 +5,30 @@ import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
 import { CaregiverPhone } from "@/components/product/DeviceCompositions";
+import { ClosedCareLoop } from "@/components/home/ClosedCareLoop";
+import { DayWithReflexion } from "@/components/home/DayWithReflexion";
+import { TwoSides } from "@/components/home/TwoSides";
 
 type HomeContent = ReturnType<typeof getHomeContent>;
 const momentIcons: IconName[] = ["sun", "message", "check", "heart"];
-const trustIcons: IconName[] = ["heart", "message", "check", "spark", "sun"];
+const trustIcons: IconName[] = ["heart", "message", "check", "spark"];
 
 export function HowItWorksPage({ locale, home, page, common }: { locale: Locale; home: HomeContent; page: PageContent["how"]; common: PageContent["common"] }) {
-  return <>
+  return <div className="how-it-works-page">
     <section className="interior-hero interior-hero--how interior-hero--text-only" id="top" aria-labelledby="how-title" data-motion-chapter>
       <div className="interior-hero__copy" data-motion-item>
-        <p className="eyebrow">{home.nav[0]}</p>
+        <p className="eyebrow">{home.nav[1]}</p>
         <h1 id="how-title">{page.heroTitle}</h1>
         <p>{page.heroBody}</p>
         <div className="hero__actions"><ButtonLink href={localisedHref("/get-reflexion", locale)}>{common.get}</ButtonLink></div>
       </div>
     </section>
+
+    <div className="how-it-works-page__home-sections" aria-label={locale === "zh" ? "Reflexion 如何融入家庭生活" : "How Reflexion fits into family life"}>
+      <ClosedCareLoop content={home} locale={locale}/>
+      <DayWithReflexion content={home} locale={locale}/>
+      <TwoSides content={home} locale={locale}/>
+    </div>
 
     <section className="how-day interior-section" aria-labelledby="their-day-title" data-motion-chapter>
       <div className="interior-section__heading" data-motion-item>
@@ -78,13 +87,12 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
         <p>{page.relationshipBody}</p>
       </div>
       <div className="relationship-close__principles" data-motion-item>
-        {page.relationshipPoints.map((item, index) => <article key={item[0]}><span><Icon name={trustIcons[index]}/></span><h3>{item[0]}</h3><p>{item[1]}</p></article>)}
+        {page.relationshipPoints.map((item, index) => <article key={item}><span><Icon name={trustIcons[index]}/></span><h3>{item}</h3></article>)}
       </div>
-      <p className="relationship-close__limitation" data-motion-item>{common.limitation}</p>
       <div className="interior-final-actions" data-motion-item>
         <ButtonLink href={localisedHref("/get-reflexion", locale)}>{common.get}</ButtonLink>
         <ButtonLink href={localisedHref("/products", locale)} variant="secondary">{common.products}</ButtonLink>
       </div>
     </section>
-  </>;
+  </div>;
 }

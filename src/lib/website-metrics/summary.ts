@@ -52,6 +52,8 @@ export type WebsiteMetricsSummary = {
     strongerCommitment: FunnelMeasure;
     completed: FunnelMeasure;
   };
+  contact: { starts: number; submissions: number };
+  pilot: { starts: number; submissions: number; referralsShared: number };
 };
 
 function measure(count: number, denominator: number): FunnelMeasure {
@@ -119,6 +121,11 @@ export async function getWebsiteMetricsSummary(): Promise<WebsiteMetricsSummary>
     proceeded,
     closedNoProgression,
     recentLeadDocuments,
+    contactStarts,
+    contactSubmissions,
+    pilotStarts,
+    pilotSubmissions,
+    pilotReferralsShared,
   ] = await Promise.all([
     collection.countDocuments({ documentType: "visitor" }),
     breakdown("visitor", "trafficSource"),
@@ -148,6 +155,11 @@ export async function getWebsiteMetricsSummary(): Promise<WebsiteMetricsSummary>
       { form: "get-reflexion" },
       { projection: { createdAt: 1, product: 1, decision: 1, followThrough: 1 } },
     ).sort({ createdAt: -1 }).limit(50).toArray(),
+    collection.countDocuments({ documentType: "interaction", event: "contact_form_started" }),
+    forms.countDocuments({ form: "contact" }),
+    collection.countDocuments({ documentType: "funnel", pilotStartedAt: { $exists: true } }),
+    forms.countDocuments({ form: "join-pilot" }),
+    collection.countDocuments({ documentType: "funnel", pilotReferralSharedAt: { $exists: true } }),
   ]);
 
   const recentLeads: FollowThroughLead[] = recentLeadDocuments.map((document) => {
@@ -194,5 +206,7 @@ export async function getWebsiteMetricsSummary(): Promise<WebsiteMetricsSummary>
       strongerCommitment: measure(strongerCommitments, accepted),
       completed: measure(completed, starts),
     },
+    contact: { starts: contactStarts, submissions: contactSubmissions },
+    pilot: { starts: pilotStarts, submissions: pilotSubmissions, referralsShared: pilotReferralsShared },
   };
 }

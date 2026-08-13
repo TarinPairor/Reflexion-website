@@ -10,7 +10,7 @@ export function normaliseLocale(value: string | string[] | undefined): Locale {
 
 const working = {
   en: {
-    nav: ["How It Works", "Products", "About", "FAQ"],
+    nav: ["Home", "How It Works", "Products", "About", "FAQ"],
     localeLabel: "Language",
     hero: null,
     heroFeatureLead: "One connected rhythm for",
@@ -193,21 +193,21 @@ const working = {
       emailHref: "mailto:reflexion.aitechnologies@gmail.com",
       phone: "Phone number: +65 9001 2005",
       phoneHref: "https://wa.me/6590012005",
-      cta: "Get Reflexion",
+      cta: "Join our pilot",
       disclaimer: "Reflexion supports everyday wellbeing and family connection. It is not a medical, diagnostic or emergency service.",
       privacy: "Privacy",
       terms: "Terms",
     },
   },
   zh: {
-    nav: ["运作方式", "产品", "关于我们", "常见问题"],
+    nav: ["首页", "运作方式", "产品", "关于我们", "常见问题"],
     localeLabel: "语言",
     hero: {
       eyebrow: "为照顾年长父母的家庭而设计",
       headline: "即使无法时刻陪伴，也能把关怀留在家中。",
       supporting: "Reflexion 通过每日对话、温和的日常支持和有意义的照护者近况，帮助家人保持联系。",
       feature: "每日认知与身心状态交流",
-      primary: "了解 Reflexion",
+      primary: "加入试点",
       secondary: "查看运作方式",
     },
     heroFeatureLead: "一个相连的日常节奏，带来",
@@ -330,7 +330,7 @@ const working = {
       emailHref: "mailto:reflexion.aitechnologies@gmail.com",
       phone: "电话号码：+65 9001 2005",
       phoneHref: "https://wa.me/6590012005",
-      cta: "了解 Reflexion",
+      cta: "加入试点",
       disclaimer: "Reflexion 支持日常身心健康与家庭联系。它不是医疗、诊断或紧急服务。",
       privacy: "隐私",
       terms: "条款",
