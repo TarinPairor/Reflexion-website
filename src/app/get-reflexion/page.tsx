@@ -18,7 +18,7 @@ export default async function JoinPilotPage({ searchParams }: { searchParams: Pr
 
   return <div lang={locale === "zh" ? "zh-Hans" : "en"} className="pilot-page">
     <SiteHeader locale={locale} labels={content.nav} getLabel={content.hero.primary} currentPath="/get-reflexion"/>
-    {locale === "zh" ? <p className="pilot-language-note">Join the Pilot 表格目前以英文显示；简体中文版本仍待人工审核。</p> : null}
+    {locale === "zh" ? <p className="pilot-language-note">Join our pilot 表格目前以英文显示；简体中文版本仍待人工审核。</p> : null}
     <JoinPilotForm initialProduct={initialProduct}/>
     <SiteFooter locale={locale} footer={content.footer} nav={content.nav} currentPath="/get-reflexion"/>
   </div>;

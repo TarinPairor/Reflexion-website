@@ -193,7 +193,7 @@ const working = {
       emailHref: "mailto:reflexion.aitechnologies@gmail.com",
       phone: "Phone number: +65 9001 2005",
       phoneHref: "https://wa.me/6590012005",
-      cta: "Join the Pilot",
+      cta: "Join our pilot",
       disclaimer: "Reflexion supports everyday wellbeing and family connection. It is not a medical, diagnostic or emergency service.",
       privacy: "Privacy",
       terms: "Terms",

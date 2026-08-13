@@ -14,7 +14,8 @@ type Perspective = "loved" | "caregiver";
 
 const lovedIcons: IconName[] = ["sun", "message", "check", "heart"];
 const lovedSlideAdvanceDelay = 5200;
-const scrollTransitionThreshold = 42;
+const scrollTransitionThreshold = 120;
+const wheelTransitionThreshold = 180;
 
 function isInteractiveTarget(target: EventTarget | null) {
   return target instanceof Element && Boolean(target.closest("button, a, input, select, textarea"));
@@ -23,6 +24,8 @@ function isInteractiveTarget(target: EventTarget | null) {
 export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
   const detailRef = useRef<HTMLDivElement>(null);
   const touchStartY = useRef<number | null>(null);
+  const wheelDistance = useRef(0);
+  const wheelResetTimer = useRef<number | null>(null);
   const revealCaregiverOnScroll = useRef(false);
   const [perspective, setPerspective] = useState<Perspective>("loved");
   const [lovedSlide, setLovedSlide] = useState(0);
@@ -51,6 +54,10 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     return () => window.cancelAnimationFrame(frame);
   }, [perspective, reduceMotion]);
 
+  useEffect(() => () => {
+    if (wheelResetTimer.current !== null) window.clearTimeout(wheelResetTimer.current);
+  }, []);
+
   const choosePerspective = (next: Perspective) => {
     revealCaregiverOnScroll.current = false;
     setPerspective(next);
@@ -71,6 +78,16 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
   const handleWheel = (event: WheelEvent<HTMLElement>) => {
     if (caregiver || event.deltaY <= 0 || isInteractiveTarget(event.target)) return;
 
+    wheelDistance.current += event.deltaY;
+    if (wheelResetTimer.current !== null) window.clearTimeout(wheelResetTimer.current);
+    wheelResetTimer.current = window.setTimeout(() => {
+      wheelDistance.current = 0;
+      wheelResetTimer.current = null;
+    }, 280);
+
+    if (wheelDistance.current < wheelTransitionThreshold) return;
+
+    wheelDistance.current = 0;
     showCaregiverFromScroll();
   };
 

@@ -11,7 +11,7 @@ export function PilotThankYou() {
   const [shareStatus, setShareStatus] = useState<ShareStatus>("idle");
 
   const whatsappLink = useMemo(() => {
-    const message = `Hi! I came across Reflexion, a new project exploring whether everyday conversations could help us understand changes in memory, speech and thinking over time.
+    const message = `Hi! I came across Reflexion, a new project exploring whether everyday conversations could help identify subtle changes in memory, speech and thinking to detect dementia earlier.
 
 They’re currently inviting people to join their pilot and try Reflexion with themselves or a loved one, while helping shape how it develops.
 

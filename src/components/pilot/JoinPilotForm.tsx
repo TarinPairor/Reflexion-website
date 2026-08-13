@@ -175,7 +175,7 @@ export function JoinPilotForm({ initialProduct }: { initialProduct?: ProductId }
 
       {submissionError ? <p className="pilot-form__error" role="alert">{submissionError}</p> : null}
       <div className="pilot-submit">
-        <button className="pilot-submit__button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Joining…" : "Join the pilot"}<Icon name="arrow" width={19} height={19}/></button>
+        <button className="pilot-submit__button" type="submit" disabled={isSubmitting}>{isSubmitting ? "Joining…" : "Join our pilot"}<Icon name="arrow" width={19} height={19}/></button>
       </div>
       <div className="pilot-disclaimer" id="pilot-disclaimer">
         <p><strong>Interest only.</strong> Submitting this form registers your interest; it does not enrol you in a study or guarantee participation.</p>

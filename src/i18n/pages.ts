@@ -3,7 +3,7 @@ import type { Locale } from "./content";
 const pages = {
   en: {
     common: {
-      get: "Join the Pilot",
+      get: "Join our pilot",
       products: "Explore Products",
       how: "See How It Works",
       limitation: "Reflexion supports consumer wellness and caregiving. It does not diagnose dementia, replace professional cognitive assessment or provide emergency monitoring.",
@@ -144,8 +144,8 @@ const pages = {
         ]],
         ["Getting started and availability", [
           ["Which forms are currently available?", "The Mirror is the current flagship. The Loved-one App, Bear, Home Hub and Tabletop Companion are coming soon."],
-          ["Will I need to pay to join the pilot?", "No purchase is required. Join the Pilot records your interest and does not enrol you in a study or guarantee participation."],
-          ["How do I join the pilot?", "Choose the form that feels most natural for you or your loved one, share the minimum contact details requested, and our team will follow up if there is a suitable opportunity."],
+          ["Will I need to pay to join our pilot?", "No purchase is required. Joining our pilot records your interest and does not enrol you in a study or guarantee participation."],
+          ["How do I join our pilot?", "Choose the form that feels most natural for you or your loved one, share the minimum contact details requested, and our team will follow up if there is a suitable opportunity."],
         ]],
         ["Contact", [
           ["How can I follow Reflexion?", "Follow @reflexion.sg on Instagram. General email, partnership email and WhatsApp details will be published only after they are confirmed."],
