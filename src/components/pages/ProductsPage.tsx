@@ -7,16 +7,9 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon } from "@/components/ui/Icon";
 import { CaregiverPhone } from "@/components/product/DeviceCompositions";
 import { ProductSelection } from "./ProductSelection";
+import { productFormImages } from "@/lib/productAssets";
 
 type HomeContent = ReturnType<typeof getHomeContent>;
-
-const formImages = {
-  mirror: "/reflexion-assets/generated/phase1/product-family-mirror.webp",
-  "loved-one-app": "/reflexion-assets/generated/phase1/product-family-loved-app-user.webp",
-  bear: "/reflexion-assets/generated/phase1/product-family-bear.webp",
-  "home-hub": "/reflexion-assets/generated/phase1/product-family-home-hub.webp",
-  "tabletop-companion": "/reflexion-assets/generated/phase1/product-family-tabletop.webp",
-} as const;
 
 export function ProductsPage({ locale, home, page, common }: { locale: Locale; home: HomeContent; page: PageContent["products"]; common: PageContent["common"] }) {
   const alternatives = productOptions.filter((product) => product.id !== "mirror");
@@ -40,7 +33,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
     </section>
 
     <section className="product-mirror interior-section" aria-labelledby="mirror-title" data-motion-chapter>
-      <div className="product-mirror__visual" data-motion-item><Image src="/reflexion-assets/generated/phase1/product-family-mirror.webp" alt="A source-grounded representation of the 21.5-inch Reflexion Mirror at home" fill sizes="(max-width: 820px) 100vw, 60vw"/></div>
+      <div className="product-mirror__visual" data-motion-item><Image src={productFormImages.mirror} alt="A source-grounded representation of the 21.5-inch Reflexion Mirror at home" fill sizes="(max-width: 820px) 100vw, 60vw"/></div>
       <div className="product-mirror__copy" data-motion-item><p className="maturity maturity--current">{localizedProductLabels.mirror.maturity}</p><h2 id="mirror-title">{page.mirrorTitle}</h2><p>{page.mirrorBody}</p><ul>{productOptions[0].included.map((item) => <li key={item}>{item}</li>)}</ul><ButtonLink href={localisedHref("/get-reflexion?form=mirror", locale)}>{common.get}</ButtonLink></div>
     </section>
 
@@ -48,7 +41,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
       <div className="interior-section__heading" data-motion-item><h2 id="other-forms-title">{page.otherTitle}</h2><p>{page.otherBody}</p></div>
       <div className="product-family__list product-forms__list--compact">
         {alternatives.map((product) => <article id={`form-${product.id}`} data-motion-item key={product.id}>
-          <div className={`product-family__thumb product-family__thumb--${product.id}`}><Image src={formImages[product.id]} alt={`${localizedProductLabels[product.id].name} product direction`} fill sizes="(max-width: 767px) 92px, 170px"/></div>
+          <div className={`product-family__thumb product-family__thumb--${product.id}`}><Image src={productFormImages[product.id]} alt={`${localizedProductLabels[product.id].name} product direction`} fill sizes="(max-width: 767px) 92px, 170px"/></div>
           <div className="product-family__item-copy"><h3>{localizedProductLabels[product.id].name}</h3><p className="maturity">{localizedProductLabels[product.id].maturity}</p><p>{localizedProductCopy[product.id]}</p><a href={localisedHref(`/get-reflexion?form=${product.id}`, locale)}>{home.products.learnMore} <Icon name="arrow"/></a></div>
           <span className="product-family__item-arrow" aria-hidden="true"><Icon name="arrow"/></span>
         </article>)}

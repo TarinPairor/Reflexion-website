@@ -1452,6 +1452,92 @@
   }
 }
 
+/* Keep the form-factor imagery consistent across Home, Products and the pilot. */
+@layer sections {
+  .product-family__thumb,
+  .product-forms__list--compact .product-family__thumb {
+    aspect-ratio: 1;
+    height: auto;
+  }
+
+  .product-family__thumb img,
+  .product-forms__list--compact .product-family__thumb img {
+    object-position: center;
+  }
+}
+
+/* The How It Works page carries the Home story above the concise product walkthrough below. */
+@layer responsive {
+  @media (max-width: 767px) {
+    .how-it-works-page > .how-day,
+    .how-it-works-page > .family-exchange,
+    .how-it-works-page > .caregiver-questions,
+    .how-it-works-page > .relationship-close {
+      padding-block: 46px;
+    }
+
+    .how-it-works-page > .how-day { gap: 24px; }
+    .how-it-works-page > .how-day .interior-section__heading h2 { font-size: clamp(2.25rem, 9.8vw, 3.15rem); }
+    .how-it-works-page > .how-day .interior-section__heading > p:last-child { font-size: .76rem; line-height: 1.45; }
+    .how-it-works-page > .how-day .how-day__scene { min-height: clamp(250px, 68vw, 320px); }
+    .how-it-works-page > .how-day .how-day__scene-copy { padding: 68px 18px 18px; }
+    .how-it-works-page > .how-day .how-day__scene-copy strong { font-size: 1.45rem; }
+    .how-it-works-page > .how-day .how-day__moments { grid-template-columns: 1fr 1fr; }
+    .how-it-works-page > .how-day .how-day__moments li,
+    .how-it-works-page > .how-day .how-day__moments li:nth-child(2) { min-height: 0; grid-template-columns: 30px 1fr; gap: 9px; padding: 16px 10px 16px 0; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .how-it-works-page > .how-day .how-day__moments li:nth-child(2n) { padding-left: 10px; border-right: 0; }
+    .how-it-works-page > .how-day .how-day__moments li:nth-child(3),
+    .how-it-works-page > .how-day .how-day__moments li:nth-child(4) { border-bottom: 0; }
+    .how-it-works-page > .how-day .how-day__moments li > span { width: 28px; height: 28px; }
+    .how-it-works-page > .how-day .how-day__moments svg { width: 14px; }
+    .how-it-works-page > .how-day .how-day__moments h3 { margin: 4px 0 5px; font-size: 1.05rem; }
+    .how-it-works-page > .how-day .how-day__moments p { font-size: .63rem; line-height: 1.4; }
+
+    .how-it-works-page > .family-exchange { gap: 20px; }
+    .how-it-works-page > .family-exchange .family-exchange__intro h2 { font-size: clamp(2.35rem, 10vw, 3.25rem); }
+    .how-it-works-page > .family-exchange .family-exchange__intro > p:last-child { font-size: .76rem; }
+    .how-it-works-page > .family-exchange .family-exchange__visual { min-height: clamp(245px, 66vw, 300px); }
+    .how-it-works-page > .family-exchange .family-exchange__portrait { width: clamp(165px, 45vw, 205px); height: clamp(165px, 45vw, 205px); top: 16px; }
+    .how-it-works-page > .family-exchange .family-exchange__phone { width: clamp(132px, 36vw, 158px); }
+    .how-it-works-page > .family-exchange .family-exchange__flow { grid-template-columns: 1fr 1fr; }
+    .how-it-works-page > .family-exchange .family-exchange__flow li,
+    .how-it-works-page > .family-exchange .family-exchange__flow li:nth-child(2) { min-height: 0; padding: 15px 10px 15px 0; border-right: 1px solid rgba(255,255,255,.18); border-bottom: 1px solid rgba(255,255,255,.18); }
+    .how-it-works-page > .family-exchange .family-exchange__flow li:nth-child(2n) { padding-left: 10px; border-right: 0; }
+    .how-it-works-page > .family-exchange .family-exchange__flow li:nth-child(3),
+    .how-it-works-page > .family-exchange .family-exchange__flow li:nth-child(4) { border-bottom: 0; }
+    .how-it-works-page > .family-exchange .family-exchange__flow h3 { margin-bottom: 5px; font-size: 1.05rem; }
+    .how-it-works-page > .family-exchange .family-exchange__flow p { font-size: .63rem; line-height: 1.4; }
+
+    .how-it-works-page > .caregiver-questions { gap: 20px; }
+    .how-it-works-page > .caregiver-questions .caregiver-questions__visual { min-height: clamp(315px, 84vw, 370px); }
+    .how-it-works-page > .caregiver-questions .caregiver-questions__phone { width: clamp(124px, 34vw, 142px); }
+    .how-it-works-page > .caregiver-questions .caregiver-questions__phone--context { top: 48px; }
+    .how-it-works-page > .caregiver-questions .question-led-list { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; margin-top: 22px; }
+    .how-it-works-page > .caregiver-questions .question-led-list article,
+    .how-it-works-page > .caregiver-questions .question-led-list article:nth-child(2) { grid-template-columns: 22px 1fr; gap: 7px; padding: 14px 0; }
+    .how-it-works-page > .caregiver-questions .question-led-list h3 { margin-bottom: 5px; font-size: 1.02rem; }
+    .how-it-works-page > .caregiver-questions .question-led-list p { font-size: .63rem; line-height: 1.4; }
+
+    .how-it-works-page > .relationship-close .interior-section__heading h2 { font-size: clamp(2.35rem, 10vw, 3.2rem); }
+    .how-it-works-page > .relationship-close .interior-section__heading > p:last-child { font-size: .76rem; }
+    .how-it-works-page > .relationship-close .relationship-close__principles { margin-top: 24px; }
+    .how-it-works-page > .relationship-close .relationship-close__principles article,
+    .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(2n),
+    .how-it-works-page > .relationship-close .relationship-close__principles article:nth-child(3) { padding: 14px 10px; }
+    .how-it-works-page > .relationship-close .relationship-close__principles h3 { margin: 12px 0 7px; font-size: 1.08rem; }
+    .how-it-works-page > .relationship-close .relationship-close__principles p { font-size: .64rem; line-height: 1.4; }
+    .how-it-works-page > .relationship-close .relationship-close__limitation { margin-top: 18px; font-size: .64rem; }
+  }
+}
+
+@layer responsive {
+  @media (max-width: 767px) {
+    /* Keep the internal divider between the two right-hand Why Reflexion cards visible. */
+    .about-why__points article:nth-child(2) { border-bottom: 1px solid rgba(255,255,255,.18); }
+    .about-why__points article:nth-child(3) { border-right: 1px solid rgba(255,255,255,.18); }
+  }
+}
+
 @layer responsive {
   /* Focused phone-width rhythm pass for the pilot and the homepage's scroll-led sections. */
   @media (max-width: 520px) {

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import { Icon } from "@/components/ui/Icon";
 import { productOptions, type ProductId } from "@/lib/get-reflexion/config";
+import { productFormImages } from "@/lib/productAssets";
 import { recordFunnelMetric } from "@/lib/website-metrics/client";
 
 type Recipient = "My parent" | "My grandparent" | "My spouse" | "Myself" | "Someone else";
@@ -25,23 +26,23 @@ const initialDetails: PilotDetails = {
 
 const choiceImages: Record<ProductId, { image: string; alt: string }> = {
   mirror: {
-    image: "/reflexion-assets/pilot/form-factors/reflexion-mirror-pilot.png",
+    image: productFormImages.mirror,
     alt: "Reflexion Mirror in a warm home setting",
   },
   "loved-one-app": {
-    image: "/reflexion-assets/pilot/form-factors/reflexion-loved-one-app-pilot.png",
+    image: productFormImages["loved-one-app"],
     alt: "Reflexion Loved-one App on a phone",
   },
   bear: {
-    image: "/reflexion-assets/pilot/form-factors/reflexion-bear-pilot.png",
+    image: productFormImages.bear,
     alt: "Reflexion Bear in a warm home setting",
   },
   "home-hub": {
-    image: "/reflexion-assets/pilot/form-factors/reflexion-home-hub-pilot.png",
+    image: productFormImages["home-hub"],
     alt: "Reflexion Home Hub in a warm home setting",
   },
   "tabletop-companion": {
-    image: "/reflexion-assets/pilot/form-factors/reflexion-tabletop-companion-pilot.png",
+    image: productFormImages["tabletop-companion"],
     alt: "Reflexion Tabletop Companion in a warm home setting",
   },
 };
