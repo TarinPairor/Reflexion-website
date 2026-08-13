@@ -9,15 +9,13 @@ const recognitionMarks = [
   { src: "/reflexion-assets/awards/blk 71 1.png", alt: "BLOCK71" },
 ] as const;
 
-export function RecognitionStrip({ title, note, items, heading = "RECOGNISED FOR INNOVATION AND IMPACT" }: { title?: string; note?: string; items: readonly string[]; heading?: string }) {
-  return <div className="recognition" aria-labelledby={title ? "recognition-title" : "recognition-heading"} data-motion-item>
-    <div className="recognition__heading"><p className="eyebrow" id={title ? undefined : "recognition-heading"}>{heading}</p>{title ? <h3 id="recognition-title">{title}</h3> : null}{note ? <p className="recognition__note">{note}</p> : null}</div>
-    <ul>{items.map((item, index) => {
+export function RecognitionStrip({ items, heading = "RECOGNISED FOR INNOVATION AND IMPACT" }: { items: readonly string[]; heading?: string }) {
+  return <div className="trust__recognition" aria-labelledby="recognition-heading" data-motion-item>
+    <p className="trust__recognition-eyebrow" id="recognition-heading">{heading}</p>
+    <ul className="trust__recognition-grid">{items.map((item, index) => {
       const mark = recognitionMarks[index];
       return <li key={item}>
-        <div className="recognition__mark">
-          <Image src={mark.src} alt={mark.alt} fill sizes="(max-width: 520px) 38vw, (max-width: 820px) 22vw, 12vw"/>
-        </div>
+        <span className="trust__recognition-mark"><Image src={mark.src} alt={mark.alt} fill sizes="(max-width: 520px) 28vw, (max-width: 820px) 22vw, 170px" /></span>
         <p>{item}</p>
       </li>;
     })}</ul>

@@ -11,9 +11,9 @@ describe("canonical content access", () => {
   it("preserves product maturity distinctions", () => {
     expect(canonicalContent.products.mirror.maturity_label).toBe("Flagship");
     expect(canonicalContent.products.loved_one_app.maturity_status).toBe("QA_GATE");
-    expect(canonicalContent.products.bear.maturity_label).toBe("Prototype");
-    expect(canonicalContent.products.home_hub.maturity_label).toBe("Concept");
-    expect(canonicalContent.products.tabletop_companion.maturity_label).toBe("Future concept");
+    expect(canonicalContent.products.bear.maturity_label).toBe("Coming soon");
+    expect(canonicalContent.products.home_hub.maturity_label).toBe("Coming soon");
+    expect(canonicalContent.products.tabletop_companion.maturity_label).toBe("Coming soon");
   });
 
   it("fails closed for unknown Home sections", () => {

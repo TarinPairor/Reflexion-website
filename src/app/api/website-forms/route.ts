@@ -51,6 +51,7 @@ export async function POST(request: Request) {
         exactPriceResponse: submission.priceDecision,
         followUp: submission.followUp,
         noReason: submission.noReason,
+        noReasonOther: submission.noReasonOther,
         decisionReason: submission.decisionReason,
       },
       status: "new",

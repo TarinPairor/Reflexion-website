@@ -24,8 +24,8 @@ export function ProductFamily({ content }: { content: Content }) {
         <article className="flagship" data-motion-item>
           <div className="flagship__visual">
             <Image
-              src="/reflexion-assets/generated/phase1/product-family-mirror.webp"
-              alt="Founder-selected website visual of the Reflexion Mirror on a wooden cabinet in a warm home setting"
+              src="/reflexion-assets/generated/phase1/product-family-mirror-home-section.png"
+              alt="An older adult using the Reflexion Mirror during a morning check-in at home"
               fill
               sizes="(max-width: 1100px) 100vw, 64vw"
               className="flagship__image"

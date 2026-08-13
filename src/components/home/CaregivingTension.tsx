@@ -38,7 +38,6 @@ export function CaregivingTension({ content }: { content: Content }) {
       </ul>
     </div>
     <p className="tension__change" data-motion-item>{content.tension.change}</p>
-    {/* Caregiver discovery insight. The copy is intentionally labelled as paraphrased. */}
     <figure className="tension__quote" data-motion-item>
       <span className="tension__quote-mark" aria-hidden="true">“</span>
       <div>

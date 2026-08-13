@@ -15,13 +15,23 @@ export const websiteFormSubmissionSchema = z.object({
     city: z.string().trim().max(100),
     postalCode: z.string().regex(/^\d{6}$/),
     recipient: z.enum(["Parent", "Grandparent", "Spouse", "Other"]),
+    recipientOther: z.string().trim().max(100),
     readiness: z.literal(true),
   }).strict(),
   priceDecision: z.enum(["yes", "no"]),
   followUp: z.enum(["pilot", "orders", "availability", "progress", "none"]).nullable(),
   noReason: z.string().trim().max(160).nullable(),
+  noReasonOther: z.string().trim().max(160).nullable(),
   decisionReason: z.string().trim().max(1_000).nullable(),
 }).strict().superRefine((submission, context) => {
+  if (submission.details.recipient === "Other" && !submission.details.recipientOther) {
+    context.addIssue({ code: "custom", path: ["details", "recipientOther"], message: "Tell us who this is for." });
+  }
+
+  if (submission.details.recipient !== "Other" && submission.details.recipientOther) {
+    context.addIssue({ code: "custom", path: ["details", "recipientOther"], message: "Other relationship is only valid when Other is selected." });
+  }
+
   if (submission.productId === "mirror" && submission.mirrorPlan === null) {
     context.addIssue({ code: "custom", path: ["mirrorPlan"], message: "Choose a Mirror price option." });
   }
@@ -34,6 +44,12 @@ export const websiteFormSubmissionSchema = z.object({
     if (!submission.noReason) {
       context.addIssue({ code: "custom", path: ["noReason"], message: "Choose a primary reason." });
     }
+    if (submission.noReason === "Other" && !submission.noReasonOther) {
+      context.addIssue({ code: "custom", path: ["noReasonOther"], message: "Please specify the reason." });
+    }
+    if (submission.noReason !== "Other" && submission.noReasonOther) {
+      context.addIssue({ code: "custom", path: ["noReasonOther"], message: "A specified reason is only valid when Other is selected." });
+    }
     if (submission.followUp !== null) {
       context.addIssue({ code: "custom", path: ["followUp"], message: "Follow-up is only valid for a yes decision." });
     }
@@ -42,6 +58,10 @@ export const websiteFormSubmissionSchema = z.object({
 
   if (submission.noReason !== null) {
     context.addIssue({ code: "custom", path: ["noReason"], message: "A no reason is only valid for a no decision." });
+  }
+
+  if (submission.noReasonOther !== null) {
+    context.addIssue({ code: "custom", path: ["noReasonOther"], message: "A specified reason is only valid for a no decision." });
   }
 
   const validFollowUps = submission.productId === "mirror"

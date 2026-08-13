@@ -12,16 +12,12 @@ const trustIcons: IconName[] = ["heart", "message", "check", "spark", "sun"];
 
 export function HowItWorksPage({ locale, home, page, common }: { locale: Locale; home: HomeContent; page: PageContent["how"]; common: PageContent["common"] }) {
   return <>
-    <section className="interior-hero interior-hero--how" id="top" aria-labelledby="how-title" data-motion-chapter>
-      <div className="interior-hero__image" data-motion-item>
-        <Image src="/reflexion-assets/generated/phase1/day-with-reflexion-founder-edited.webp" alt="A grounded visualisation of the Reflexion Mirror in an older adult’s home" fill priority sizes="(max-width: 820px) 100vw, 58vw"/>
-      </div>
+    <section className="interior-hero interior-hero--how interior-hero--text-only" id="top" aria-labelledby="how-title" data-motion-chapter>
       <div className="interior-hero__copy" data-motion-item>
         <p className="eyebrow">{home.nav[0]}</p>
         <h1 id="how-title">{page.heroTitle}</h1>
         <p>{page.heroBody}</p>
         <div className="hero__actions"><ButtonLink href={localisedHref("/get-reflexion", locale)}>{common.get}</ButtonLink></div>
-        <p className="interior-hero__note">{page.heroNote}</p>
       </div>
     </section>
 
@@ -32,7 +28,7 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
         <p>{page.dayBody}</p>
       </div>
       <div className="how-day__scene" data-motion-item>
-        <Image src="/reflexion-assets/generated/phase1/reflexion-mirror-home.webp" alt="The Reflexion Mirror represented in a warm home setting" fill sizes="(max-width: 820px) 100vw, 52vw"/>
+        <Image src="/reflexion-assets/generated/phase1/product-family-mirror-home-section.png" alt="An older adult having a morning check-in with the Reflexion Mirror" fill sizes="(max-width: 820px) 100vw, 52vw"/>
         <div className="how-day__scene-copy"><span>{locale === "zh" ? "每日认知与身心状态交流" : "Daily cognitive & wellbeing check-in"}</span><strong>{page.heroNote}</strong></div>
       </div>
       <ol className="how-day__moments" data-motion-item>
@@ -48,12 +44,13 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
       </div>
       <div className="family-exchange__visual" data-motion-item>
         <div className="family-exchange__portrait"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="Illustrative older loved one" fill sizes="240px"/></div>
-        <div className="family-exchange__phone"><CaregiverPhone mode="message"/></div>
+        <div className="family-exchange__phone family-exchange__phone--reference">
+          <Image src="/reflexion-assets/generated/phase1/how-it-works-caregiver-chat.png" alt="Caregiver family chat with a message, photo and voice reply" fill sizes="(max-width: 767px) 42vw, 220px"/>
+        </div>
       </div>
       <ol className="family-exchange__flow" data-motion-item>
         {page.familyFlow.map((item, index) => <li key={item[0]}><span>0{index + 1}</span><div><h3>{item[0]}</h3><p>{item[1]}</p></div></li>)}
       </ol>
-      <p className="product-note product-note--dark" data-motion-item>{page.voiceGate}</p>
     </section>
 
     <section className="caregiver-questions interior-section" aria-labelledby="caregiver-app-title" data-motion-chapter>

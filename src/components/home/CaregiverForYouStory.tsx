@@ -34,7 +34,7 @@ export function CaregiverForYouStory({ content, locale }: { content: Content; lo
   const activeFeature = features[activeIndex];
   const transition = reduceMotion ? { duration: 0 } : { duration: .52, ease: [0.16, 1, 0.3, 1] as const };
 
-  return <div className="caregiver-story" data-story-state={activeIndex + 1} aria-label={locale === "zh" ? "照护者 App 功能" : "Caregiver App features"}>
+  return <div id="caregiver-story" className="caregiver-story" data-story-state={activeIndex + 1} aria-label={locale === "zh" ? "照护者 App 功能" : "Caregiver App features"}>
     <div className="caregiver-story__sticky">
       <div className="caregiver-story__layout">
         <div className="caregiver-story__copy" aria-live="polite" aria-atomic="true">

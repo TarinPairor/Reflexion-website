@@ -8,7 +8,9 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 
 const storageKey = "reflexion:selected-form:v1";
 
-export function ProductSelection({ locale, title, body, cta }: { locale: Locale; title: string; body: string; cta: string }) {
+type ProductLabels = Record<ProductId, { name: string; maturity: string }>;
+
+export function ProductSelection({ locale, labels, title, body, cta }: { locale: Locale; labels?: ProductLabels; title: string; body: string; cta: string }) {
   const [selected, setSelected] = useState<ProductId>("mirror");
 
   const choose = (productId: ProductId) => {
@@ -20,7 +22,7 @@ export function ProductSelection({ locale, title, body, cta }: { locale: Locale;
     <div><h2 id="product-selection-title">{title}</h2><p>{body}</p></div>
     <div className="product-selection__options" role="radiogroup" aria-label={title}>
       {productOptions.map((product) => <button type="button" role="radio" aria-checked={selected === product.id} data-selected={selected === product.id} onClick={() => choose(product.id)} key={product.id}>
-        <span>{product.name}</span><small>{product.maturity}</small>
+        <span>{labels?.[product.id].name ?? product.name}</span><small>{labels?.[product.id].maturity ?? product.maturity}</small>
       </button>)}
     </div>
     <ButtonLink href={localisedHref(`/get-reflexion?form=${selected}`, locale)}>{cta}</ButtonLink>

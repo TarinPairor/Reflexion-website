@@ -185,28 +185,28 @@
       "id": "product.bear",
       "public_name": "Reflexion Bear",
       "status": "APPROVED_CONCEPT",
-      "maturity_label": "Prototype",
+      "maturity_label": "Coming soon",
       "maturity_status": "APPROVED_CONCEPT"
     },
     "home_hub": {
       "id": "product.home_hub",
       "public_name": "Reflexion Home Hub",
       "status": "APPROVED_CONCEPT",
-      "maturity_label": "Concept",
+      "maturity_label": "Coming soon",
       "maturity_status": "APPROVED_CONCEPT"
     },
     "tabletop_companion": {
       "id": "product.tabletop_companion",
       "public_name": "Reflexion Tabletop Companion",
       "status": "APPROVED_CONCEPT",
-      "maturity_label": "Future concept",
+      "maturity_label": "Coming soon",
       "maturity_status": "APPROVED_CONCEPT"
     },
     "loved_one_app": {
       "id": "product.loved_one_app",
       "public_name": "Reflexion App for your loved one",
       "status": "QA_GATE",
-      "maturity_label": "Functional alternative",
+      "maturity_label": "Coming soon",
       "maturity_status": "QA_GATE"
     }
   }
