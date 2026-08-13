@@ -46,6 +46,8 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     if (perspective !== "caregiver" || !revealCaregiverOnScroll.current) return;
 
     revealCaregiverOnScroll.current = false;
+    if (window.matchMedia("(max-width: 820px)").matches) return;
+
     const frame = window.requestAnimationFrame(() => {
       const caregiverStory = document.getElementById("caregiver-story");
       (detailRef.current ?? caregiverStory)?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
