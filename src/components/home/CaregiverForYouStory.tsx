@@ -27,10 +27,13 @@ export function CaregiverForYouStory({ content, locale }: { content: Content; lo
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
+    const currentImage = document.querySelector<HTMLImageElement>(".caregiver-story__image");
+    const deploymentQuery = currentImage?.src.includes("?") ? currentImage.src.slice(currentImage.src.indexOf("?")) : "";
+
     storyImages.forEach((src) => {
       const image = new window.Image();
       image.decoding = "async";
-      image.src = src;
+      image.src = `${src}${deploymentQuery}`;
     });
   }, []);
 
