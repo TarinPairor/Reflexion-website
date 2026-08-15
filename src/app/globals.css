@@ -526,10 +526,9 @@
   .hero__phone { position: absolute; z-index: 5; right: 1.5%; bottom: 2.5%; width: clamp(180px, 16vw, 232px); transform: rotate(1deg); filter: drop-shadow(0 32px 38px rgba(20,30,25,.26)); }
   .hero__caption { position: absolute; z-index: 3; right: 28px; bottom: 18px; left: auto; color: rgba(255,255,255,.92); font-size: .64rem; letter-spacing: .04em; text-shadow: 0 2px 12px rgba(0,0,0,.4); }
   .hero__caption span { opacity: .72; }
-  .hero__mobile-labels { display: none; }
 
-  .tension { width: min(calc(100% - 2 * var(--gutter)), 1280px); position: relative; z-index: 2; margin: clamp(-150px, -9vw, -88px) auto 0; padding-bottom: 0; color: var(--paper); overflow: visible; isolation: isolate; background: #23594b; border: 1px solid rgba(255,255,255,.1); border-radius: 34px 34px 16px 16px; box-shadow: 0 -28px 64px rgba(18,67,54,.2), 0 20px 46px rgba(18,67,54,.12); }
-  .tension::before { content: ""; position: absolute; z-index: -1; top: -36px; right: 12px; left: 12px; height: 52px; pointer-events: none; border-radius: 40px 40px 0 0; background: linear-gradient(180deg, transparent 0%, rgba(35,89,75,.16) 52%, rgba(35,89,75,.64) 100%); filter: blur(5px); }
+  .tension { width: min(calc(100% - 2 * var(--gutter)), 1280px); position: relative; z-index: 2; margin: clamp(-150px, -9vw, -88px) auto 0; padding: clamp(28px, 4vw, 52px) 0 0; color: var(--paper); overflow: visible; isolation: isolate; background: var(--forest); border: 1px solid rgba(255,255,255,.1); border-radius: 30px 30px 16px 16px; box-shadow: 0 -28px 64px rgba(7,31,25,.25), 0 20px 46px rgba(7,31,25,.16); }
+  .tension::before { content: ""; position: absolute; z-index: -1; top: -36px; right: 12px; left: 12px; height: 52px; pointer-events: none; border-radius: 40px 40px 0 0; background: linear-gradient(180deg, transparent 0%, rgba(16,56,47,.16) 52%, rgba(16,56,47,.64) 100%); filter: blur(5px); }
   .tension__lead { position: relative; width: min(calc(100% - 2 * var(--gutter)), 1120px); margin: 0 auto; padding: clamp(58px, 6vw, 84px) 0 30px; }
   .tension__lead h2 { max-width: 700px; margin: 15px 0 10px; font-size: clamp(3.5rem, 6vw, 6.5rem); line-height: .9; }
   .tension__lead-note { color: #d4a96d; font: 400 clamp(1.3rem, 2vw, 2rem)/1.1 var(--serif); }
@@ -551,12 +550,12 @@
   .tension__response-icon { width: 36px; height: 36px; display: grid; place-items: center; color: #d7b179; border: 1px solid rgba(215,177,121,.48); border-radius: 50%; }
   .tension__response-icon svg { width: 18px; height: 18px; }
   .tension__change { max-width: 760px; margin: 0 auto; padding: 22px var(--gutter) 28px; color: #d9c5a7; font: 400 clamp(1.2rem, 1.65vw, 1.65rem)/1.22 var(--serif); text-align: center; }
-  .tension__quote { width: min(calc(100% - 2 * var(--gutter)), 1060px); min-height: 190px; display: grid; grid-template-columns: 54px minmax(0, 1fr); align-items: start; gap: 14px; margin: 0 auto; padding: 34px clamp(24px, 5vw, 74px); border: 1px solid rgba(215,177,121,.56); background: linear-gradient(105deg, rgba(93,91,66,.42), rgba(66,76,56,.68)); }
+  .tension__quote { width: min(calc(100% - 2 * var(--gutter)), 1060px); min-height: 190px; display: grid; grid-template-columns: 54px minmax(0, 1fr); align-items: start; gap: 14px; margin: 0 auto; padding: 34px clamp(24px, 5vw, 74px); border: 1px solid rgba(219,168,98,.5); border-radius: 16px; background: linear-gradient(135deg, #244c40 0%, #193d33 100%); box-shadow: inset 0 1px 0 rgba(255,253,248,.08), 0 16px 30px rgba(5,25,20,.14); }
   .tension__quote-mark { color: #d9a95f; font: 400 4.8rem/.8 var(--serif); }
   .tension__quote figcaption { margin-bottom: 14px; color: #d3af72; font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; }
   .tension__quote blockquote { max-width: 830px; color: #f3e6d3; font: 400 clamp(1.5rem, 2.25vw, 2.35rem)/1.12 var(--serif); }
   .tension__quote cite { display: block; margin-top: 14px; color: rgba(255,255,255,.66); font-size: .65rem; font-style: normal; text-align: right; }
-  .tension__closing { min-height: 124px; display: grid; place-items: center; gap: 9px; padding: 22px var(--gutter); border-top: 1px solid rgba(255,255,255,.14); color: #dfcdb1; font: 400 clamp(1.5rem, 2.4vw, 2.35rem)/1.12 var(--serif); text-align: center; }
+  .tension__closing { min-height: 124px; display: grid; place-items: center; gap: 9px; margin-top: 24px; padding: 22px var(--gutter) 30px; border-top: 1px solid rgba(219,168,98,.24); color: #dfcdb1; font: 400 clamp(1.5rem, 2.4vw, 2.35rem)/1.12 var(--serif); text-align: center; }
   .tension__closing span { color: #d4a96d; font: 400 1.5rem/1 var(--sans); }
 
   .care-loop { position: relative; overflow: hidden; background: var(--paper); }
@@ -2079,11 +2078,6 @@
       background: linear-gradient(180deg, #f5efe7 0%, rgba(245,239,231,.78) 35%, rgba(245,239,231,0) 100%);
     }
 
-    .hero__mobile-labels { position: absolute; z-index: 3; inset: 0; display: block; pointer-events: none; }
-    .hero__mobile-label { position: absolute; color: #173c31; font: italic 400 clamp(.85rem, 3.4vw, 1.1rem)/1 var(--serif); }
-    .hero__mobile-label--mum { top: 20%; left: 47%; }
-    .hero__mobile-label--you { top: 43%; right: 6%; }
-
     .hero__glow { display: none; }
     .hero__feature { background: transparent; backdrop-filter: none; }
     .hero__feature { position: relative; z-index: 4; margin-bottom: -22px; padding: 4px 8px; border-radius: 12px; background: rgba(248,244,237,.62); backdrop-filter: blur(4px); }
@@ -2099,6 +2093,52 @@
     .hero__feature-copy strong { font-size: .62rem; }
     .hero__feature-points { font-size: .51rem; }
     .hero__artwork { height: clamp(230px, 32svh, 282px); border-radius: 20px 20px 0 0; }
-    .hero__mobile-label { font-size: .82rem; }
+  }
+}
+
+/* Final quote-card refinement: a quiet inset panel with deliberate breathing room. */
+@layer responsive {
+  @media (max-width: 767px) {
+    .tension {
+      width: calc(100% - 28px);
+      margin-top: 0;
+      padding-top: 22px;
+      border-radius: 28px 28px 16px 16px;
+      background: var(--forest);
+      box-shadow: 0 18px 38px rgba(7,31,25,.18);
+    }
+
+    .tension::before { display: none; }
+
+    .tension__quote {
+      width: calc(100% - 36px);
+      min-height: 0;
+      padding: 25px 20px 24px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #244c40 0%, #193d33 100%);
+    }
+
+    .tension__closing {
+      min-height: 0;
+      margin-top: 18px;
+      padding: 24px 22px 30px;
+      font-size: clamp(1.2rem, 5.4vw, 1.55rem);
+      line-height: 1.14;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .tension { width: calc(100% - 28px); padding-top: 16px; }
+    .tension__quote {
+      width: calc(100% - 28px);
+      grid-template-columns: 28px minmax(0, 1fr);
+      gap: 8px;
+      padding: 22px 16px 20px;
+    }
+    .tension__quote-mark { font-size: 3rem; }
+    .tension__quote figcaption { margin-bottom: 9px; font-size: .49rem; letter-spacing: .13em; }
+    .tension__quote blockquote { font-size: 1.2rem; line-height: 1.16; }
+    .tension__quote cite { margin-top: 12px; font-size: .57rem; }
+    .tension__closing { margin-top: 14px; padding: 22px 18px 28px; }
   }
 }
