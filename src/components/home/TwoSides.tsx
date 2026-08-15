@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState, type TouchEvent, type WheelEvent } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import type { getHomeContent, Locale } from "@/i18n/content";
 import { localisedHref } from "@/lib/siteRoutes";
@@ -14,20 +14,10 @@ type Perspective = "loved" | "caregiver";
 
 const lovedIcons: IconName[] = ["sun", "message", "check", "heart"];
 const lovedSlideAdvanceDelay = 5200;
-const scrollTransitionThreshold = 120;
-const wheelTransitionThreshold = 180;
-
-function isInteractiveTarget(target: EventTarget | null) {
-  return target instanceof Element && Boolean(target.closest("button, a, input, select, textarea"));
-}
 
 export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
   const detailRef = useRef<HTMLDivElement>(null);
-  const lovedStageRef = useRef<HTMLDivElement>(null);
-  const touchStartY = useRef<number | null>(null);
-  const wheelDistance = useRef(0);
-  const wheelResetTimer = useRef<number | null>(null);
-  const revealCaregiverOnScroll = useRef(false);
+  const scrollToCaregiverOnSelect = useRef(false);
   const [perspective, setPerspective] = useState<Perspective>("loved");
   const [lovedSlide, setLovedSlide] = useState(0);
   const reduceMotion = useReducedMotion();
@@ -44,36 +34,9 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
   }, [caregiver, lovedSlide, reduceMotion]);
 
   useEffect(() => {
-    if (caregiver) return;
+    if (perspective !== "caregiver" || !scrollToCaregiverOnSelect.current) return;
 
-    let previousScrollY = window.scrollY;
-    const handleWindowScroll = () => {
-      const nextScrollY = window.scrollY;
-      const scrollingDown = nextScrollY > previousScrollY;
-      previousScrollY = nextScrollY;
-
-      if (!scrollingDown || !window.matchMedia("(max-width: 820px)").matches) return;
-
-      const stage = lovedStageRef.current;
-      if (!stage) return;
-
-      const bottomBuffer = Math.min(56, window.innerHeight * .07);
-      if (stage.getBoundingClientRect().bottom > window.innerHeight - bottomBuffer) return;
-
-      // Switch as the loved-one scene clears the viewport, so the next
-      // perspective begins in the same section without an extra swipe.
-      revealCaregiverOnScroll.current = true;
-      setPerspective("caregiver");
-    };
-
-    window.addEventListener("scroll", handleWindowScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleWindowScroll);
-  }, [caregiver]);
-
-  useEffect(() => {
-    if (perspective !== "caregiver" || !revealCaregiverOnScroll.current) return;
-
-    revealCaregiverOnScroll.current = false;
+    scrollToCaregiverOnSelect.current = false;
     if (window.matchMedia("(max-width: 820px)").matches) return;
 
     const frame = window.requestAnimationFrame(() => {
@@ -84,12 +47,8 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     return () => window.cancelAnimationFrame(frame);
   }, [perspective, reduceMotion]);
 
-  useEffect(() => () => {
-    if (wheelResetTimer.current !== null) window.clearTimeout(wheelResetTimer.current);
-  }, []);
-
   const choosePerspective = (next: Perspective) => {
-    revealCaregiverOnScroll.current = next === "caregiver";
+    scrollToCaregiverOnSelect.current = next === "caregiver";
     setPerspective(next);
     if (next === "loved") setLovedSlide(0);
   };
@@ -98,61 +57,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     if (Math.abs(offset) > 42) setLovedSlide((current) => current === 0 ? 1 : 0);
   };
 
-  const showCaregiverFromScroll = () => {
-    if (caregiver) return;
-
-    revealCaregiverOnScroll.current = true;
-    setPerspective("caregiver");
-  };
-
-  const lovedStageReadyForTransition = () => {
-    const stage = lovedStageRef.current;
-    if (!stage) return false;
-    if (!window.matchMedia("(max-width: 820px)").matches) return true;
-
-    const bottomBuffer = Math.min(56, window.innerHeight * .07);
-    return stage.getBoundingClientRect().bottom <= window.innerHeight - bottomBuffer;
-  };
-
-  const handleWheel = (event: WheelEvent<HTMLElement>) => {
-    if (caregiver || event.deltaY <= 0 || isInteractiveTarget(event.target)) return;
-
-    // Let the loved-one scene finish its own viewport before changing perspective.
-    // Resetting here also requires a fresh scroll gesture after the bottom clears.
-    if (!lovedStageReadyForTransition()) {
-      wheelDistance.current = 0;
-      return;
-    }
-
-    wheelDistance.current += event.deltaY;
-    if (wheelResetTimer.current !== null) window.clearTimeout(wheelResetTimer.current);
-    wheelResetTimer.current = window.setTimeout(() => {
-      wheelDistance.current = 0;
-      wheelResetTimer.current = null;
-    }, 280);
-
-    if (wheelDistance.current < wheelTransitionThreshold) return;
-
-    wheelDistance.current = 0;
-    showCaregiverFromScroll();
-  };
-
-  const handleTouchStart = (event: TouchEvent<HTMLElement>) => {
-    if (!caregiver) touchStartY.current = event.touches[0]?.clientY ?? null;
-  };
-
-  const handleTouchEnd = (event: TouchEvent<HTMLElement>) => {
-    const startY = touchStartY.current;
-    const endY = event.changedTouches[0]?.clientY;
-    touchStartY.current = null;
-
-    if (caregiver || startY === null || endY === undefined || startY - endY <= scrollTransitionThreshold || isInteractiveTarget(event.target)) return;
-    if (!lovedStageReadyForTransition()) return;
-
-    showCaregiverFromScroll();
-  };
-
-  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter data-sticky-cta-suppression onWheel={handleWheel} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
+  return <section className="two-sides" id="two-sides" aria-labelledby="two-sides-title" data-perspective={perspective} data-motion-chapter data-sticky-cta-suppression>
     <div className="two-sides__composition">
       <div className="two-sides__lead">
         <div className="two-sides__lead-copy" data-motion-item>
@@ -170,7 +75,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
           </div>
         </div>
 
-        {caregiver ? <CaregiverForYouStory content={content} locale={locale}/> : <div ref={lovedStageRef} className="two-sides__stage" id="two-sides-stage" aria-live="polite" data-motion-item>
+        {caregiver ? <CaregiverForYouStory content={content} locale={locale}/> : <div className="two-sides__stage" id="two-sides-stage" aria-live="polite" data-motion-item>
           <div className="two-sides__loved-carousel">
             <AnimatePresence mode="wait" initial={false}>
               <motion.article
