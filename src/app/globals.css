@@ -1918,7 +1918,7 @@
   .caregiver-story__track { height: 460svh; display: grid; grid-template-rows: repeat(5, 1fr); pointer-events: none; }
   .caregiver-story__track span { display: block; }
   .caregiver-story__desktop-story { display: block; }
-  .caregiver-story__mobile-flow { display: none; }
+  .caregiver-story__mobile-story { display: none; }
   .caregiver-story__closing { width: min(calc(100% - 2 * var(--gutter)), 1180px); min-height: 220px; margin: 0 auto; padding: 58px 0 54px; border-top: 1px solid var(--line); }
   .caregiver-story__closing p { max-width: 560px; font: 400 clamp(2.2rem, 3.6vw, 4.2rem)/.98 var(--serif); }
   .caregiver-story__closing small { display: block; margin-top: 13px; color: #60766e; font-size: .72rem; }
@@ -1938,19 +1938,19 @@
 @layer responsive {
   @media (max-width: 820px) {
     .two-sides[data-perspective="caregiver"] .two-sides__lead-copy { width: 100%; }
-    /* Mobile uses five self-contained, normal-flow panels. The desktop sticky
-       stage and its transparent scroll track are not rendered in this path. */
+    /* Mobile keeps one pinned story stage while its internal track advances
+       the heading, active row and phone through all five features. */
     .caregiver-story__desktop-story { display: none; }
-    .caregiver-story__mobile-flow { display: block; }
-    .caregiver-story__mobile-state { position: relative; padding: 34px var(--gutter) 52px; border-bottom: 1px solid var(--line); }
-    .caregiver-story__mobile-state + .caregiver-story__mobile-state { padding-top: 46px; }
-    .caregiver-story__mobile-state .caregiver-story__copy { width: 100%; }
-    .caregiver-story__mobile-state .caregiver-story__state-copy { min-height: 0; }
-    .caregiver-story__mobile-state .caregiver-story__visual { min-height: 0; height: auto; margin-top: 26px; place-items: center; overflow: visible; }
-    .caregiver-story__mobile-state .caregiver-story__phone-frame { width: min(100%, 320px); height: auto; max-height: none; opacity: 1; transform: none; }
-    .caregiver-story__mobile-state .caregiver-story__image-wrap { width: min(100%, 320px); height: auto; aspect-ratio: 2 / 3; display: grid; place-items: center; overflow: visible; }
-    .caregiver-story__mobile-state .caregiver-story__image { width: 100%; height: 100%; max-width: none; object-fit: contain; }
-    .caregiver-story__mobile-state .caregiver-story__progress { margin-top: 22px; }
+    .caregiver-story__mobile-story { display: block; }
+    .caregiver-story__mobile-sticky { height: 100svh; min-height: 100svh; position: sticky; z-index: 2; top: 0; display: grid; align-items: center; overflow: visible; padding: 26px var(--gutter) 20px; background: #f6f1e9; }
+    .caregiver-story__mobile-layout { width: 100%; height: 100%; min-height: 0; display: grid; grid-template-rows: auto minmax(0, 1fr); align-content: start; gap: 18px; }
+    .caregiver-story__mobile-layout .caregiver-story__state-copy { min-height: 0; }
+    .caregiver-story__mobile-layout .caregiver-story__visual { min-height: 0; height: 100%; place-items: start center; overflow: visible; }
+    .caregiver-story__mobile-layout .caregiver-story__phone-frame { width: min(100%, 270px); height: auto; max-height: none; opacity: 1; transform: none; }
+    .caregiver-story__mobile-layout .caregiver-story__image-wrap { width: min(100%, 270px); height: auto; aspect-ratio: 2 / 3; display: grid; place-items: center; overflow: visible; }
+    .caregiver-story__mobile-layout .caregiver-story__image { width: 100%; height: 100%; max-width: none; object-fit: contain; }
+    .caregiver-story__mobile-layout .caregiver-story__progress { margin-top: 22px; }
+    .caregiver-story__mobile-track { height: 420svh; display: grid; grid-template-rows: repeat(5, 1fr); pointer-events: none; }
     .caregiver-story__closing { padding-top: 44px; padding-bottom: 44px; }
   }
 
@@ -1961,15 +1961,14 @@
     .caregiver-story__state-copy .eyebrow { font-size: .58rem; }
     .caregiver-story__state-copy h3 { max-width: 330px; margin: 9px auto 10px; font-size: clamp(2.25rem, 9vw, 3rem); }
     .caregiver-story__state-subtitle { max-width: 300px; margin-inline: auto; font-size: .68rem; line-height: 1.42; }
-    .caregiver-story__mobile-state { padding: 26px 20px 46px; }
-    .caregiver-story__mobile-state + .caregiver-story__mobile-state { padding-top: 38px; }
-    .caregiver-story__mobile-state .caregiver-story__progress { margin-top: 18px; }
+    .caregiver-story__mobile-sticky { padding: 26px 20px 20px; }
+    .caregiver-story__mobile-layout .caregiver-story__progress { margin-top: 18px; }
     .caregiver-story__progress li { min-height: 34px; grid-template-columns: 22px 1fr; gap: 9px; padding: 4px 0; }
     .caregiver-story__progress-marker { width: 18px; height: 18px; font-size: .48rem; }
     .caregiver-story__progress strong { font-size: .58rem; }.caregiver-story__progress small { font-size: .5rem; }
-    .caregiver-story__mobile-state .caregiver-story__visual { margin-top: 24px; }
-    .caregiver-story__mobile-state .caregiver-story__phone-frame,
-    .caregiver-story__mobile-state .caregiver-story__image-wrap { width: min(100%, 280px); }
+    .caregiver-story__mobile-layout .caregiver-story__phone-frame,
+    .caregiver-story__mobile-layout .caregiver-story__image-wrap { width: min(100%, 265px); }
+    .caregiver-story__mobile-track { height: 420svh; }
     .caregiver-story__closing { width: calc(100% - 40px); min-height: 180px; padding: 40px 0; }.caregiver-story__closing p { font-size: 2.45rem; }.caregiver-story__closing small { font-size: .67rem; }
   }
 }
