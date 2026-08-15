@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import type { getHomeContent, Locale } from "@/i18n/content";
 
@@ -25,6 +25,15 @@ export function CaregiverForYouStory({ content, locale }: { content: Content; lo
   const [activeIndex, setActiveIndex] = useState(0);
   const [mobileActiveIndex, setMobileActiveIndex] = useState(0);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    storyImages.forEach((src) => {
+      const image = new window.Image();
+      image.decoding = "async";
+      image.src = src;
+    });
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start start", "end end"] });
   const { scrollYProgress: mobileScrollYProgress } = useScroll({ target: mobileTrackRef, offset: ["start start", "end end"] });
   const features = content.sides.caregiverFeatures;
