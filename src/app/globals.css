@@ -2122,8 +2122,12 @@
       min-height: 0;
       margin-top: 18px;
       padding: 24px 22px 30px;
+      max-width: 100%;
       font-size: clamp(1.2rem, 5.4vw, 1.55rem);
       line-height: 1.14;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
     }
   }
 
@@ -2139,6 +2143,12 @@
     .tension__quote figcaption { margin-bottom: 9px; font-size: .49rem; letter-spacing: .13em; }
     .tension__quote blockquote { font-size: 1.2rem; line-height: 1.16; }
     .tension__quote cite { margin-top: 12px; font-size: .57rem; }
-    .tension__closing { margin-top: 14px; padding: 22px 18px 28px; }
+    .tension__closing {
+      margin-top: 14px;
+      padding: 22px 18px 28px;
+      white-space: normal;
+      overflow-wrap: anywhere;
+      text-wrap: balance;
+    }
   }
 }
