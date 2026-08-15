@@ -16,23 +16,9 @@ const recognitionMarks = [
 ] as const;
 
 export function TrustFounder({ content }: { content: Content }) {
-  return <section className="trust" id="trust" aria-labelledby="trust-title" data-motion-chapter>
-    <div className="trust__manifesto" data-motion-item>
-      <p className="trust__manifesto-eyebrow">{content.trust.builtEyebrow}</p>
-      <h2 id="trust-title">{content.trust.independenceTitle}</h2>
-    </div>
-
-    <figure className="trust__family-scene" data-motion-item>
-      <Image
-        src="/reflexion-assets/generated/phase1/trust-family-scene-user.png"
-        alt="Illustrative family scene of an older woman and her daughter sharing a photograph at home with Reflexion nearby"
-        fill
-        sizes="(max-width: 820px) 100vw, 1180px"
-      />
-    </figure>
-
+  return <section className="trust" id="trust" aria-labelledby="trust-families-title" data-motion-chapter>
     <div className="trust__families" data-motion-item>
-      <h3>{content.trust.familiesEyebrow}</h3>
+      <h3 id="trust-families-title">{content.trust.familiesEyebrow}</h3>
       <div className="trust__family-quotes">
         {content.trust.familyQuotes.map(([quote, attribution]) => <figure key={attribution}>
           <div className="trust__quote-copy">

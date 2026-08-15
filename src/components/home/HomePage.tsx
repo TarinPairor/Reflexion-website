@@ -6,9 +6,7 @@ import { MotionMain } from "@/components/motion/MotionMain";
 import { HomeHero } from "./HomeHero";
 import { CaregivingTension } from "./CaregivingTension";
 import { ClosedCareLoop } from "./ClosedCareLoop";
-import { DayWithReflexion } from "./DayWithReflexion";
-import { TwoSides } from "./TwoSides";
-import { ProductFamily } from "./ProductFamily";
+import { HomeTransitionCta } from "./HomeTransitionCta";
 import { TrustFounder } from "./TrustFounder";
 import { FaqFinal } from "./FaqFinal";
 
@@ -20,10 +18,8 @@ export function HomePage({ locale, content }: { locale: Locale; content: Content
     <MotionMain>
       <HomeHero content={content} locale={locale}/>
       <CaregivingTension content={content}/>
-      <ClosedCareLoop content={content} locale={locale}/>
-      <DayWithReflexion content={content} locale={locale}/>
-      <TwoSides content={content} locale={locale}/>
-      <ProductFamily content={content}/>
+      <ClosedCareLoop content={content} locale={locale} showHowItWorksCta={false}/>
+      <HomeTransitionCta content={content} locale={locale}/>
       <TrustFounder content={content}/>
       <FaqFinal content={content} locale={locale}/>
     </MotionMain>

@@ -6,7 +6,7 @@ import { Icon } from "@/components/ui/Icon";
 
 type Content = ReturnType<typeof getHomeContent>;
 
-export function ClosedCareLoop({ content, locale }: { content: Content; locale: Locale }) {
+export function ClosedCareLoop({ content, locale, showHowItWorksCta = true }: { content: Content; locale: Locale; showHowItWorksCta?: boolean }) {
   return <section className="care-loop" aria-labelledby="care-loop-title" data-motion-chapter>
     <div className="care-loop__meet" data-motion-item>
       <div className="care-loop__meet-copy">
@@ -64,7 +64,7 @@ export function ClosedCareLoop({ content, locale }: { content: Content; locale: 
         <p className="eyebrow">{content.loop.closedEyebrow}</p>
         <h3>{content.loop.closedTitle}</h3>
         <p>{content.loop.closedBody}</p>
-        <ButtonLink href={localisedHref("/how-it-works", locale)}>{content.hero.secondary}</ButtonLink>
+        {showHowItWorksCta && <ButtonLink href={localisedHref("/how-it-works", locale)}>{content.hero.secondary}</ButtonLink>}
       </div>
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
         <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true">
