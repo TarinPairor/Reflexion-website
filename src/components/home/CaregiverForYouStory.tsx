@@ -35,59 +35,94 @@ export function CaregiverForYouStory({ content, locale }: { content: Content; lo
   const transition = reduceMotion ? { duration: 0 } : { duration: .52, ease: [0.16, 1, 0.3, 1] as const };
 
   return <div id="caregiver-story" className="caregiver-story" data-story-state={activeIndex + 1} aria-label={locale === "zh" ? "照护者 App 功能" : "Caregiver App features"}>
-    <div className="caregiver-story__sticky">
-      <div className="caregiver-story__layout">
-        <div className="caregiver-story__copy" aria-live="polite" aria-atomic="true">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              className="caregiver-story__state-copy"
-              key={`${activeIndex}-${activeFeature[0]}`}
-              initial={reduceMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -14 }}
-              transition={transition}
-            >
-              <span className="caregiver-story__state-number">0{activeIndex + 1}</span>
-              <p className="eyebrow">{locale === "zh" ? "给你" : "FOR YOU"}</p>
-              <h3>{stateTitle(activeFeature)}</h3>
-              <p className="caregiver-story__state-subtitle">{activeFeature[1]}</p>
-            </motion.div>
-          </AnimatePresence>
+    <div className="caregiver-story__desktop-story">
+      <div className="caregiver-story__sticky">
+        <div className="caregiver-story__layout">
+          <div className="caregiver-story__copy" aria-live="polite" aria-atomic="true">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                className="caregiver-story__state-copy"
+                key={`${activeIndex}-${activeFeature[0]}`}
+                initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -14 }}
+                transition={transition}
+              >
+                <span className="caregiver-story__state-number">0{activeIndex + 1}</span>
+                <p className="eyebrow">{locale === "zh" ? "给你" : "FOR YOU"}</p>
+                <h3>{stateTitle(activeFeature)}</h3>
+                <p className="caregiver-story__state-subtitle">{activeFeature[1]}</p>
+              </motion.div>
+            </AnimatePresence>
+
+            <ol className="caregiver-story__progress" aria-label={locale === "zh" ? "照护者 App 功能顺序" : "Caregiver App feature sequence"}>
+              {features.map((feature, index) => <li key={feature[0]} data-active={index === activeIndex} data-complete={index < activeIndex}>
+                <span className="caregiver-story__progress-marker" aria-hidden="true">{index < activeIndex ? "" : String(index + 1).padStart(2, "0")}</span>
+                <span><strong>{stateTitle(feature)}</strong><small>{feature[1]}</small></span>
+              </li>)}
+            </ol>
+          </div>
+
+          <div className="caregiver-story__visual">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                className="caregiver-story__phone-frame"
+                key={storyImages[activeIndex]}
+                initial={false}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={reduceMotion ? { opacity: 1 } : { opacity: 1, y: -18, scale: .985 }}
+                transition={transition}
+              >
+                <div className="caregiver-story__image-wrap">
+                  <Image src={storyImages[activeIndex]} alt="" width={1024} height={1536} priority={activeIndex === 0} unoptimized className="caregiver-story__image" />
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
+      </div>
+
+      <div ref={trackRef} className="caregiver-story__track" aria-hidden="true">
+        {features.map((feature) => <span key={feature[0]}/>) }
+      </div>
+
+      <div className="caregiver-story__closing">
+        <p>{content.sides.closingTitle}</p>
+        <small>{content.sides.closingBody}</small>
+      </div>
+    </div>
+
+    <div className="caregiver-story__mobile-flow" aria-label={locale === "zh" ? "照护者 App 功能顺序" : "Caregiver App features in order"}>
+      {features.map((feature, index) => <article className="caregiver-story__mobile-state" data-mobile-story-state={index + 1} key={feature[0]} aria-labelledby={`caregiver-story-mobile-title-${index + 1}`}>
+        <div className="caregiver-story__copy">
+          <div className="caregiver-story__state-copy">
+            <span className="caregiver-story__state-number">0{index + 1}</span>
+            <p className="eyebrow">{locale === "zh" ? "给你" : "FOR YOU"}</p>
+            <h3 id={`caregiver-story-mobile-title-${index + 1}`}>{stateTitle(feature)}</h3>
+            <p className="caregiver-story__state-subtitle">{feature[1]}</p>
+          </div>
 
           <ol className="caregiver-story__progress" aria-label={locale === "zh" ? "照护者 App 功能顺序" : "Caregiver App feature sequence"}>
-            {features.map((feature, index) => <li key={feature[0]} data-active={index === activeIndex} data-complete={index < activeIndex}>
-              <span className="caregiver-story__progress-marker" aria-hidden="true">{index < activeIndex ? "" : String(index + 1).padStart(2, "0")}</span>
-              <span><strong>{stateTitle(feature)}</strong><small>{feature[1]}</small></span>
+            {features.map((progressFeature, progressIndex) => <li key={progressFeature[0]} data-active={progressIndex === index} data-complete={progressIndex < index}>
+              <span className="caregiver-story__progress-marker" aria-hidden="true">{progressIndex < index ? "" : String(progressIndex + 1).padStart(2, "0")}</span>
+              <span><strong>{stateTitle(progressFeature)}</strong><small>{progressFeature[1]}</small></span>
             </li>)}
           </ol>
         </div>
 
         <div className="caregiver-story__visual">
-          <AnimatePresence mode="wait" initial={false}>
-            <motion.div
-              className="caregiver-story__phone-frame"
-              key={storyImages[activeIndex]}
-              initial={false}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={reduceMotion ? { opacity: 1 } : { opacity: 1, y: -18, scale: .985 }}
-              transition={transition}
-            >
-              <div className="caregiver-story__image-wrap">
-                <Image src={storyImages[activeIndex]} alt="" width={1024} height={1536} priority={activeIndex === 0} unoptimized className="caregiver-story__image" />
-              </div>
-            </motion.div>
-          </AnimatePresence>
+          <div className="caregiver-story__phone-frame">
+            <div className="caregiver-story__image-wrap">
+              <Image src={storyImages[index]} alt="" width={1024} height={1536} loading="eager" unoptimized className="caregiver-story__image" />
+            </div>
+          </div>
         </div>
+      </article>)}
+
+      <div className="caregiver-story__closing">
+        <p>{content.sides.closingTitle}</p>
+        <small>{content.sides.closingBody}</small>
       </div>
-    </div>
-
-    <div ref={trackRef} className="caregiver-story__track" aria-hidden="true">
-      {features.map((feature) => <span key={feature[0]}/>) }
-    </div>
-
-    <div className="caregiver-story__closing">
-      <p>{content.sides.closingTitle}</p>
-      <small>{content.sides.closingBody}</small>
     </div>
   </div>;
 }

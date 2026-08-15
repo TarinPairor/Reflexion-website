@@ -45,7 +45,7 @@ const pages = {
     },
     products: {
       heroTitle: "Find the Reflexion that feels right at home.",
-      heroBody: "Start with the form that feels natural for your loved one’s routines and space. The five directions are not equally developed or available.",
+      heroBody: "",
       mirrorTitle: "Reflexion Mirror",
       mirrorBody: "The current flagship: a 21.5-inch home experience for morning check-ins, companionship, gentle routine support and reciprocal family connection, connected to the Reflexion Caregiver App.",
       otherTitle: "Different homes may call for different forms.",
@@ -164,7 +164,7 @@ const pages = {
       relationshipTitle: "围绕关系而设计。", relationshipBody: "体验以主动参与、清楚边界与家庭联系为核心。", relationshipPoints: ["尊严", "隐私", "同意与控制", "人的联系"],
     },
     products: {
-      heroTitle: "找到适合家中生活的 Reflexion。", heroBody: "从最符合挚爱家人日常与空间的形态开始。五种方向并非同等成熟或可用。", mirrorTitle: "Reflexion Mirror", mirrorBody: "当前旗舰：21.5 英寸家庭体验，用于晨间交流、陪伴、温和日常支持与双向家庭联系，并连接照护者 App。", otherTitle: "不同家庭，可能适合不同形态。", otherBody: "按熟悉程度、可能摆放位置与陪伴感探索，同时清楚保留成熟度标签。", compareTitle: "比较人与家庭的适配。", compareBody: "这些维度描述不同形态可能带来的家庭体验，不是虚构技术规格，也不代表同等成熟。", compareHeadings: ["形态", "显示", "陪伴感", "可能位置", "晨间适配", "互动", "阶段"],
+      heroTitle: "找到适合家中生活的 Reflexion。", heroBody: "", mirrorTitle: "Reflexion Mirror", mirrorBody: "当前旗舰：21.5 英寸家庭体验，用于晨间交流、陪伴、温和日常支持与双向家庭联系，并连接照护者 App。", otherTitle: "不同家庭，可能适合不同形态。", otherBody: "按熟悉程度、可能摆放位置与陪伴感探索，同时清楚保留成熟度标签。", compareTitle: "比较人与家庭的适配。", compareBody: "这些维度描述不同形态可能带来的家庭体验，不是虚构技术规格，也不代表同等成熟。", compareHeadings: ["形态", "显示", "陪伴感", "可能位置", "晨间适配", "互动", "阶段"],
       compareRows: [["Reflexion Mirror", "专用显示", "熟悉的家庭存在", "卧室或个人空间", "固定晨间位置", "语音为主、清晰显示", "当前旗舰"], ["挚爱家人 App", "手机屏幕", "熟悉的个人设备", "随身或放在近处", "适合现有手机习惯", "触控与语音", "即将推出"], ["Reflexion Bear", "无突出屏幕", "柔和陪伴形态", "床边或常坐位置", "探索性陪伴日常", "对话方向", "即将推出"], ["Reflexion Home Hub", "紧凑显示方向", "共享家庭存在", "公共生活空间", "探索性共享空间适配", "语音与易读显示方向", "即将推出"], ["桌面陪伴设备", "表达型显示方向", "更有个性的存在", "桌面或共享表面", "未来日常方向", "对话型概念", "即将推出"]],
       selectTitle: "让我们一起找出最适合挚爱家人家庭生活的形态", selectBody: "选择一种形态加入试点。最终试点形态可能取决于可用性与适配情况。", caregiverTitle: "照护者 App 连接整个系统。", caregiverBody: "照护者体验帮助你了解今天、留意有意义的变化、保持联系，并决定下一步如何亲自关心。", supportTitle: "为人选择，而不是为规格表选择。", supportBody: "考虑他们早上自然停留的位置、是否已习惯手机、固定位置是否更容易，以及怎样的存在感在家中更尊重。", proofLabel: "选择支持",
     },
