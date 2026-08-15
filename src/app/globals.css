@@ -2067,7 +2067,7 @@
       min-height: 230px;
       margin: 0;
       overflow: hidden;
-      background: #eee6db;
+      background: #f5efe7;
       border-radius: 22px 22px 0 0;
     }
 
@@ -2079,7 +2079,7 @@
       max-width: none;
       display: block;
       object-fit: cover;
-      object-position: center;
+      object-position: 85% center;
     }
 
     .hero__artwork::before {
@@ -2186,8 +2186,11 @@
   @media (max-width: 767px) {
     .hero { min-height: 100svh; }
 
-    @supports (height: 100dvh) {
-      .hero { min-height: 100dvh; }
+    @supports (height: 100lvh) {
+      .hero { min-height: 100lvh; }
     }
+
+    .hero__copy { padding-top: 104px; }
+    .hero__artwork { height: auto; flex: 1 1 0; }
   }
 }
