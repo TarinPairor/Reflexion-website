@@ -20,14 +20,17 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
       />
       <Image
         className="hero__art hero__art--mobile"
-        src="/reflexion-assets/generated/phase1/reflexion-hero-mobile-reference-dark-label.png"
-        alt="The Reflexion Mirror and Caregiver App together in a warm home setting, labelled for Mum and for you"
-        width={941}
-        height={1672}
+        src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
+        alt="The Reflexion Mirror and Caregiver App together in a warm home setting"
+        width={4096}
+        height={2608}
         priority
-        unoptimized
         sizes="100vw"
       />
+      <div className="hero__mobile-labels" aria-hidden="true">
+        <span className="hero__mobile-label hero__mobile-label--mum">For Mum</span>
+        <span className="hero__mobile-label hero__mobile-label--you">For you</span>
+      </div>
       <p className="hero__caption">21.5-inch Reflexion Mirror <span>+ Caregiver App</span></p>
     </div>
     <div className="hero__glow" aria-hidden="true"/>

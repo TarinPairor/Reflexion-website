@@ -23,6 +23,7 @@ function isInteractiveTarget(target: EventTarget | null) {
 
 export function TwoSides({ content, locale }: { content: Content; locale: Locale }) {
   const detailRef = useRef<HTMLDivElement>(null);
+  const lovedStageRef = useRef<HTMLDivElement>(null);
   const touchStartY = useRef<number | null>(null);
   const wheelDistance = useRef(0);
   const wheelResetTimer = useRef<number | null>(null);
@@ -41,6 +42,33 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
 
     return () => window.clearTimeout(timer);
   }, [caregiver, lovedSlide, reduceMotion]);
+
+  useEffect(() => {
+    if (caregiver) return;
+
+    let previousScrollY = window.scrollY;
+    const handleWindowScroll = () => {
+      const nextScrollY = window.scrollY;
+      const scrollingDown = nextScrollY > previousScrollY;
+      previousScrollY = nextScrollY;
+
+      if (!scrollingDown || !window.matchMedia("(max-width: 820px)").matches) return;
+
+      const stage = lovedStageRef.current;
+      if (!stage) return;
+
+      const bottomBuffer = Math.min(56, window.innerHeight * .07);
+      if (stage.getBoundingClientRect().bottom > window.innerHeight - bottomBuffer) return;
+
+      // Switch as the loved-one scene clears the viewport, so the next
+      // perspective begins in the same section without an extra swipe.
+      revealCaregiverOnScroll.current = true;
+      setPerspective("caregiver");
+    };
+
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleWindowScroll);
+  }, [caregiver]);
 
   useEffect(() => {
     if (perspective !== "caregiver" || !revealCaregiverOnScroll.current) return;
@@ -77,8 +105,24 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     setPerspective("caregiver");
   };
 
+  const lovedStageReadyForTransition = () => {
+    const stage = lovedStageRef.current;
+    if (!stage) return false;
+    if (!window.matchMedia("(max-width: 820px)").matches) return true;
+
+    const bottomBuffer = Math.min(56, window.innerHeight * .07);
+    return stage.getBoundingClientRect().bottom <= window.innerHeight - bottomBuffer;
+  };
+
   const handleWheel = (event: WheelEvent<HTMLElement>) => {
     if (caregiver || event.deltaY <= 0 || isInteractiveTarget(event.target)) return;
+
+    // Let the loved-one scene finish its own viewport before changing perspective.
+    // Resetting here also requires a fresh scroll gesture after the bottom clears.
+    if (!lovedStageReadyForTransition()) {
+      wheelDistance.current = 0;
+      return;
+    }
 
     wheelDistance.current += event.deltaY;
     if (wheelResetTimer.current !== null) window.clearTimeout(wheelResetTimer.current);
@@ -103,6 +147,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
     touchStartY.current = null;
 
     if (caregiver || startY === null || endY === undefined || startY - endY <= scrollTransitionThreshold || isInteractiveTarget(event.target)) return;
+    if (!lovedStageReadyForTransition()) return;
 
     showCaregiverFromScroll();
   };
@@ -125,7 +170,7 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
           </div>
         </div>
 
-        {caregiver ? <CaregiverForYouStory content={content} locale={locale}/> : <div className="two-sides__stage" id="two-sides-stage" aria-live="polite" data-motion-item>
+        {caregiver ? <CaregiverForYouStory content={content} locale={locale}/> : <div ref={lovedStageRef} className="two-sides__stage" id="two-sides-stage" aria-live="polite" data-motion-item>
           <div className="two-sides__loved-carousel">
             <AnimatePresence mode="wait" initial={false}>
               <motion.article
