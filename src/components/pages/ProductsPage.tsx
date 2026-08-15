@@ -28,7 +28,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
   } satisfies Record<ProductId, string>;
   return <>
     <section className="interior-hero interior-hero--products interior-hero--text-only" id="top" aria-labelledby="products-page-title" data-motion-chapter>
-      <div className="interior-hero__copy" data-motion-item><p className="eyebrow">{home.nav[2]}</p><h1 id="products-page-title">{page.heroTitle}</h1><p>{page.heroBody}</p><div className="hero__actions"><ButtonLink href="#choose-form">{locale === "zh" ? "选择形态" : "Choose a form"}</ButtonLink></div></div>
+      <div className="interior-hero__copy" data-motion-item><p className="eyebrow">{home.nav[2]}</p><h1 id="products-page-title">{page.heroTitle}</h1>{page.heroBody ? <p>{page.heroBody}</p> : null}<div className="hero__actions"><ButtonLink href="#choose-form">{locale === "zh" ? "选择你的 Reflexion" : "Choose your Reflexion"}</ButtonLink></div></div>
     </section>
 
     <section className="product-mirror interior-section" aria-labelledby="mirror-title" data-motion-chapter>
