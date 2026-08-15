@@ -146,10 +146,7 @@ export function CaregiverForYouStory({ content, locale }: { content: Content; lo
         {features.map((feature) => <span key={feature[0]}/>) }
       </div>
 
-      <div className="caregiver-story__closing">
-        <p>{content.sides.closingTitle}</p>
-        <small>{content.sides.closingBody}</small>
-      </div>
+      <div className="caregiver-story__mobile-clearance" aria-hidden="true" />
     </div>
   </div>;
 }
