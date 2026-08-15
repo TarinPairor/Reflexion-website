@@ -27,10 +27,6 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
         priority
         sizes="100vw"
       />
-      <div className="hero__mobile-labels" aria-hidden="true">
-        <span className="hero__mobile-label hero__mobile-label--mum">For Mum</span>
-        <span className="hero__mobile-label hero__mobile-label--you">For you</span>
-      </div>
       <p className="hero__caption">21.5-inch Reflexion Mirror <span>+ Caregiver App</span></p>
     </div>
     <div className="hero__glow" aria-hidden="true"/>
