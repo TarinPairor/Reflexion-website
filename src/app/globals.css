@@ -2168,3 +2168,26 @@
     }
   }
 }
+
+/* Keep mobile navigation reachable and give the hero a complete first view. */
+@layer responsive {
+  @media (max-width: 820px) {
+    .site-header {
+      position: fixed;
+      z-index: 100;
+      background: rgba(248, 244, 237, .94);
+      border-bottom: 1px solid rgba(16, 56, 47, .1);
+      box-shadow: 0 8px 24px rgba(16, 56, 47, .08);
+    }
+
+    .nav-toggle[aria-expanded="true"] { color: var(--paper); }
+  }
+
+  @media (max-width: 767px) {
+    .hero { min-height: 100svh; }
+
+    @supports (height: 100dvh) {
+      .hero { min-height: 100dvh; }
+    }
+  }
+}
