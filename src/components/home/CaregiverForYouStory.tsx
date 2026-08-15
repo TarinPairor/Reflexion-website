@@ -67,9 +67,9 @@ export function CaregiverForYouStory({ content, locale }: { content: Content; lo
             <motion.div
               className="caregiver-story__phone-frame"
               key={storyImages[activeIndex]}
-              initial={reduceMotion ? false : { opacity: 0, y: 32, scale: .97 }}
+              initial={false}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={reduceMotion ? { opacity: 1 } : { opacity: 0, y: -18, scale: .985 }}
+              exit={reduceMotion ? { opacity: 1 } : { opacity: 1, y: -18, scale: .985 }}
               transition={transition}
             >
               <div className="caregiver-story__image-wrap">
