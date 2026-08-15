@@ -11,8 +11,8 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
     <div className="hero__artwork" data-motion-hero-artwork>
       <Image
         className="hero__art hero__art--desktop"
-        src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
-        alt="The Reflexion Mirror and Caregiver App presented together in a warm home setting"
+        src="/reflexion-assets/generated/phase1/reflexion-hero-grandma-2026-08.png"
+        alt="The Reflexion Mirror and Caregiver App presented together in a bright home setting"
         fill
         priority
         fetchPriority="high"
@@ -20,10 +20,10 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
       />
       <Image
         className="hero__art hero__art--mobile"
-        src="/reflexion-assets/generated/phase1/reflexion-hero-founder-2026-08.webp"
-        alt="The Reflexion Mirror and Caregiver App together in a warm home setting"
-        width={4096}
-        height={2608}
+        src="/reflexion-assets/generated/phase1/reflexion-hero-grandma-2026-08.png"
+        alt="The Reflexion Mirror and Caregiver App together in a bright home setting"
+        width={1672}
+        height={941}
         priority
         sizes="100vw"
       />
