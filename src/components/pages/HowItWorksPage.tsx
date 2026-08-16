@@ -4,7 +4,6 @@ import type { PageContent } from "@/i18n/pages";
 import { localisedHref } from "@/lib/siteRoutes";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Icon, type IconName } from "@/components/ui/Icon";
-import { ClosedCareLoop } from "@/components/home/ClosedCareLoop";
 import { DayWithReflexion } from "@/components/home/DayWithReflexion";
 import { TwoSides } from "@/components/home/TwoSides";
 
@@ -24,7 +23,6 @@ export function HowItWorksPage({ locale, home, page, common }: { locale: Locale;
     </section>
 
     <div className="how-it-works-page__home-sections" aria-label={locale === "zh" ? "Reflexion 如何融入家庭生活" : "How Reflexion fits into family life"}>
-      <ClosedCareLoop content={home} locale={locale}/>
       <DayWithReflexion content={home} locale={locale}/>
       <TwoSides content={home} locale={locale}/>
     </div>
