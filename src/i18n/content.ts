@@ -74,6 +74,7 @@ const working = {
       ],
       closingTitle: "Present when useful. Out of the way when it isn’t.",
       closingBody: "Reflexion is designed to fit into everyday routines—not take them over.",
+      transitionTitle: "Reflexion is designed to fit into everyday routines",
       note: "The public experience shown is a website representation. Voice-reply availability remains subject to product implementation and QA.",
     },
     sides: {
@@ -254,6 +255,7 @@ const working = {
       moments: [["上午 9:30", "晨间交流", "Margaret 通过与 Reflexion 进行简短、自然的对话，开始每天的认知与身心状态交流。"], ["上午 11:30", "日常陪伴", "Margaret 随时都可以和 Reflexion 聊聊今天、回忆，或任何心里所想。"], ["下午 2:00", "家人信息", "你从照护者 App 发送照片、文字或语音留言。"], ["下午 2:05", "妈妈用语音回复", "Margaret 自然地用语音回复，把信息传回给 Mei。"], ["下午 6:00", "温和的日常支持", "Reflexion 温和地支持 Margaret 的晚间日常。"], ["每日更新", "照护者洞察", "Mei 会收到 Margaret 一天的简洁摘要，以及有用背景，帮助她决定下一步如何亲自关心。"], ["随时", "家庭联系", "Reflexion 让关怀更靠近。"]],
       closingTitle: "需要时陪伴，不需要时安静退后。",
       closingBody: "Reflexion 融入日常节奏，而不是占据日常。",
+      transitionTitle: "Reflexion 自然融入日常节奏",
       note: "页面所示为网站产品体验呈现。语音回复的公开可用性仍需通过产品实现与 QA。",
     },
     sides: {

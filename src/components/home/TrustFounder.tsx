@@ -49,9 +49,9 @@ export function TrustFounder({ content }: { content: Content }) {
 
     <div className="trust__principles" aria-label="Principles behind Reflexion" data-motion-item>
       <ul>
-        {content.trust.principles.map(([title, body], index) => <li key={title}>
+        {content.trust.principles.map(([title], index) => <li key={title}>
           <span className="trust__principle-icon" aria-hidden="true"><Icon name={principleIcons[index]}/></span>
-          <div><h3>{title}</h3><p>{body}</p></div>
+          <h3>{title}</h3>
         </li>)}
       </ul>
     </div>

@@ -16,6 +16,7 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
         fill
         priority
         fetchPriority="high"
+        unoptimized
         sizes="100vw"
       />
       <Image
@@ -25,6 +26,7 @@ export function HomeHero({ content, locale }: { content: Content; locale: Locale
         width={1672}
         height={941}
         priority
+        unoptimized
         sizes="100vw"
       />
       <p className="hero__caption">21.5-inch Reflexion Mirror <span>+ Caregiver App</span></p>

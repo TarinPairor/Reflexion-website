@@ -9,6 +9,7 @@ import { ProductSelection } from "./ProductSelection";
 import { productFormImages } from "@/lib/productAssets";
 
 type HomeContent = ReturnType<typeof getHomeContent>;
+const mirrorProductsImage = "/reflexion-assets/generated/phase1/products-mirror-family-landscape.png";
 
 export function ProductsPage({ locale, home, page, common }: { locale: Locale; home: HomeContent; page: PageContent["products"]; common: PageContent["common"] }) {
   const alternatives = productOptions.filter((product) => product.id !== "mirror");
@@ -32,7 +33,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
     </section>
 
     <section className="product-mirror interior-section" aria-labelledby="mirror-title" data-motion-chapter>
-      <div className="product-mirror__visual" data-motion-item><Image src={productFormImages.mirror} alt="A source-grounded representation of the 21.5-inch Reflexion Mirror at home" fill sizes="(max-width: 820px) 100vw, 60vw"/></div>
+      <div className="product-mirror__visual" data-motion-item><Image src={mirrorProductsImage} alt="Reflexion Mirror and caregiver phone in a warm home setting" fill sizes="(max-width: 820px) 100vw, 60vw"/></div>
       <div className="product-mirror__copy" data-motion-item><p className="maturity maturity--current">{localizedProductLabels.mirror.maturity}</p><h2 id="mirror-title">{page.mirrorTitle}</h2><p>{page.mirrorBody}</p><ul>{productOptions[0].included.map((item) => <li key={item}>{item}</li>)}</ul><ButtonLink href={localisedHref("/get-reflexion?form=mirror", locale)}>{common.get}</ButtonLink></div>
     </section>
 

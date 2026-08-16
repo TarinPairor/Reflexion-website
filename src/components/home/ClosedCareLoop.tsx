@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import type { getHomeContent, Locale } from "@/i18n/content";
 import { localisedHref } from "@/lib/siteRoutes";
@@ -7,8 +10,45 @@ import { Icon } from "@/components/ui/Icon";
 type Content = ReturnType<typeof getHomeContent>;
 
 export function ClosedCareLoop({ content, locale, showHowItWorksCta = true }: { content: Content; locale: Locale; showHowItWorksCta?: boolean }) {
-  return <section className="care-loop" aria-labelledby="care-loop-title" data-motion-chapter>
-    <div className="care-loop__meet" data-motion-item>
+  const meetRef = useRef<HTMLDivElement>(null);
+  const closedRef = useRef<HTMLDivElement>(null);
+  const [isMeetVisible, setIsMeetVisible] = useState(false);
+  const [isClosedVisible, setIsClosedVisible] = useState(false);
+
+  useEffect(() => {
+    const meet = meetRef.current;
+    const closedLoop = closedRef.current;
+    if (!meet || !closedLoop) return;
+
+    if (!("IntersectionObserver" in window)) {
+      const fallbackTimer = globalThis.setTimeout(() => {
+        setIsMeetVisible(true);
+        setIsClosedVisible(true);
+      }, 0);
+      return () => globalThis.clearTimeout(fallbackTimer);
+    }
+
+    const meetObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setIsMeetVisible(true);
+      meetObserver.disconnect();
+    }, { threshold: 0.18 });
+    const closedObserver = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setIsClosedVisible(true);
+      closedObserver.disconnect();
+    }, { threshold: 0.18 });
+
+    meetObserver.observe(meet);
+    closedObserver.observe(closedLoop);
+    return () => {
+      meetObserver.disconnect();
+      closedObserver.disconnect();
+    };
+  }, []);
+
+  return <section className={`care-loop${isMeetVisible ? " care-loop--meet-visible" : ""}${isClosedVisible ? " care-loop--is-visible" : ""}`} aria-labelledby="care-loop-title" data-motion-chapter>
+    <div ref={meetRef} className="care-loop__meet" data-motion-item>
       <div className="care-loop__meet-copy">
         <p className="eyebrow">{content.loop.meetEyebrow}</p>
         <h2 id="care-loop-title">{content.loop.meetTitle}</h2>
@@ -59,7 +99,7 @@ export function ClosedCareLoop({ content, locale, showHowItWorksCta = true }: { 
       </div>
     </div>
 
-    <div className="care-loop__closed" data-motion-item data-sticky-cta-suppression>
+    <div ref={closedRef} className="care-loop__closed" data-motion-item data-sticky-cta-suppression>
       <div className="care-loop__closed-copy">
         <p className="eyebrow">{content.loop.closedEyebrow}</p>
         <h3>{content.loop.closedTitle}</h3>
@@ -69,7 +109,10 @@ export function ClosedCareLoop({ content, locale, showHowItWorksCta = true }: { 
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
         <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true">
           <defs><marker id="care-loop-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
-          <path data-motion-path markerEnd="url(#care-loop-arrow)" d="M92 110C190 8 510 8 608 110"/><path data-motion-path markerEnd="url(#care-loop-arrow)" d="M608 110C510 212 190 212 92 110"/>
+          <path className="care-loop__line-base" d="M92 110C190 8 510 8 608 110"/>
+          <path className="care-loop__line-flow" pathLength={1} markerEnd="url(#care-loop-arrow)" d="M92 110C190 8 510 8 608 110"/>
+          <path className="care-loop__line-base" d="M608 110C510 212 190 212 92 110"/>
+          <path className="care-loop__line-flow care-loop__line-flow--return" pathLength={1} markerEnd="url(#care-loop-arrow)" d="M608 110C510 212 190 212 92 110"/>
         </svg>
         <div className="care-loop__endpoint care-loop__endpoint--loved"><span className="care-loop__avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="Illustrative older loved one" fill sizes="84px"/></span><b>{content.loop.steps[0][0]}</b><small>Older adult</small></div>
         <div className="care-loop__brand-center"><Image className="care-loop__brand-mark" src="/reflexion-assets/generated/phase1/reflexion-loop-logo-v1.png" alt="Reflexion" width={72} height={72}/></div>

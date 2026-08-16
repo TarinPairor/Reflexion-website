@@ -6,15 +6,8 @@ import { MirrorScene } from "@/components/product/DeviceCompositions";
 type Content = ReturnType<typeof getHomeContent>;
 
 export function FaqFinal({ content, locale }: { content: Content; locale: Locale }) {
-  return <section className="faq-final" id="faq" aria-labelledby="faq-title" data-motion-chapter>
-    <div className="faq-preview">
-      <div className="faq-preview__heading" data-motion-item><p className="eyebrow">{content.faq.eyebrow}</p><h2 id="faq-title">{content.faq.title}</h2></div>
-      <div className="faq-preview__items" data-motion-item>
-        {content.faq.items.map((item, index) => <details key={item[0]} open={index === 0}>
-          <summary><span>{String(index + 1).padStart(2, "0")}</span>{item[0]}<i aria-hidden="true"/></summary>
-          <p>{item[1]}</p>
-        </details>)}
-      </div>
+  return <section className="faq-final" id="faq" aria-label={content.faq.eyebrow} data-motion-chapter>
+    <div className="faq-preview faq-preview--cta-only">
       <div className="faq-preview__more" data-motion-item>
         <div className="faq-preview__more-copy">
           <span className="faq-preview__more-icon" aria-hidden="true">?</span>
