@@ -73,6 +73,9 @@ export function TwoSides({ content, locale }: { content: Content; locale: Locale
               <span>02</span>{content.sides.caregiverTab.replace("02 — ", "")}
             </button>
           </div>
+          <p className="two-sides__perspective-hint">
+            {locale === "zh" ? "选择 01 或 02，探索照护的两面。" : "Select 01 or 02 to explore both sides of care."}
+          </p>
         </div>
 
         {caregiver ? <CaregiverForYouStory content={content} locale={locale}/> : <div className="two-sides__stage" id="two-sides-stage" aria-live="polite" data-motion-item>

@@ -13,7 +13,7 @@ import { FaqFinal } from "./FaqFinal";
 type Content = ReturnType<typeof getHomeContent>;
 
 export function HomePage({ locale, content }: { locale: Locale; content: Content }) {
-  return <div lang={locale === "zh" ? "zh-Hans" : "en"}>
+  return <div className="home-page" lang={locale === "zh" ? "zh-Hans" : "en"}>
     <SiteHeader locale={locale} labels={content.nav} getLabel={content.hero.primary}/>
     <MotionMain>
       <HomeHero content={content} locale={locale}/>
