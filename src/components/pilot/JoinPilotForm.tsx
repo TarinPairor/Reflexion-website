@@ -117,15 +117,21 @@ export function JoinPilotForm({ initialProduct }: { initialProduct?: ProductId }
         <p className="pilot-hero__lead"><strong>Changes in the way we speak may offer early clues about changes in cognitive health.</strong></p>
         <div className="pilot-hero__body">
           <p>Our research team is bringing <strong>voice and speech analysis from everyday conversations</strong> to help identify subtle changes in speech, memory and thinking over time — including changes associated with <strong>Mild Cognitive Impairment (MCI) and dementia</strong> — to Singapore.</p>
-          <p>Speech-based biomarkers are a promising <strong>non-invasive and accessible approach to cognitive screening</strong>. Research suggests that changes in language and speech may appear before more obvious symptoms of cognitive decline, creating an opportunity to recognise people who may benefit from further assessment earlier.</p>
-          <p>That matters because cognitive impairment and dementia are often identified only after symptoms have become more noticeable. Earlier recognition may allow individuals and families to <strong>seek appropriate assessment, support and care sooner.</strong></p>
-          <p><strong>Be part of our journey to healthier ageing and family connection.</strong></p>
-          <p>We’re inviting individuals and families to experience <strong>Reflexion at home</strong>. While contributing to our research into how patterns in everyday conversation may change over time, your loved ones also stay cognitively engaged over this period.</p>
-        </div>
-        <div className="pilot-hero__closing">
-          <p><strong>Join our pilot and help shape a connected approach to earlier cognitive health screening together.</strong></p>
-          <p className="pilot-hero__research"><strong>Research background:</strong> <em>Evaluating spoken language as a biomarker for automated screening of cognitive impairment</em> — published in <em>Communications Medicine</em> and available through PubMed Central (U.S. National Library of Medicine, NIH).</p>
-          <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12770543/" target="_blank" rel="noreferrer">Read the research <span aria-hidden="true">→</span></a>
+          <details className="pilot-hero__more">
+            <summary>Read more</summary>
+            <div className="pilot-hero__more-content">
+              <p>Speech-based biomarkers are a promising <strong>non-invasive and accessible approach to cognitive screening</strong>. Research suggests that changes in language and speech may appear before more obvious symptoms of cognitive decline, creating an opportunity to recognise people who may benefit from further assessment earlier.</p>
+              <p>That matters because cognitive impairment and dementia are often identified only after symptoms have become more noticeable. Earlier recognition may allow individuals and families to <strong>seek appropriate assessment, support and care sooner.</strong></p>
+              <p><strong>Be part of our journey to healthier ageing and family connection.</strong></p>
+              <p>We’re inviting individuals and families to experience <strong>Reflexion at home</strong>. While contributing to our research into how patterns in everyday conversation may change over time, your loved ones also stay cognitively engaged over this period.</p>
+              <div className="pilot-hero__closing">
+                <p><strong>Join our pilot and help shape a connected approach to earlier cognitive health screening together.</strong></p>
+                <p className="pilot-hero__research"><strong>Research background:</strong> <em>Evaluating spoken language as a biomarker for automated screening of cognitive impairment</em> — published in <em>Communications Medicine</em> and available through PubMed Central (U.S. National Library of Medicine, NIH).</p>
+                <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12770543/" target="_blank" rel="noreferrer">Read the research <span aria-hidden="true">→</span></a>
+                <p className="pilot-hero__contact">Contact us for any queries: <a href="tel:+6590012005">+65 9001 2005</a></p>
+              </div>
+            </div>
+          </details>
         </div>
       </div>
     </section>

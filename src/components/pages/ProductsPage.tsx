@@ -33,7 +33,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
     </section>
 
     <section className="product-mirror interior-section" aria-labelledby="mirror-title" data-motion-chapter>
-      <div className="product-mirror__visual" data-motion-item><Image src={mirrorProductsImage} alt="Reflexion Mirror and caregiver phone in a warm home setting" fill sizes="(max-width: 820px) 100vw, 60vw"/></div>
+      <div className="product-mirror__visual" data-motion-item><Image src={mirrorProductsImage} alt="Reflexion Mirror and caregiver phone in a warm home setting" fill quality={90} sizes="(max-width: 820px) 100vw, min(58vw, 760px)"/></div>
       <div className="product-mirror__copy" data-motion-item><p className="maturity maturity--current">{localizedProductLabels.mirror.maturity}</p><h2 id="mirror-title">{page.mirrorTitle}</h2><p>{page.mirrorBody}</p><ul>{productOptions[0].included.map((item) => <li key={item}>{item}</li>)}</ul><ButtonLink href={localisedHref("/get-reflexion?form=mirror", locale)}>{common.get}</ButtonLink></div>
     </section>
 
@@ -41,7 +41,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
       <div className="interior-section__heading" data-motion-item><h2 id="other-forms-title">{page.otherTitle}</h2><p>{page.otherBody}</p></div>
       <div className="product-family__list product-forms__list--compact">
         {alternatives.map((product) => <article id={`form-${product.id}`} data-motion-item key={product.id}>
-          <div className={`product-family__thumb product-family__thumb--${product.id}`}><Image src={productFormImages[product.id]} alt={`${localizedProductLabels[product.id].name} product direction`} fill sizes="(max-width: 767px) 92px, 170px"/></div>
+          <div className={`product-family__thumb product-family__thumb--${product.id}`}><Image src={productFormImages[product.id]} alt={`${localizedProductLabels[product.id].name} product direction`} fill quality={88} sizes="(max-width: 767px) 92px, 150px"/></div>
           <div className="product-family__item-copy"><h3>{localizedProductLabels[product.id].name}</h3><p className="maturity">{localizedProductLabels[product.id].maturity}</p><p>{localizedProductCopy[product.id]}</p><a href={localisedHref(`/get-reflexion?form=${product.id}`, locale)}>{home.products.learnMore} <Icon name="arrow"/></a></div>
           <span className="product-family__item-arrow" aria-hidden="true"><Icon name="arrow"/></span>
         </article>)}
@@ -52,7 +52,7 @@ export function ProductsPage({ locale, home, page, common }: { locale: Locale; h
 
     <section className="caregiver-connection interior-section interior-section--sage" aria-labelledby="caregiver-connection-title" data-motion-chapter>
       <div className="caregiver-connection__copy" data-motion-item><h2 id="caregiver-connection-title">{page.caregiverTitle}</h2><p>{page.caregiverBody}</p><ButtonLink href={localisedHref("/how-it-works", locale)} variant="secondary">{common.how}</ButtonLink></div>
-      <div className="caregiver-connection__phone" data-motion-item><Image className="caregiver-phone-asset" src="/reflexion-assets/generated/phase1/caregiver-app-home-high-quality-transparent.png" alt="Reflexion Caregiver App showing a morning update for Mum" fill sizes="(max-width: 767px) 58vw, 275px" unoptimized/></div>
+      <div className="caregiver-connection__phone" data-motion-item><Image className="caregiver-phone-asset" src="/reflexion-assets/generated/phase1/caregiver-app-home-high-quality-transparent.png" alt="Reflexion Caregiver App showing a morning update for Mum" fill quality={90} sizes="(max-width: 767px) 58vw, 235px"/></div>
     </section>
 
     <section className="decision-support decision-support--single interior-section" aria-labelledby="decision-support-title" data-motion-chapter>

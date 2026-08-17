@@ -109,9 +109,9 @@ export function ClosedCareLoop({ content, locale, showHowItWorksCta = true }: { 
       <div className="care-loop__diagram" aria-label="Loved one and caregiver connected through insight, companionship, support and connection">
         <svg className="care-loop__lines" viewBox="0 0 700 220" aria-hidden="true">
           <defs><marker id="care-loop-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z"/></marker></defs>
-          <path className="care-loop__line-base" d="M92 110C190 8 510 8 608 110"/>
+          <path className="care-loop__line-base" pathLength={1} d="M92 110C190 8 510 8 608 110"/>
           <path className="care-loop__line-flow" pathLength={1} markerEnd="url(#care-loop-arrow)" d="M92 110C190 8 510 8 608 110"/>
-          <path className="care-loop__line-base" d="M608 110C510 212 190 212 92 110"/>
+          <path className="care-loop__line-base care-loop__line-base--return" pathLength={1} d="M608 110C510 212 190 212 92 110"/>
           <path className="care-loop__line-flow care-loop__line-flow--return" pathLength={1} markerEnd="url(#care-loop-arrow)" d="M608 110C510 212 190 212 92 110"/>
         </svg>
         <div className="care-loop__endpoint care-loop__endpoint--loved"><span className="care-loop__avatar"><Image src="/reflexion-assets/generated/phase1/closed-loop-loved-one.webp" alt="Illustrative older loved one" fill sizes="84px"/></span><b>{content.loop.steps[0][0]}</b><small>Older adult</small></div>
